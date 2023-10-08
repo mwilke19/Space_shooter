@@ -1,7 +1,7 @@
 ArrayList <Actor> actors = new ArrayList<Actor>();
 float last_asteroid = 0;
 float last_increase = 0;
-float asteroid_timer = 0;
+float asteroid_timer = 3000;
 float game_timer = 0;
 int asteroid_count = 0;
 class Asteroid extends Actor {
@@ -13,7 +13,7 @@ class Asteroid extends Actor {
     //y += y_speed;
   }
   //Draws asteroid to the screen
-  void show() {
+  void render() {
     push();
     if (collision) {
       fill(color(145));
@@ -27,7 +27,6 @@ class Asteroid extends Actor {
   boolean isDead() {
     if (x <= -200) {
       //println("asteroid is dead");
-      println(frameCount + "......." + actors.size());
       return true;
     } else {
       return false;
@@ -79,7 +78,7 @@ void increaseDifficulty() {
     return;
   }
 }
-void showGameTime(){
+void renderGameTime(){
   game_timer = millis()/1000;
   fill(255);
   textSize(15);

@@ -50,7 +50,7 @@ class Star {
   }
   void run() {
     move(stars);
-    show();
+    render();
     isDead();
     //accel();
     //frict();
@@ -76,7 +76,7 @@ class Star {
     lifespan-=1.0;
   }
   //Draws Star to the screen
-  void show() {
+  void render() {
     push();
     fill(_color, lifespan);
     circle(x, y, d);

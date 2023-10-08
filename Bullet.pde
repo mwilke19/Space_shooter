@@ -1,11 +1,14 @@
-ArrayList <Bullet> bullets = new ArrayList<Bullet>();
+ArrayList <Bullet> bullet_list = new ArrayList<Bullet>();
 Bullet bullet;
-//color bullet_color = color(255);
+color bullet_color = color(255);
 class Bullet extends PVector {
   int _length, _width, x_speed, y_speed, bullet_color;
   float x, y;
   boolean hit_target = false;
+  PVector bullet = new PVector();
+  PVector enemy = new PVector();
   Bullet() {
+    super();
   }
   Bullet setPosition(float x_, float y_) {
     x = x_;
@@ -26,24 +29,13 @@ class Bullet extends PVector {
     bullet_color = c;
     return this;
   }
-  //Tests for a collision between bullet and an enemy
-  boolean checkHit(Enemy enemies) {
-    float dist = PVector.dist(this, enemies)-(this._length + enemies._length);
-    println("enemy dist................." + dist);
-    println(this._length - enemies._length);
-    return(dist <= 0);
-  }
   void run() {
-    move(bullets);
-    show();
-    hitTarget(bullets);
-  }
-  void move(ArrayList<Bullet> bullets) {
-    x += x_speed;
-    //y += y_speed;
+    move(bullet_list);
+    render();
+    //hit_target(enemy_list);
   }
   //Draws asteroid to the screen
-  void show() {
+  void render() {
     push();
     if (hit_target) {
       fill(color(255, 0, 0));
@@ -53,22 +45,28 @@ class Bullet extends PVector {
     ellipse(x, y, _length, _width);
     pop();
   }
-  void hitTarget(ArrayList<Bullet> bullets) {
-    hit_target = false;
-
-    for ( Bullet Bullet : bullets) {
-      if (Bullet == this) {
-        continue;
-      }
-      for (Enemy Enemy : enemies) {
-        if (!hit_target && checkHit(Enemy)) {
-          hit_target = true;
-          println("bullet has hit a target");
-        }
-      }
-    }
+   void move(ArrayList<Bullet> bullet_list) {
+    x += x_speed;
+    //y += y_speed;
   }
-  //Test to see if the asteroid has left the screen
+  //Tests for a collision between bullet and an enemy
+  //boolean check_collision(Enemy enemy_list) {
+  //  PVector bullet = new PVector(this.x,this.y);
+  //  PVector enemy = new PVector(enemy_list.x,enemy_list.y);
+  //  float dist = PVector.dist(bullet,enemy)-(this._length +enemy_list._length);
+  //  return(dist <= 0);
+  //}
+  // void hit_target(ArrayList<Enemy> enemy_list) {
+  //  hit_target = false;
+  //    for (Enemy Enemy : enemy_list) {
+  //      if (check_collision(Enemy)){
+  //        hit_target = true;
+  //        println("Enemy has been hit");
+  //      }
+  //    }
+    
+  //}
+  //Test to see if the bullet has left the screen
   boolean isDead() {
     if (x >= width + _length) {
       //println("bullet is dead");
@@ -79,12 +77,12 @@ class Bullet extends PVector {
   }
 }
 //Methods outside the class
-void removeDeadBullets(ArrayList<Bullet> bullets) {
-  int lastIndex = bullets.size() - 1;
+void removeDeadBullets(ArrayList<Bullet> bullet_list) {
+  int lastIndex = bullet_list.size() - 1;
   for (int i = lastIndex; i > 0; i--) {
-    if (bullets.get(i).isDead() == true) {
-      bullets.remove(i);
-      //println("bullet was removed........");
+    if (bullet_list.get(i).isDead() == true) {
+      bullet_list.remove(i);
+      println("bullet was removed........");
     }
   }
 }
@@ -94,5 +92,5 @@ void addBullet() {
     .setDimension(9, 9)
     .setSpeed(15, 0)
     .setColor(255);
-  bullets.add(bullet);
+  bullet_list.add(bullet);
 }

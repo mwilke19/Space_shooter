@@ -1,7 +1,8 @@
-ArrayList <Enemy> enemies = new ArrayList<Enemy>();
+ArrayList <Enemy> enemy_list = new ArrayList<Enemy>();
 float last_enemy = 0;
-float enemy_timer = 10000;
+float enemy_timer = 5000;
 int enemy_count = 0;
+boolean hit_target = false;
 
 class Enemy extends PVector {
   int _length, _width, x_speed, y_speed, enemy_color;
@@ -28,19 +29,41 @@ class Enemy extends PVector {
     return this;
   }
   void run() {
-    move(enemies);
-    show();
+    move(enemy_list);
+    render();
+    hit_target(bullet_list);
   }
-  void move(ArrayList<Enemy> enemies) {
+  void move(ArrayList<Enemy> enemy_list) {
     x -= x_speed;
     //println("enemy.move has executed");
   }
-  void show() {
+  void render() {
     push();
-    fill(enemy_color);
+     if (hit_target) {
+      fill(color(255, 0, 0));
+    } else {
+      fill(enemy_color);
+    }
     rect(x, y, _length, _width);
     pop();
-    //println("enemy.show has executed");
+    //println("enemy.render has executed");
+  }
+  //Tests for a collision between bullet and an enemy
+  boolean check_collision(Bullet bullet_list) {
+    PVector enemy = new PVector(this.x,this.y);
+    PVector bullet = new PVector(bullet_list.x,bullet_list.y);
+    float dist = PVector.dist(bullet,enemy)-(this._length + bullet_list._length);
+    return(dist <= 0);
+  }
+   void hit_target(ArrayList<Bullet> bullet_list) {
+    hit_target = false;
+      for (Bullet bullet : bullet_list) {
+        if (check_collision(bullet)){
+          hit_target = true;
+          println("you are hit");
+        }
+      }
+    
   }
   boolean isDead() {
     if (x <= _length) {
@@ -51,18 +74,18 @@ class Enemy extends PVector {
     }
   }
 }
-void removeDeadEnemy(ArrayList<Enemy> enemies) {
-  int lastIndex = enemies.size() - 1;
+void removeDeadEnemy(ArrayList<Enemy> enemy_list) {
+  int lastIndex = enemy_list.size() - 1;
   for (int i = lastIndex; i > 0; i--) {
-    if (enemies.get(i).isDead() == true) {
-      enemies.remove(i);
+    if (enemy_list.get(i).isDead() == true) {
+      enemy_list.remove(i);
       println("enemy was removed");
     }
   }
   //println("removeDeadEnemy has executed");
 }
 void addEnemy() {
-  //println("enemies.........." + enemies.size());
+  //println("enemy_list.........." + enemy_list.size());
   float c_time, d_time;
   c_time = millis();
   d_time = c_time - last_enemy;
@@ -73,7 +96,7 @@ void addEnemy() {
       .setDimension(50,50)
       .setSpeed(2,0)
       .setColor(enemy_color);
-    enemies.add(enemy);
+    enemy_list.add(enemy);
     last_enemy = c_time;
   }
   //println("addEnemy has executed");

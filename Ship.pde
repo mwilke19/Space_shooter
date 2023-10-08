@@ -59,7 +59,7 @@ class Ship extends Actor {
     }
   }
 
-  void show() {
+  void render() {
     float ship_length, nose_x, nose_y, ship_top, ship_bottom;
     //Name triangle vertices
     ship_length = x - 100;
@@ -94,7 +94,7 @@ class Ship extends Actor {
   }
     else{return false;}
   }
-  void showHealthBar() {
+  void renderHealthBar() {
     //Draws health bars to the screen
     g_bar_length = c_health;
     r_bar_length = 100;

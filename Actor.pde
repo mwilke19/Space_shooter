@@ -32,9 +32,9 @@ class Actor extends PVector {
   }
   void run(){
     move(actors);
-    show();
+    render();
     health();
-    showHealthBar();
+    renderHealthBar();
     screen_boundary();
     collision(actors);
     isDead();
@@ -60,10 +60,10 @@ class Actor extends PVector {
   }
   void move(ArrayList<Actor> Actors) {
   }
-  void show() {
+  void render() {
   }
   void health(){
   }
-   void showHealthBar(){
+   void renderHealthBar(){
   }
 }

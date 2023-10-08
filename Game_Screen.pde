@@ -66,20 +66,20 @@ class Game {
     for (Actor actor : actors) {
       actor.run();
     }
-    for (Bullet bullet : bullets) {
+    for (Bullet bullet : bullet_list) {
       bullet.run();
     }
-    for (Enemy enemy : enemies) {
+    for (Enemy enemy : enemy_list) {
       enemy.run();
     }
     addStar();
-    showGameTime();
+    renderGameTime();
     addAsteroid();
     addEnemy();
     removeDeadStars(stars);
     removeDeadAsteroids(actors);
-    removeDeadBullets(bullets);
-    removeDeadEnemy(enemies);
+    removeDeadBullets(bullet_list);
+    removeDeadEnemy(enemy_list);
     increaseDifficulty();
   }
   void over() {
