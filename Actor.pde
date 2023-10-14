@@ -25,7 +25,7 @@ class Actor extends PVector {
     return this;
   }
   //Tests for a collision between Actors
-  boolean checkCollision(Actor opponent) {
+  boolean actor_distance(Actor opponent) {
     float dist = PVector.dist(this, opponent) - (this.size/4 + opponent.size/4);
     //println("opponent distance..........." + dist);
     return(dist <= 0);
@@ -49,7 +49,7 @@ class Actor extends PVector {
       if (Actor == this) {
         continue;
       }
-      if (!collision && checkCollision(Actor)) {
+      if (!collision && actor_distance(Actor)) {
         collision = true;
       }
     }

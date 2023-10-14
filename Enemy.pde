@@ -1,12 +1,13 @@
 ArrayList <Enemy> enemy_list = new ArrayList<Enemy>();
 float last_enemy = 0;
 float enemy_timer = 5000;
-int enemy_count = 0;
-boolean hit_target = false;
+float enemies_killed = 0;
+float enemy_count = 0;
 
 class Enemy extends PVector {
   int _length, _width, x_speed, y_speed, enemy_color;
   float x, y;
+  boolean hit;
   Enemy() {
   }
   Enemy setPosition(float x_, float y_) {
@@ -29,17 +30,34 @@ class Enemy extends PVector {
     return this;
   }
   void run() {
-    move(enemy_list);
+    move();
     render();
-    hit_target(bullet_list);
+    hit();
+    show_score();
   }
-  void move(ArrayList<Enemy> enemy_list) {
+  boolean check_distance(Bullet bullet_list) {
+    PVector enemy = new PVector(this.x, this.y);
+    PVector bullet = new PVector(bullet_list.x, bullet_list.y);
+    float dist = PVector.dist(bullet, enemy)-(this._length + bullet_list._length);
+    return(dist <= 0);
+  }
+  boolean hit() {
+    hit = false;
+    for (Bullet bullet : bullet_list) {
+      if (check_distance(bullet)) {
+        hit = true;
+        //println("you are hit");
+      }
+    }
+    return hit;
+  }
+  void move() {
     x -= x_speed;
     //println("enemy.move has executed");
   }
   void render() {
     push();
-     if (hit_target) {
+    if (hit) {
       fill(color(255, 0, 0));
     } else {
       fill(enemy_color);
@@ -48,30 +66,21 @@ class Enemy extends PVector {
     pop();
     //println("enemy.render has executed");
   }
-  //Tests for a collision between bullet and an enemy
-  boolean check_collision(Bullet bullet_list) {
-    PVector enemy = new PVector(this.x,this.y);
-    PVector bullet = new PVector(bullet_list.x,bullet_list.y);
-    float dist = PVector.dist(bullet,enemy)-(this._length + bullet_list._length);
-    return(dist <= 0);
-  }
-   void hit_target(ArrayList<Bullet> bullet_list) {
-    hit_target = false;
-      for (Bullet bullet : bullet_list) {
-        if (check_collision(bullet)){
-          hit_target = true;
-          println("you are hit");
-        }
-      }
-    
-  }
+
   boolean isDead() {
-    if (x <= _length) {
-      println("enemy is dead");
+    if (x <= _length*-1) {
+      //println("enemy is dead");
       return true;
     } else {
       return false;
     }
+  }
+  void show_score() {
+    //Draws health bars to the screen
+    fill(255);
+    textSize(15);
+    text("SCORE", 45, 50);
+    text(int(enemies_killed),75,50);
   }
 }
 void removeDeadEnemy(ArrayList<Enemy> enemy_list) {
@@ -79,10 +88,20 @@ void removeDeadEnemy(ArrayList<Enemy> enemy_list) {
   for (int i = lastIndex; i > 0; i--) {
     if (enemy_list.get(i).isDead() == true) {
       enemy_list.remove(i);
-      println("enemy was removed");
+      //println("enemy was removed");
     }
   }
   //println("removeDeadEnemy has executed");
+}
+void removeHitEnemy(ArrayList<Enemy> enemy_list) {
+  int lastIndex = enemy_list.size() - 1;
+  for (int i = lastIndex; i >= 0; i--) {
+    if (enemy_list.get(i).hit() == true) {
+      enemy_list.remove(i);
+      enemies_killed++;
+      //println("enemies_killed......." + enemies_killed + '\n');
+    }
+  }
 }
 void addEnemy() {
   //println("enemy_list.........." + enemy_list.size());
@@ -90,14 +109,15 @@ void addEnemy() {
   c_time = millis();
   d_time = c_time - last_enemy;
   if (last_enemy == 0 || d_time >= enemy_timer) {
-    color enemy_color = color(255,255,0);
+    color enemy_color = color(255, 255, 0);
     Enemy enemy = new Enemy()
       .setPosition(int(width), int(random(height)))
-      .setDimension(50,50)
-      .setSpeed(2,0)
+      .setDimension(50, 50)
+      .setSpeed(2, 0)
       .setColor(enemy_color);
     enemy_list.add(enemy);
+    enemy_count++;
     last_enemy = c_time;
   }
-  //println("addEnemy has executed");
+  //println("enemy_count......" + enemy_count + '\n');
 }

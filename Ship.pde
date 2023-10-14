@@ -10,35 +10,35 @@ class Ship extends Actor {
     //Moves ship
     if (keyPressed) {
       switch(key) {
-      case 'w'://north
+      case 'w': case 'W'://north
         y -= y_speed;
         break;
-      case 's'://south
+      case 's': case 'S'://south
         y += y_speed;
         break;
-      case 'a'://east
+      case 'a':case 'A'://east
         x -= x_speed;
         break;
-      case 'd'://west
+      case 'd':case 'D':;//west
         x += x_speed;
         break;
-     case 'q'://northwest
+     case 'q':case 'Q'://northwest
         x -= x_speed;
         y -= y_speed;
         break;
-     case 'e'://northeast
+     case 'e':case 'E'://northeast
         x += x_speed;
         y -= y_speed;
         break;
-     case 'z'://northwest
+     case 'z':case 'Z'://northwest
         x -= x_speed;
         y += y_speed;
         break;
-     case 'c'://northwest
+     case 'c':case 'C'://northwest
         x += x_speed;
         y += y_speed;
         break;
-     case 'x'://fire bullet
+     case ' '://fire bullet
          addBullet();
         break;
       }
@@ -101,10 +101,10 @@ class Ship extends Actor {
     bar_width = 10;
     fill(255);
     textSize(15);
-    text("HEALTH", 50, 15);
+    text("HEALTH", 50, 25);
     fill(255, 0, 0);
-    rect(25, 25, r_bar_length, bar_width);
+    rect(75, 15, r_bar_length, bar_width);
     fill(0, 255, 0);
-    rect(25, 25, g_bar_length, bar_width);
+    rect(75, 15, g_bar_length, bar_width);
   }
 }

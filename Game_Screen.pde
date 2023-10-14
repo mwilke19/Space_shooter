@@ -6,15 +6,20 @@ class Game {
     play = 0;
   }
   void run() {
+    //ship is the first index of actors. It cannot leave the screen so it cannot die like an
+    //asteroid
+    boolean ship_dead = actors.get(0).isDead();
+
     if (init == 1)init();
+    if (play == 1)play();
+    
     if (mousePressed) {
       play = 1;
       init = 0;
-    }
-    if (play == 1)play();
-    if (actors.get(0).isDead() == true) {
+    }    
+    if (ship_dead == true) {
       play = 0;
-      over();
+      game_over();
     }
   }
   void init() {
@@ -58,6 +63,10 @@ class Game {
     textAlign(CENTER);
     textSize(25);
     text("C = DOWN/RIGHT", 600, 500);
+
+    textAlign(CENTER);
+    textSize(25);
+    text("SPACEBAR = FIRE", width/2, 550);
   }
   void play() {
     for (Star star : stars) {
@@ -80,15 +89,21 @@ class Game {
     removeDeadAsteroids(actors);
     removeDeadBullets(bullet_list);
     removeDeadEnemy(enemy_list);
-    increaseDifficulty();
+    removeHitEnemy(enemy_list);
+    asteroid_difficulty();
   }
-  void over() {
+  void game_over() {
     float final_time = game_timer;
     background(0);
     textAlign(CENTER);
     textSize(100);
     text("GAME OVER", width/2, height/2);
-    textSize(100);
-    text(int(final_time), width/2, 600);
+    textSize(50);
+    text("FINAL TIME", 400,600);
+    text(int(final_time), 700, 600);
+    text("ENEMIES KILLED", 400,700);
+    text(int(enemies_killed), 700, 700);
+    text("EFFICIENCY",400,800);
+    text((enemies_killed/enemy_count)*100,700,800);
   }
 }
