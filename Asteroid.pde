@@ -60,30 +60,11 @@ void addAsteroid() {
     last_asteroid = c_time;
   }
 }
-void asteroid_difficulty() {
-  if (asteroid_count < 10) {
-    asteroid_timer = 1000;
-    return;
+void asteroid_difficulty() {  
+  if (asteroid_count%2==0) {
+    asteroid_timer-=2;
+    //I do not want the timer to go below 100
+    if(asteroid_timer<=50)asteroid_timer = 100;
   }
-  if (asteroid_count < 20) {
-    asteroid_timer = 500;
-    return;
-  }
-  if (asteroid_count < 40) {
-    asteroid_timer = 250;
-    return;
-  }
-  if (asteroid_count < 80) {
-    asteroid_timer = 125;
-    return;
-  }
-}
-void renderGameTime(){
-  game_timer = millis()/1000;
-  fill(255);
-  textSize(15);
-  text("GAME TIME:",60,70); 
-  fill(255);
-  textSize(15);
-  text(int(game_timer),115,70);
+  println(asteroid_timer);
 }

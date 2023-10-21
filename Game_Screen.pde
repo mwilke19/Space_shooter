@@ -73,7 +73,6 @@ class Game {
       enemy.run();
     }
     addStar();
-    renderGameTime();
     addAsteroid();
     addEnemy();
     removeDeadStars(stars);
