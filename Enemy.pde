@@ -32,8 +32,7 @@ class Enemy extends PVector {
   void run() {
     move();
     render();
-    hit();
-    show_score();
+    hit();  
   }
   boolean check_distance(Bullet bullet_list) {
     PVector enemy = new PVector(this.x, this.y);
@@ -74,13 +73,6 @@ class Enemy extends PVector {
     } else {
       return false;
     }
-  }
-  void show_score() {
-    //Draws health bars to the screen
-    fill(255);
-    textSize(15);
-    text("SCORE", 45, 50);
-    text(int(enemies_killed),75,50);
   }
 }
 void removeDeadEnemy(ArrayList<Enemy> enemy_list) {

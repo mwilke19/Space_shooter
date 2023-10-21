@@ -82,7 +82,7 @@ class Game {
     removeDeadEnemy(enemy_list);
     removeHitEnemy(enemy_list);
     asteroid_difficulty();
-    show_score();
+    show_statistics();
   }
   void game_over() {
     float final_time, column_1, column_2, row_1, row_2, row_3, efficiency,text_width;
