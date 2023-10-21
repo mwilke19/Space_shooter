@@ -1,4 +1,3 @@
-
 class Game {
   int init, play;
   Game() {
@@ -6,67 +5,59 @@ class Game {
     play = 0;
   }
   void run() {
-    //ship is the first index of actors. It cannot leave the screen so it cannot die like an
-    //asteroid
+    //ship is the first index of actors ArrayList
+    //It is added in setup
     boolean ship_dead = actors.get(0).isDead();
 
     if (init == 1)init();
     if (play == 1)play();
-    
+
     if (mousePressed) {
       play = 1;
       init = 0;
-    }    
+    }
     if (ship_dead == true) {
       play = 0;
       game_over();
     }
   }
   void init() {
+    float column_1, column_2, row_1, row_2, row_3, row_4, row_5;
+    int title_color, text_color;
+
+    column_1 = width/4+100;
+    column_2 = width*.750-250;
+
+    row_1 = height/4 + 100;
+    row_2 = height/4 + 150;
+    row_3 = height/2;
+    row_4 = height/4 + 200;
+    row_5 = height/2 + 50;
+
+    title_color = color(0, 255, 0);
+    text_color  = 255;
+
     background(0);
-    textAlign(CENTER);
-    textSize(100);
-    text("CLICK TO START", 500, 250);
 
+    fill(title_color);
+    textFont(font);
     textAlign(CENTER);
-    textSize(50);
-    text("USE THE FOLLOWING KEY COMMANDS", 500, 300);
+    text("CLICK TO START", width/2, height/4);
 
-    textAlign(CENTER);
+    fill(text_color);
     textSize(25);
-    text("W = UP", 350, 350);
+    text("USE THE FOLLOWING KEY COMMANDS", width/2, height/4+50);
+    text("SPACEBAR = FIRE", width/2, row_5);
 
-    textAlign(CENTER);
-    textSize(25);
-    text("S = DOWN", 350, 400);
-
-    textAlign(CENTER);
-    textSize(25);
-    text("A = LEFT", 600, 350);
-
-    textAlign(CENTER);
-    textSize(25);
-    text("D = RIGHT", 600, 400);
-
-    textAlign(CENTER);
-    textSize(25);
-    text("Q = UP/LEFT", 350, 450);
-
-    textAlign(CENTER);
-    textSize(25);
-    text("E = UP/RIGHT", 350, 500);
-
-    textAlign(CENTER);
-    textSize(25);
-    text("Z = DOWN/LEFT", 600, 450);
-
-    textAlign(CENTER);
-    textSize(25);
-    text("C = DOWN/RIGHT", 600, 500);
-
-    textAlign(CENTER);
-    textSize(25);
-    text("SPACEBAR = FIRE", width/2, 550);
+    textAlign(LEFT);
+    text("W = UP", column_1, row_1);
+    text("S = DOWN", column_1, row_2);
+    text("A = LEFT", column_2, row_1);
+    text("D = RIGHT", column_2, row_2);
+    text("Q = UP/LEFT", column_1, row_4);
+    text("E = UP/RIGHT", column_1, row_3);
+    text("Z = DOWN/LEFT", column_2, row_4);
+    text("C = DOWN/RIGHT", column_2, row_3);
   }
   void play() {
     for (Star star : stars) {
@@ -91,19 +82,41 @@ class Game {
     removeDeadEnemy(enemy_list);
     removeHitEnemy(enemy_list);
     asteroid_difficulty();
+    show_score();
   }
   void game_over() {
-    float final_time = game_timer;
+    float final_time, column_1, column_2, row_1, row_2, row_3, efficiency,text_width;
+    int title_color, text_color;
+    
+    title_color = color(255, 0, 0);
+    text_color = 255;
+  
+  
+    final_time = game_timer;//game_timer is a global variable
+    column_1 = width/4;
+    column_2 = width* .75-100;
+    row_1 = height/2 - 200;
+    row_2 = height/2 - 150;
+    row_3 = height/2 - 100;
+    
+    efficiency = (enemies_killed/enemy_count)*100;
+
     background(0);
+
+    fill(title_color);
+    textFont(font);
     textAlign(CENTER);
-    textSize(100);
-    text("GAME OVER", width/2, height/2);
-    textSize(50);
-    text("FINAL TIME", 400,600);
-    text(int(final_time), 700, 600);
-    text("ENEMIES KILLED", 400,700);
-    text(int(enemies_killed), 700, 700);
-    text("EFFICIENCY",400,800);
-    text((enemies_killed/enemy_count)*100,700,800);
+    text("GAME OVER", width/2, 250);
+
+    fill(text_color);
+    textSize(25);
+    textAlign(LEFT);
+    text("FINAL TIME", column_1, row_1);
+    text(int(final_time), column_2, row_1);
+    text("ENEMIES KILLED", column_1, row_2);
+    text(int(enemies_killed), column_2, row_2);
+    text("EFFICIENCY", column_1, row_3);
+    text(int(efficiency), column_2, row_3);
+    text(" % ", column_2 + 50, row_3);
   }
 }
