@@ -9,7 +9,7 @@ void setup() {
   game = new Game();
    ship = new Ship()
     .setPosition(400, 400)
-    .setSpeed(3, 3)
+    .setSpeed(4, 5)
     .setColor(255)
     .setSize(100);
   actors.add(ship);

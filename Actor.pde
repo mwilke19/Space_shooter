@@ -20,7 +20,7 @@ class Actor extends PVector {
     _color = c;
     return this;
   }
-  Actor setSize(int size_){
+  Actor setSize(int size_) {
     size = size_;
     return this;
   }
@@ -30,21 +30,23 @@ class Actor extends PVector {
     //println("opponent distance..........." + dist);
     return(dist <= 0);
   }
-  void run(){
+  void run() {
     move(actors);
     render();
     health();
     renderHealthBar();
     screen_boundary();
     collision(actors);
+    check_distance();
+    hit();
     isDead();
   }
-  void screen_boundary(){
+  void screen_boundary() {
   }
   //Checks for a collision between actors
-  void collision(ArrayList<Actor> Actors){
-     collision = false;
-    
+  void collision(ArrayList<Actor> Actors) {
+    collision = false;
+
     for ( Actor Actor : Actors) {
       if (Actor == this) {
         continue;
@@ -60,10 +62,16 @@ class Actor extends PVector {
   }
   void move(ArrayList<Actor> Actors) {
   }
+  boolean check_distance() {
+    return true;
+  }
+  boolean hit() {
+    return true;
+  }
   void render() {
   }
-  void health(){
+  void health() {
   }
-   void renderHealthBar(){
+  void renderHealthBar() {
   }
 }

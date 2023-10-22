@@ -70,8 +70,10 @@ void removeDeadBullets(ArrayList<Bullet> bullet_list) {
   }
 }
 void addBullet() {
+  float ship_x = actors.get(0).x;
+  float ship_y = actors.get(0).y;
   bullet = new Bullet()
-    .setPosition(actors.get(0).x, actors.get(0).y)
+    .setPosition(ship_x, ship_y)
     .setDimension(9, 9)
     .setSpeed(15, 0)
     .setColor(255);
