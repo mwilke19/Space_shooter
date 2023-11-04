@@ -69,6 +69,9 @@ class Game {
     for (Bullet s_bullet : s_bullet_list) {
       s_bullet.run();
     }
+    for (Bullet e_bullet : e_bullet_list){
+      e_bullet.run();
+    }
     for (Enemy enemy : enemy_list) {
       enemy.run();
     }
