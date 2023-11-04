@@ -32,18 +32,18 @@ class Enemy extends PVector {
   void run() {
     move();
     render();
-    hit();  
+    hit();
   }
-  boolean check_distance(Bullet bullet_list) {
+  boolean check_distance(Bullet s_bullet_list) {
     PVector enemy = new PVector(this.x, this.y);
-    PVector bullet = new PVector(bullet_list.x, bullet_list.y);
-    float dist = PVector.dist(bullet, enemy)-(this._length + bullet_list._length);
+    PVector s_bullet = new PVector(s_bullet_list.x, s_bullet_list.y);
+    float dist = PVector.dist(s_bullet, enemy)-(this._length + s_bullet_list._length);
     return(dist <= 0);
   }
   boolean hit() {
     hit = false;
-    for (Bullet bullet : bullet_list) {
-      if (check_distance(bullet)) {
+    for (Bullet s_bullet : s_bullet_list) {
+      if (check_distance(s_bullet)) {
         hit = true;
         //println("you are hit");
       }
@@ -62,9 +62,9 @@ class Enemy extends PVector {
       fill(enemy_color);
     }
     rectMode(CENTER);
-    rect(x,y,_length,_width);
-    fill(255,0,0);
-    ellipse(x,y,_length-5,_width-5);
+    rect(x, y, _length, _width);
+    fill(255, 0, 0);
+    ellipse(x, y, _length-5, _width-5);
     pop();
     //println("enemy.render has executed");
   }
@@ -76,6 +76,9 @@ class Enemy extends PVector {
     } else {
       return false;
     }
+  }
+  boolean ship_in_range() {
+    return true;
   }
 }
 void removeDeadEnemy(ArrayList<Enemy> enemy_list) {
@@ -100,12 +103,12 @@ void removeHitEnemy(ArrayList<Enemy> enemy_list) {
 }
 void addEnemy() {
   //println("enemy_list.........." + enemy_list.size());
-  float c_time, d_time,random_x_speed;
-  
+  float c_time, d_time, random_x_speed;
+
   c_time = millis();
   d_time = c_time - last_enemy;
-  random_x_speed = random(2,7);
-  
+  random_x_speed = random(2, 7);
+
   if (last_enemy == 0 || d_time >= enemy_timer) {
     color enemy_color = color(255, 255, 0);
     Enemy enemy = new Enemy()
@@ -118,4 +121,18 @@ void addEnemy() {
     last_enemy = c_time;
   }
   //println("enemy_count......" + enemy_count + '\n');
+}
+void add_E_bullet() {
+  int lastIndex = enemy_list.size() - 1;
+  for (int i = lastIndex; i >= 0; i--) {
+    float enemy_x = enemy_list.get(i).x;
+    float enemy_y = enemy_list.get(i).y;
+    e_bullet = new Bullet()
+      .setPosition(enemy_x, enemy_y)
+      .setDimension(9, 9)
+      .setSpeed(-15, 0)
+      .setColor(e_bullet_color);
+    e_bullet_list.add(e_bullet);
+    println("e_bullet_list size.........." +e_bullet_list.size());
+  }
 }

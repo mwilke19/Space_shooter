@@ -1,11 +1,16 @@
-ArrayList <Bullet> bullet_list = new ArrayList<Bullet>();
-Bullet bullet;
-color bullet_color = color(255);
+ArrayList <Bullet> e_bullet_list = new ArrayList<Bullet>();
+ArrayList <Bullet> s_bullet_list = new ArrayList<Bullet>();
+Bullet e_bullet;
+Bullet s_bullet;
+
+color s_bullet_color = color(0,255,0);
+color e_bullet_color = color(255,0,0);
+
 class Bullet extends PVector {
-  int _length, _width, x_speed, y_speed, bullet_color;
+  int _length, _width, x_speed, y_speed, s_bullet_color;
   float x, y;
   boolean hit_target = false;
-  PVector bullet = new PVector();
+  PVector s_bullet = new PVector();
   PVector enemy = new PVector();
   Bullet() {
     super();
@@ -26,7 +31,7 @@ class Bullet extends PVector {
     return this;
   }
   Bullet setColor(color c) {
-    bullet_color = c;
+    s_bullet_color = c;
     return this;
   }
   void run() {
@@ -39,7 +44,7 @@ class Bullet extends PVector {
     if (hit_target) {
       fill(color(255, 0, 0));
     } else {
-      fill(bullet_color);
+      fill(s_bullet_color);
     }
     ellipse(x, y, _length, _width);
     pop();
@@ -49,10 +54,10 @@ class Bullet extends PVector {
     //y += y_speed;
   }
   
-  //Test to see if the bullet has left the screen
+  //Test to see if the s_bullet has left the screen
   boolean isDead() {
     if (x >= width + _length) {
-      //println("bullet is dead");
+      //println("s_bullet is dead");
       return true;
     } else {
       return false;
@@ -60,22 +65,22 @@ class Bullet extends PVector {
   }
 }
 //Methods outside the class
-void removeDeadBullets(ArrayList<Bullet> bullet_list) {
-  int lastIndex = bullet_list.size() - 1;
+void removeDeadBullets(ArrayList<Bullet> s_bullet_list) {
+  int lastIndex = s_bullet_list.size() - 1;
   for (int i = lastIndex; i > 0; i--) {
-    if (bullet_list.get(i).isDead() == true) {
-      bullet_list.remove(i);
+    if (s_bullet_list.get(i).isDead() == true) {
+      s_bullet_list.remove(i);
       //println("bullet was removed........");
     }
   }
 }
-void addBullet() {
+void add_S_bullet() {
   float ship_x = actors.get(0).x;
   float ship_y = actors.get(0).y;
-  bullet = new Bullet()
+  s_bullet = new Bullet()
     .setPosition(ship_x, ship_y)
     .setDimension(9, 9)
     .setSpeed(15, 0)
-    .setColor(255);
-  bullet_list.add(bullet);
+    .setColor(s_bullet_color);
+  s_bullet_list.add(s_bullet);
 }

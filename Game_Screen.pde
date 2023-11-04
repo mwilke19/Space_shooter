@@ -66,8 +66,8 @@ class Game {
     for (Actor actor : actors) {
       actor.run();
     }
-    for (Bullet bullet : bullet_list) {
-      bullet.run();
+    for (Bullet s_bullet : s_bullet_list) {
+      s_bullet.run();
     }
     for (Enemy enemy : enemy_list) {
       enemy.run();
@@ -77,7 +77,7 @@ class Game {
     addEnemy();
     removeDeadStars(stars);
     removeDeadAsteroids(actors);
-    removeDeadBullets(bullet_list);
+    removeDeadBullets(s_bullet_list);
     removeDeadEnemy(enemy_list);
     removeHitEnemy(enemy_list);
     asteroid_difficulty();

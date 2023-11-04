@@ -64,7 +64,7 @@ void asteroid_difficulty() {
   if (asteroid_count%2==0) {
     asteroid_timer-=2;
     //I do not want the timer to go below 100
-    if(asteroid_timer<=50)asteroid_timer = 100;
+    if(asteroid_timer<=200)asteroid_timer = 250;
   }
   //println(asteroid_timer);
 }

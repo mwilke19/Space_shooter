@@ -5,7 +5,7 @@ class Ship extends Actor {
   boolean hit;
   Ship() {
     super();
-    c_health = 100;
+    c_health = 150;
     p_health = 0;
   }
   void move(ArrayList<Actor> actors) {
@@ -49,8 +49,12 @@ class Ship extends Actor {
         x += x_speed;
         y += y_speed;
         break;
-      case ' '://fire bullet
-        addBullet();
+      case 'x':
+      case 'X':
+        add_E_bullet();//Test button to make the enemy fire a bullet
+        break;
+      case ' '://fire s_bullet
+        add_S_bullet();
         break;
       }
     }
@@ -128,7 +132,7 @@ class Ship extends Actor {
   void renderHealthBar() {
     //Draws health bars to the screen
     g_bar_length = c_health;
-    r_bar_length = 100;
+    r_bar_length = 150;
     bar_width = 10;
     fill(255);
     textFont(font, 12.5);
