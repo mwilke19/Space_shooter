@@ -2,7 +2,7 @@ class Ship extends Actor {
   float c_health, p_health;
   float bar_width, g_bar_length, r_bar_length;
   float ship_length, nose_x, nose_y, ship_top, ship_bottom;
-  boolean hit;
+  boolean hit, shot;
   Ship() {
     super();
     c_health = 150;
@@ -51,7 +51,7 @@ class Ship extends Actor {
         break;
       case 'x':
       case 'X':
-        add_E_bullet();//Test button to make the enemy fire a bullet
+        //add_E_bullet();//Test button to make the enemy fire a bullet
         break;
       case ' '://fire s_bullet
         add_S_bullet();
@@ -73,7 +73,7 @@ class Ship extends Actor {
       }
     }
   }
-  boolean check_distance(Enemy enemy_list) {
+  boolean check_E_distance(Enemy enemy_list) {
     float ship_x = actors.get(0).x;
     float ship_y = actors.get(0).y;
     float ship_length = actors.get(0).size;
@@ -83,15 +83,36 @@ class Ship extends Actor {
     //println("distance........" + dist);
     return(dist <= 0);
   }
+  boolean check_E_bullet_distance(Bullet e_bullet_list) {
+    float ship_x = actors.get(0).x;
+    float ship_y = actors.get(0).y;
+    float ship_length = actors.get(0).size;
+    PVector ship = new PVector(ship_x, ship_y);
+    PVector enemy_bullet = new PVector(e_bullet_list.x, e_bullet_list.y);
+    float dist = PVector.dist(ship, enemy_bullet)-(ship_length/10 + e_bullet_list._length);
+    //println("enemy_bullet distance.........." + dist);
+    return(dist<=0);
+  }
+
   boolean hit() {
     hit = false;
     for (Enemy enemy : enemy_list) {
-      if (check_distance(enemy)) {
+      if (check_E_distance(enemy)) {
         hit = true;
-        //println("you are hit");
+        println("you are hit");
       }
     }
     return hit;
+  }
+  boolean shot() {
+    shot = false;
+    for (Bullet e_bullet : e_bullet_list) {
+      if (check_E_bullet_distance(e_bullet)) {
+        shot = true;
+        println("you are shot");
+      }
+    }
+    return shot;
   }
 
   void render() {
@@ -103,7 +124,7 @@ class Ship extends Actor {
     ship_bottom = y + 10;
     //Draw ship to the screen
     push();
-    if (collision || hit) {
+    if (collision || hit || shot) {
       fill(color(255, 0, 0));
     } else {
       fill(_color);
@@ -113,7 +134,7 @@ class Ship extends Actor {
   }
   void health() {
     //Decreases health when a collision is occuring
-    if (collision || hit) {
+    if (collision || hit || shot) {
       c_health--;
       p_health = c_health;
       //println("Your health went down");

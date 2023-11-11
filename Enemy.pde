@@ -1,6 +1,8 @@
 ArrayList <Enemy> enemy_list = new ArrayList<Enemy>();
 float last_enemy = 0;
 float enemy_timer = 5000;
+float last_burst = 0;
+float enemy_fire_interval = 1000;
 float enemies_killed = 0;
 float enemy_count = 0;
 
@@ -33,6 +35,7 @@ class Enemy extends PVector {
     move();
     render();
     hit();
+    enemy_fire();
   }
   boolean check_distance(Bullet s_bullet_list) {
     PVector enemy = new PVector(this.x, this.y);
@@ -50,6 +53,18 @@ class Enemy extends PVector {
     }
     return hit;
   }
+  boolean enemy_fire() {
+    float c_time = millis();
+    float d_time = c_time - last_burst;
+    boolean state = false;
+    if (last_burst == 0 || d_time >= enemy_fire_interval) {
+      state = !state;
+      last_burst = c_time;
+    }
+    println("led state is.........." + state);
+    return state;
+  }
+
   void move() {
     x -= x_speed;
     //println("enemy.move has executed");
@@ -122,17 +137,28 @@ void addEnemy() {
   }
   //println("enemy_count......" + enemy_count + '\n');
 }
+void remove_dead_e_bullet(ArrayList<Bullet> e_bullet_list) {
+  int lastIndex = e_bullet_list.size() - 1;
+  for (int i = lastIndex; i > 0; i--) {
+    if (e_bullet_list.get(i).isDead() == true) {
+      e_bullet_list.remove(i);
+      //println("e_bullet was removed........");
+    }
+  }
+}
 void add_E_bullet() {
   int lastIndex = enemy_list.size() - 1;
   for (int i = lastIndex; i >= 0; i--) {
-    float enemy_x = enemy_list.get(i).x;
-    float enemy_y = enemy_list.get(i).y;
-    e_bullet = new Bullet()
-      .setPosition(enemy_x, enemy_y)
-      .setDimension(9, 9)
-      .setSpeed(-15, 0)
-      .setColor(e_bullet_color);
-    e_bullet_list.add(e_bullet);
-    println("e_bullet_list size.........." +e_bullet_list.size());
+    if (enemy_list.get(i).enemy_fire() == true) {
+      float enemy_x = enemy_list.get(i).x;
+      float enemy_y = enemy_list.get(i).y;
+      e_bullet = new Bullet()
+        .setPosition(enemy_x, enemy_y)
+        .setDimension(9, 9)
+        .setSpeed(-15, 0)
+        .setColor(e_bullet_color);
+      e_bullet_list.add(e_bullet);
+      //println("e_bullet_list size.........." +e_bullet_list.size());
+    }
   }
 }

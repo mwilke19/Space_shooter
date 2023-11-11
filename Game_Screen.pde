@@ -78,9 +78,11 @@ class Game {
     addStar();
     addAsteroid();
     addEnemy();
+    add_E_bullet();
     removeDeadStars(stars);
     removeDeadAsteroids(actors);
-    removeDeadBullets(s_bullet_list);
+    remove_dead_s_bullet(s_bullet_list);
+    remove_dead_e_bullet(e_bullet_list);
     removeDeadEnemy(enemy_list);
     removeHitEnemy(enemy_list);
     asteroid_difficulty();

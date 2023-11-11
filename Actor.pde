@@ -39,6 +39,7 @@ class Actor extends PVector {
     collision(actors);
     check_distance();
     hit();
+    shot();
     isDead();
   }
   void screen_boundary() {
@@ -66,6 +67,9 @@ class Actor extends PVector {
     return true;
   }
   boolean hit() {
+    return true;
+  }
+  boolean shot(){
     return true;
   }
   void render() {
