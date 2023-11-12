@@ -78,7 +78,6 @@ class Game {
     addStar();
     addAsteroid();
     addEnemy();
-    add_E_bullet();
     removeDeadStars(stars);
     removeDeadAsteroids(actors);
     remove_dead_s_bullet(s_bullet_list);

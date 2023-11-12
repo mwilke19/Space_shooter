@@ -99,7 +99,7 @@ class Ship extends Actor {
     for (Enemy enemy : enemy_list) {
       if (check_E_distance(enemy)) {
         hit = true;
-        println("you are hit");
+        //println("you are hit");
       }
     }
     return hit;
@@ -109,7 +109,7 @@ class Ship extends Actor {
     for (Bullet e_bullet : e_bullet_list) {
       if (check_E_bullet_distance(e_bullet)) {
         shot = true;
-        println("you are shot");
+        //println("you are shot");
       }
     }
     return shot;
