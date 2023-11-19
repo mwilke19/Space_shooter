@@ -1,8 +1,9 @@
 PFont font;
 Game game;
 Actor ship;
+Table high_score;
 void setup() {
-  size(1600, 1000);
+  size(1300, 1200);
   background(0);
   textAlign(CENTER);
   font = createFont("Elephant", 50);
@@ -13,6 +14,7 @@ void setup() {
     .setColor(255)
     .setSize(100);
   actors.add(ship);
+  load_previous_score();
 }
 void draw() {
   smooth();

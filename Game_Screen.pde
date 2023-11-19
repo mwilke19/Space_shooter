@@ -1,5 +1,6 @@
 class Game {
   int init, play;
+  float efficiency,final_time;
   Game() {
     init = 1;
     play = 0;
@@ -88,22 +89,22 @@ class Game {
     show_statistics();
   }
   void game_over() {
-    float final_time, column_1, column_2, row_1, row_2, row_3, efficiency,text_width;
+    float column_1, column_2, row_1, row_2, row_3;
     int title_color, text_color;
     
     title_color = color(255, 0, 0);
     text_color = 255;
-  
-  
+   
     final_time = game_timer;//game_timer is a global variable
+    efficiency = (enemies_killed/enemy_count)*100;
+    save_score();
+    
     column_1 = width/4;
     column_2 = width* .75-100;
     row_1 = height/2 - 200;
     row_2 = height/2 - 150;
     row_3 = height/2 - 100;
     
-    efficiency = (enemies_killed/enemy_count)*100;
-
     background(0);
 
     fill(title_color);
@@ -121,5 +122,5 @@ class Game {
     text("EFFICIENCY", column_1, row_3);
     text(int(efficiency), column_2, row_3);
     text(" % ", column_2 + 50, row_3);
-  }
+ }
 }

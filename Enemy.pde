@@ -65,18 +65,16 @@ class Enemy extends PVector {
     int fire_d_time = c_time - last_fire;
     //println("Millis:", c_time, "Last burst:", last_burst, "D Time:", burst_d_time);
     if (burst_d_time < burst_interval) {
-      if (fire_d_time > fire_interval){
-        if(bullet_count > 0){
+      if (fire_d_time > fire_interval && bullet_count > 0){
           last_fire = c_time;
           add_E_bullet();
-          bullet_count -= 1;
+          --bullet_count;
           //println(bullet_count);
-        }
       }
     }
     else {
       last_burst = c_time;
-      bullet_count = 5;
+      bullet_count = 3;
     }
   }
 

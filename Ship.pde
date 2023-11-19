@@ -5,7 +5,7 @@ class Ship extends Actor {
   boolean hit, shot;
   Ship() {
     super();
-    c_health = 150;
+    c_health = 100;
     p_health = 0;
   }
   void move(ArrayList<Actor> actors) {
@@ -135,7 +135,7 @@ class Ship extends Actor {
   void health() {
     //Decreases health when a collision is occuring
     if (collision || hit || shot) {
-      c_health--;
+      c_health-=5;
       p_health = c_health;
       //println("Your health went down");
       //println("Current health..........." + c_health);
@@ -153,7 +153,7 @@ class Ship extends Actor {
   void renderHealthBar() {
     //Draws health bars to the screen
     g_bar_length = c_health;
-    r_bar_length = 150;
+    r_bar_length = 100;
     bar_width = 10;
     fill(255);
     textFont(font, 12.5);
