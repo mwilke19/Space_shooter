@@ -1,7 +1,8 @@
 PFont font;
 Game game;
 Actor ship;
-Table high_score;
+Table score;
+float col_1, col_2, row_1, row_2, row_3, row_4, row_5;
 void setup() {
   size(1300, 1200);
   background(0);
@@ -14,7 +15,7 @@ void setup() {
     .setColor(255)
     .setSize(100);
   actors.add(ship);
-  load_previous_score();
+  
 }
 void draw() {
   smooth();

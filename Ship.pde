@@ -11,44 +11,15 @@ class Ship extends Actor {
   void move(ArrayList<Actor> actors) {
     //Moves ship
     if (keyPressed) {
+      //direction control
+      if (key == CODED) {
+        if (keyCode == UP)y -= y_speed;
+        if (keyCode == DOWN)y += y_speed;
+        if (keyCode == LEFT)x -= x_speed;
+        if (keyCode == RIGHT)x += x_speed;
+      }
+      //button control
       switch(key) {
-      case 'w':
-      case 'W'://north
-        y -= y_speed;
-        break;
-      case 's':
-      case 'S'://south
-        y += y_speed;
-        break;
-      case 'a':
-      case 'A'://east
-        x -= x_speed;
-        break;
-      case 'd':
-      case 'D':
-        ;//west
-        x += x_speed;
-        break;
-      case 'q':
-      case 'Q'://northwest
-        x -= x_speed;
-        y -= y_speed;
-        break;
-      case 'e':
-      case 'E'://northeast
-        x += x_speed;
-        y -= y_speed;
-        break;
-      case 'z':
-      case 'Z'://northwest
-        x -= x_speed;
-        y += y_speed;
-        break;
-      case 'c':
-      case 'C'://northwest
-        x += x_speed;
-        y += y_speed;
-        break;
       case 'x':
       case 'X':
         //add_E_bullet();//Test button to make the enemy fire a bullet
@@ -135,7 +106,7 @@ class Ship extends Actor {
   void health() {
     //Decreases health when a collision is occuring
     if (collision || hit || shot) {
-      c_health-=5;
+      c_health-=1;
       p_health = c_health;
       //println("Your health went down");
       //println("Current health..........." + c_health);
