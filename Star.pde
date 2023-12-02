@@ -113,7 +113,7 @@ void addStar(){
     color _color = color(random(255),random(255),random(255));
     Star star = new Star()
       .setPosition(random(width), random(height))
-      .setDiameter(int(random(2, 5)))
+      .setDiameter(int(random(1, 3)))
       .setVelocity(-1, 1)
       .setAcceleration(.5)
       .setFriction(.99)

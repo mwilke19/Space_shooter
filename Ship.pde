@@ -22,7 +22,7 @@ class Ship extends Actor {
       switch(key) {
       case 'x':
       case 'X':
-        //add_E_bullet();//Test button to make the enemy fire a bullet
+        //spare button
         break;
       case ' '://fire s_bullet
         add_S_bullet();

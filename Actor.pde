@@ -42,8 +42,6 @@ class Actor extends PVector {
     shot();
     isDead();
   }
-  void screen_boundary() {
-  }
   //Checks for a collision between actors
   void collision(ArrayList<Actor> Actors) {
     collision = false;
@@ -77,5 +75,7 @@ class Actor extends PVector {
   void health() {
   }
   void renderHealthBar() {
+  }
+   void screen_boundary() {
   }
 }

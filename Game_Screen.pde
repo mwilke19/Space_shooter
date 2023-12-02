@@ -25,7 +25,7 @@ class Game {
   void save_score() {
     score = new Table();
 
-    String name = "Michael";
+    String name = "MJW";
     float time = game.final_time;
     float efficiency = game.efficiency;
     float num_of_kills = enemies_killed;
@@ -56,6 +56,9 @@ class Game {
       stroke(255,0,0);
       strokeWeight(5);
       line(width/4,height/2+5,900,height/2+5);
+      noFill();
+      stroke(255,255,0);
+      rect(50,50,1200,900);
       noStroke();
       text(Name, width/4, height/2 + 100);
       text("Time: " + Time, width/4 + 150, height/2 + 100);
@@ -81,6 +84,7 @@ class Game {
     fill(title_color);
     textFont(font);
     textAlign(CENTER);
+    fill(0,100,255); 
     text("CLICK TO START", width/2, height/4);
 
     fill(text_color);

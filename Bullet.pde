@@ -37,7 +37,6 @@ class Bullet extends PVector {
   void run() {
     move();
     render();
-    
   }
   void render() {
     push();
@@ -51,7 +50,6 @@ class Bullet extends PVector {
   }
    void move() {
     x += x_speed;
-    //y += y_speed;
   }
   
   //Test to see if the s_bullet has left the screen
