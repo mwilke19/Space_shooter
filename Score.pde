@@ -1,5 +1,5 @@
  void save_score() {
-  high_score = new Table();
+  score = new Table();
   
   String name = "Michael";
   float time = game.final_time;
