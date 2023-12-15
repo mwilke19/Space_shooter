@@ -53,15 +53,15 @@ class Game {
       int Efficiency = score.getInt("EFFICIENCY");
       int Enemies_killed = score.getInt("KILLS");
       textSize(25);
-      text("Last Recorded Game Statistics", width/2,height/2);
-      stroke(255,0,0);
+      text("Last Recorded Game Statistics", width/2, height/2);
+      stroke(255, 0, 0);
       strokeWeight(5);
-      line(width/4,height/2+5,900,height/2+5);
+      line(width/4, height/2+5, 900, height/2+5);
       noFill();
-      stroke(255,255,0);
-      rect(50,50,1200,900);
+      stroke(255, 255, 0);
+      rect(50, 50, 1200, 900);
       noStroke();
-      text(Name, 275 , height/2 + 100);
+      text(Name, 275, height/2 + 100);
       text("Time: " + Time, width/4 + 150, height/2 + 100);
       text("Efficiency: " + Efficiency, width/4 + 350, height/2 + 100);
       text("Number of enemies killed: " + Enemies_killed, width/4 + 650, height/2 + 100);
@@ -70,6 +70,11 @@ class Game {
   void init() {
     float row_1, row_2, row_3, row_4, row_5;
     int title_color, text_color;
+    int outer_gap = 100; // 100px of space on left and right
+    int inner_gap = 30;  // 30px between letters
+  
+    int total_width = width - (outer_gap * 2);
+    int line_width = (total_width - (inner_gap * 4)) /3;
 
     row_1 = height/4 + 100;
     row_2 = height/4 + 150;
@@ -85,21 +90,25 @@ class Game {
     fill(title_color);
     textFont(font);
     textAlign(CENTER);
-    fill(0,100,255); 
+    fill(0, 100, 255);
     text("CLICK TO START", width/2, height/4);
 
     fill(text_color);
     textSize(25);
     text("ARROW KEYS FOR DIRECTIONAL CONTROL", width/2, height/4+50);
     text("SPACEBAR = FIRE", width/2, row_1);
-    text("PLEASE ENTER YOUR INITIALS",width/2,row_2);
-    
-    if (cursor == 3) {
-    String name = new String(initials);
-    textSize(65);
-    text(name,width/2,height/2-75);
+    text("PLEASE ENTER YOUR INITIALS", width/2, row_2);
+
+    for (int i = 0; i < 3; i++) {
+      int x = outer_gap + (line_width + inner_gap) * i;
+      int y = height/2-75;
+      
+      fill(255);
+      textSize(65);
+      if (cursor > i)
+        text(initials[i], x + line_width/2, y);
     }
-    
+
     display_score();
   }
   void play() {
