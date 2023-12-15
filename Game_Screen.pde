@@ -25,7 +25,7 @@ class Game {
   void save_score() {
     score = new Table();
 
-    String name = "MJW";
+    String name = new String(initials);
     float time = game.final_time;
     float efficiency = game.efficiency;
     float num_of_kills = enemies_killed;
@@ -52,6 +52,7 @@ class Game {
       int Time = score.getInt("TIME");
       int Efficiency = score.getInt("EFFICIENCY");
       int Enemies_killed = score.getInt("KILLS");
+      textSize(25);
       text("Last Recorded Game Statistics", width/2,height/2);
       stroke(255,0,0);
       strokeWeight(5);
@@ -60,7 +61,7 @@ class Game {
       stroke(255,255,0);
       rect(50,50,1200,900);
       noStroke();
-      text(Name, width/4, height/2 + 100);
+      text(Name, 275 , height/2 + 100);
       text("Time: " + Time, width/4 + 150, height/2 + 100);
       text("Efficiency: " + Efficiency, width/4 + 350, height/2 + 100);
       text("Number of enemies killed: " + Enemies_killed, width/4 + 650, height/2 + 100);
@@ -91,6 +92,14 @@ class Game {
     textSize(25);
     text("ARROW KEYS FOR DIRECTIONAL CONTROL", width/2, height/4+50);
     text("SPACEBAR = FIRE", width/2, row_1);
+    text("PLEASE ENTER YOUR INITIALS",width/2,row_2);
+    
+    if (cursor == 3) {
+    String name = new String(initials);
+    textSize(65);
+    text(name,width/2,height/2-75);
+    }
+    
     display_score();
   }
   void play() {

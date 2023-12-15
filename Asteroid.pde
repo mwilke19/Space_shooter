@@ -18,6 +18,8 @@ class Asteroid extends Actor {
     if (collision) {
       fill(color(145));
     } else {
+      stroke(0);
+      strokeWeight(2);
       fill(_color);
     }
     circle(x, y, size);
