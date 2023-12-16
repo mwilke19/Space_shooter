@@ -70,7 +70,7 @@ class Game {
   void init() {
     float row_1, row_2, row_3, row_4, row_5;
     int title_color, text_color;
-    int outer_gap = 525; // 500px of space on left and right
+    int outer_gap = 525; // 525px of space on left and right
     int inner_gap = 30;  // 30px between letters
   
     int total_width = width - (outer_gap * 2);
