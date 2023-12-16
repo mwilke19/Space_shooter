@@ -9,7 +9,7 @@ void setup() {
   size(1300, 1200);
   background(0);
   textAlign(CENTER,BOTTOM);
-  font = createFont("Elephant", 50);
+  font = createFont("Arial", 50);
   game = new Game();
    ship = new Ship()
     .setPosition(400, 400)
