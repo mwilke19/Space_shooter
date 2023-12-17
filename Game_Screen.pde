@@ -1,25 +1,27 @@
 class Game {
-  int init, play;
+  boolean g_start, g_play,g_over;
   float efficiency, final_time;
   Game() {
-    init = 1;
-    play = 0;
+    g_start = true;
+    g_play = false;
+    g_over = false;
   }
   void run() {
     //ship is the first index of actors ArrayList
     //It is added in setup
     boolean ship_dead = actors.get(0).isDead();
 
-    if (init == 1)init();
-    if (play == 1)play();
-
+    if (g_start == true)game_start();
+    if (g_play == true)game_play();
+    if (g_over == true)game_over();
+    
     if (mousePressed) {
-      play = 1;
-      init = 0;
+      g_play = true;
+      g_start = false;
     }
-    if (ship_dead == true) {
-      play = 0;
-      game_over();
+    if (ship_dead == true) { 
+      g_play = false;
+      g_over = true;
     }
   }
   void save_score() {
@@ -67,12 +69,11 @@ class Game {
       text("Number of enemies killed: " + Enemies_killed, width/4 + 650, height/2 + 100);
     }
   }
-  void init() {
+  void game_start() {
     float row_1, row_2, row_3, row_4, row_5;
     int title_color, text_color;
-    int outer_gap = 525; // 525px of space on left and right
+    int outer_gap = 525; // 500px of space on left and right
     int inner_gap = 30;  // 30px between letters
-  
     int total_width = width - (outer_gap * 2);
     int line_width = (total_width - (inner_gap * 4)) /3;
 
@@ -86,7 +87,6 @@ class Game {
     text_color  = 255;
 
     background(0);
-
     fill(title_color);
     textFont(font);
     textAlign(CENTER);
@@ -103,7 +103,7 @@ class Game {
       int x = outer_gap + (line_width + inner_gap) * i;
       int y = height/2-75;
       
-      fill(255);
+      fill(255,255,0);
       textSize(65);
       if (cursor > i)
         text(initials[i], x + line_width/2, y);
@@ -111,7 +111,7 @@ class Game {
 
     display_score();
   }
-  void play() {
+  void game_play() {
     for (Star star : stars) {
       star.run();
     }
