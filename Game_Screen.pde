@@ -16,8 +16,13 @@ class Game {
     if (g_over == true)game_over();
     
     if (mousePressed) {
+      if(cursor == 3){
       g_play = true;
       g_start = false;
+      }
+      if(cursor < 3){
+        text("YOU MUST ENTER YOUR INITIALS TO PLAY",width/2,height/2-100);
+      }      
     }
     if (ship_dead == true) { 
       g_play = false;
@@ -55,6 +60,7 @@ class Game {
       int Efficiency = score.getInt("EFFICIENCY");
       int Enemies_killed = score.getInt("KILLS");
       textSize(25);
+      fill(255,255,0);
       text("Last Recorded Game Statistics", width/2, height/2);
       stroke(255, 0, 0);
       strokeWeight(5);
@@ -97,13 +103,14 @@ class Game {
     textSize(25);
     text("ARROW KEYS FOR DIRECTIONAL CONTROL", width/2, height/4+50);
     text("SPACEBAR = FIRE", width/2, row_1);
+    fill(0,255,0);
     text("PLEASE ENTER YOUR INITIALS", width/2, row_2);
 
     for (int i = 0; i < 3; i++) {
       int x = outer_gap + (line_width + inner_gap) * i;
       int y = height/2-75;
       
-      fill(255,255,0);
+      fill(255,175,125);
       textSize(65);
       if (cursor > i)
         text(initials[i], x + line_width/2, y);
