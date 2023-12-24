@@ -61,22 +61,3 @@ void removeDeadBurst(ArrayList<Particle> burst) {
     }
   }
 }
-void addBurst() {
-  //float c_time, d_time;
-  //c_time = millis();
-  //d_time = c_time-last_burst;
-  color _color = color(255, 0, 0);
-  if (mousePressed) {
-    Particle explosion = new Explosion()
-      .setPosition(mouseX, mouseY)
-      .setLength(15)
-      .setWidth(15)
-      .setVelocity(-1, 1)
-      .setAcceleration(1)
-      .setFriction(.85)
-      .setColor(_color)
-      .setLifespan(250);
-    burst.add(explosion);
-    //last_burst = c_time;
-  }
-}

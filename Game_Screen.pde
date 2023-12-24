@@ -139,7 +139,6 @@ class Game {
       enemy.run();
     }
     addStar();
-    addBurst();
     addAsteroid();
     addEnemy();
     removeDeadStar(stars);

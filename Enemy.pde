@@ -12,7 +12,7 @@ class Enemy extends PVector {
   int last_burst, last_fire;
   int bullet_count = 5;
   boolean hit;
-  
+
   Enemy() {
     bullet_count = 0;
     last_burst = 0;
@@ -59,20 +59,19 @@ class Enemy extends PVector {
     }
     return hit;
   }
- void enemy_fire() {
+  void enemy_fire() {
     int c_time = millis();
     int burst_d_time = c_time - last_burst;
     int fire_d_time = c_time - last_fire;
     //println("Millis:", c_time, "Last burst:", last_burst, "D Time:", burst_d_time);
     if (burst_d_time < burst_interval) {
-      if (fire_d_time > fire_interval && bullet_count > 0){
-          last_fire = c_time;
-          add_E_bullet();
-          --bullet_count;
-          //println(bullet_count);
+      if (fire_d_time > fire_interval && bullet_count > 0) {
+        last_fire = c_time;
+        add_E_bullet();
+        --bullet_count;
+        //println(bullet_count);
       }
-    }
-    else {
+    } else {
       last_burst = c_time;
       bullet_count = 3;
     }
@@ -123,8 +122,23 @@ void removeHitEnemy(ArrayList<Enemy> enemy_list) {
   int lastIndex = enemy_list.size() - 1;
   for (int i = lastIndex; i >= 0; i--) {
     if (enemy_list.get(i).hit() == true) {
+      color _color = color(255, 255, 0);
+      float enemy_x = enemy_list.get(i).x;
+      float enemy_y = enemy_list.get(i).y;
+
       enemy_list.remove(i);
       enemies_killed++;
+
+      Particle explosion = new Explosion()
+        .setPosition(enemy_x, enemy_y)
+        .setLength(15)
+        .setWidth(15)
+        .setVelocity(-1, 1)
+        .setAcceleration(1)
+        .setFriction(.85)
+        .setColor(_color)
+        .setLifespan(250);
+      burst.add(explosion);
       //println("enemies_killed......." + enemies_killed + '\n');
     }
   }
@@ -161,15 +175,15 @@ void remove_dead_e_bullet(ArrayList<Bullet> e_bullet_list) {
 }
 void add_E_bullet() {
   int lastIndex = enemy_list.size() - 1;
-  for (int i = lastIndex; i >= 0; i--) {    
-      float enemy_x = enemy_list.get(i).x;
-      float enemy_y = enemy_list.get(i).y;
-      e_bullet = new Bullet()
-        .setPosition(enemy_x, enemy_y)
-        .setDimension(9, 9)
-        .setSpeed(-8, 0)
-        .setColor(e_bullet_color);
-      e_bullet_list.add(e_bullet);
-      //println("e_bullet_list size.........." +e_bullet_list.size());
+  for (int i = lastIndex; i >= 0; i--) {
+    float enemy_x = enemy_list.get(i).x;
+    float enemy_y = enemy_list.get(i).y;
+    e_bullet = new Bullet()
+      .setPosition(enemy_x, enemy_y)
+      .setDimension(9, 9)
+      .setSpeed(-8, 0)
+      .setColor(e_bullet_color);
+    e_bullet_list.add(e_bullet);
+    //println("e_bullet_list size.........." +e_bullet_list.size());
   }
 }
