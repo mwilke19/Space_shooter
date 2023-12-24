@@ -122,23 +122,13 @@ void removeHitEnemy(ArrayList<Enemy> enemy_list) {
   int lastIndex = enemy_list.size() - 1;
   for (int i = lastIndex; i >= 0; i--) {
     if (enemy_list.get(i).hit() == true) {
-      color _color = color(255, 255, 0);
+      
       float enemy_x = enemy_list.get(i).x;
       float enemy_y = enemy_list.get(i).y;
 
       enemy_list.remove(i);
+      addBurst(enemy_x,enemy_y);
       enemies_killed++;
-
-      Particle explosion = new Explosion()
-        .setPosition(enemy_x, enemy_y)
-        .setLength(15)
-        .setWidth(15)
-        .setVelocity(-1, 1)
-        .setAcceleration(1)
-        .setFriction(.85)
-        .setColor(_color)
-        .setLifespan(250);
-      burst.add(explosion);
       //println("enemies_killed......." + enemies_killed + '\n');
     }
   }

@@ -61,3 +61,16 @@ void removeDeadBurst(ArrayList<Particle> burst) {
     }
   }
 }
+void addBurst(float enemy_x,float enemy_y) {
+  color _color = color(255, 255, 0);
+  Particle explosion = new Explosion()
+        .setPosition(enemy_x, enemy_y)
+        .setLength(15)
+        .setWidth(15)
+        .setVelocity(-1, 1)
+        .setAcceleration(1)
+        .setFriction(.85)
+        .setColor(_color)
+        .setLifespan(250);
+      burst.add(explosion);
+}
