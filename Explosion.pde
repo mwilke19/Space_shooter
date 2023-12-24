@@ -36,7 +36,6 @@ class Explosion extends Particle {
   //Draws Particle to the screen
   void render() {
     push();
-    stroke(1);
     fill(_color, lifespan);
     ellipse(x, y, _width, _length);
     pop();
