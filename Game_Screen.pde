@@ -22,6 +22,7 @@ class Game {
       }
       if(cursor < 3){
         text("YOU MUST ENTER YOUR INITIALS TO PLAY",width/2,height/2-100);
+        initials[cursor] = 0;
       }      
     }
     if (ship_dead == true) { 
@@ -119,7 +120,10 @@ class Game {
     display_score();
   }
   void game_play() {
-    for (Star star : stars) {
+    for (Particle explosion : burst) {
+      explosion.run();
+    }
+    for (Particle star : stars) {
       star.run();
     }
     for (Actor actor : actors) {
@@ -135,9 +139,11 @@ class Game {
       enemy.run();
     }
     addStar();
+    addBurst();
     addAsteroid();
     addEnemy();
-    removeDeadStars(stars);
+    removeDeadStar(stars);
+    removeDeadBurst(burst);
     removeDeadAsteroids(actors);
     remove_dead_s_bullet(s_bullet_list);
     remove_dead_e_bullet(e_bullet_list);
