@@ -23,7 +23,6 @@ void draw() {
   smooth();
   background(0);
   game.run();
-  printArray(initials);
 }
 void keyPressed() {
   if (keyCode == BACKSPACE && cursor > 0) {

@@ -61,17 +61,29 @@ void removeDeadBurst(ArrayList<Particle> burst) {
   }
 }
 void addBurst(float enemy_x, float enemy_y) {
-  color _color = color(255, 255, 0);
-  while (burst.size() <= 100) {
-    Particle explosion = new Explosion()
+  int MAX_SIZE = 500;
+  color RED = color(255,0,0);
+  color YELLOW = color(255,255,0);
+  while (burst.size() <= MAX_SIZE) {
+    Particle red_explosion = new Explosion()
       .setPosition(enemy_x, enemy_y)
-      .setLength(15)
-      .setWidth(15)
+      .setLength(20)
+      .setWidth(20)
       .setVelocity(-1, 1)
       .setAcceleration(1)
-      .setFriction(.85)
-      .setColor(_color)
-      .setLifespan(250);
-    burst.add(explosion);
+      .setFriction(.77)
+      .setColor(RED)
+      .setLifespan(150);
+    Particle yellow_explosion = new Explosion()
+      .setPosition(enemy_x, enemy_y)
+      .setLength(20)
+      .setWidth(20)
+      .setVelocity(-1, 1)
+      .setAcceleration(1)
+      .setFriction(.88)
+      .setColor(YELLOW)
+      .setLifespan(150);
+    burst.add(red_explosion);
+    burst.add(yellow_explosion);
   }
 }

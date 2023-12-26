@@ -64,7 +64,7 @@ class Game {
       fill(255,255,0);
       text("Last Recorded Game Statistics", width/2, height/2);
       stroke(255, 0, 0);
-      strokeWeight(5);
+      //strokeWeight(5);
       line(width/4, height/2+5, 900, height/2+5);
       noFill();
       stroke(255, 255, 0);
