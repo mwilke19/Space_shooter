@@ -1,34 +1,33 @@
 class Game {
-  boolean g_start, g_play,g_over;
+  int g_start, g_play, g_over,state;
   float efficiency, final_time;
   Game() {
-    g_start = true;
-    g_play = false;
-    g_over = false;
+    g_start = 0;
+    g_play = 10;
+    g_over = 20;
+    state = g_start;
   }
   void run() {
     //ship is the first index of actors ArrayList
     //It is added in setup
     boolean ship_dead = actors.get(0).isDead();
 
-    if (g_start == true)game_start();
-    if (g_play == true)game_play();
-    if (g_over == true)game_over();
-    
+    if (state == g_start)game_start();
+    if (state == g_play)game_play();
+    if (state == g_over)game_over();
+
     if (mousePressed) {
-      if(cursor == 3){
-      g_play = true;
-      g_start = false;
+      if (cursor == 3) {
+        state = g_play;
       }
-      if(cursor < 3){
-        text("YOU MUST ENTER YOUR INITIALS TO PLAY",width/2,height/2-100);
-        initials[cursor] = 0;
-      }      
+      if (cursor < 3) {
+        text("YOU MUST ENTER YOUR INITIALS TO PLAY", width/2, height/2-100);
+      }
     }
-    if (ship_dead == true) { 
-      g_play = false;
-      g_over = true;
+    if (ship_dead == true) {
+      state = g_over;
     }
+    //println("state.........." + state);
   }
   void save_score() {
     score = new Table();
@@ -61,7 +60,7 @@ class Game {
       int Efficiency = score.getInt("EFFICIENCY");
       int Enemies_killed = score.getInt("KILLS");
       textSize(25);
-      fill(255,255,0);
+      fill(255, 255, 0);
       text("Last Recorded Game Statistics", width/2, height/2);
       stroke(255, 0, 0);
       //strokeWeight(5);
@@ -104,14 +103,14 @@ class Game {
     textSize(25);
     text("ARROW KEYS FOR DIRECTIONAL CONTROL", width/2, height/4+50);
     text("SPACEBAR = FIRE", width/2, row_1);
-    fill(0,255,0);
+    fill(0, 255, 0);
     text("PLEASE ENTER YOUR INITIALS", width/2, row_2);
 
     for (int i = 0; i < 3; i++) {
       int x = outer_gap + (line_width + inner_gap) * i;
       int y = height/2-75;
-      
-      fill(255,175,125);
+
+      fill(255, 175, 125);
       textSize(65);
       if (cursor > i)
         text(initials[i], x + line_width/2, y);
@@ -173,6 +172,7 @@ class Game {
     textFont(font);
     textAlign(CENTER);
     text("GAME OVER", width/2, 250);
+    text("DO YOU WANT TO PLAY AGAIN?", width/2, 350);
 
     fill(text_color);
     textSize(25);
@@ -186,5 +186,8 @@ class Game {
     text(" % ", column_2 + 50, row_3);
 
     save_score();
+    if (mousePressed) {
+      state = g_play;      
+    }
   }
 }
