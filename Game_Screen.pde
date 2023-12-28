@@ -1,6 +1,6 @@
 class Game {
-  int g_start, g_play, g_over,state;
-  float efficiency, final_time;
+  int g_start, g_play, g_over, g_play_again, state;
+  float efficiency, DELAY;
   Game() {
     g_start = 0;
     g_play = 10;
@@ -10,11 +10,17 @@ class Game {
   void run() {
     //ship is the first index of actors ArrayList
     //It is added in setup
-    boolean ship_dead = actors.get(0).isDead();
+    boolean ship_dead = actors.get(0).is_dead();
 
-    if (state == g_start)game_start();
-    if (state == g_play)game_play();
-    if (state == g_over)game_over();
+    if (state == g_start) {
+      game_start();
+    }
+    if (state == g_play) {
+      game_play();
+    }
+    if (state == g_over) {
+      game_over();
+    }
 
     if (mousePressed) {
       if (cursor == 3) {
@@ -26,28 +32,34 @@ class Game {
     }
     if (ship_dead == true) {
       state = g_over;
+      if (key == 'y') {
+        game_reset();
+      }
+      if (key == 'n') {
+        exit();
+      }
     }
-    //println("state.........." + state);
+    println("state.........." + state);
+    println("ship_dead......" + ship_dead);
   }
   void save_score() {
     score = new Table();
 
     String name = new String(initials);
-    float time = game.final_time;
+
     float efficiency = game.efficiency;
     float num_of_kills = enemies_killed;
 
     score.addColumn("NAME");
-    score.addColumn("TIME");
     score.addColumn("EFFICIENCY");
     score.addColumn("KILLS");
 
     TableRow newRow = score.addRow();
 
     newRow.setString("NAME", name);
-    newRow.setFloat ("TIME", time);
-    newRow.setFloat ("EFFICIENCY", efficiency);
     newRow.setFloat ("KILLS", num_of_kills);
+    newRow.setFloat ("EFFICIENCY", efficiency);
+
 
     saveTable(score, "data/SCORES.csv");
   }
@@ -56,12 +68,12 @@ class Game {
     //println(score.getRowCount() + " total rows in table");
     for (TableRow score : score.rows()) {
       String Name = score.getString("NAME");
-      int Time = score.getInt("TIME");
       int Efficiency = score.getInt("EFFICIENCY");
       int Enemies_killed = score.getInt("KILLS");
+
       textSize(25);
       fill(255, 255, 0);
-      text("Last Recorded Game Statistics", width/2, height/2);
+      text("TOP SCORES", width/2, height/2);
       stroke(255, 0, 0);
       //strokeWeight(5);
       line(width/4, height/2+5, 900, height/2+5);
@@ -69,10 +81,9 @@ class Game {
       stroke(255, 255, 0);
       rect(50, 50, 1200, 900);
       noStroke();
-      text(Name, 275, height/2 + 100);
-      text("Time: " + Time, width/4 + 150, height/2 + 100);
-      text("Efficiency: " + Efficiency, width/4 + 350, height/2 + 100);
-      text("Number of enemies killed: " + Enemies_killed, width/4 + 650, height/2 + 100);
+      text(Name, width/4 + 150, height/2 + 100);
+      text("Score: " + Enemies_killed, width/4 + 300, height/2 + 100);
+      text("Efficiency: " + Efficiency, width/4 + 500, height/2 + 100);
     }
   }
   void game_start() {
@@ -82,6 +93,8 @@ class Game {
     int inner_gap = 30;  // 30px between letters
     int total_width = width - (outer_gap * 2);
     int line_width = (total_width - (inner_gap * 4)) /3;
+
+    DELAY = 1000;
 
     row_1 = height/4 + 100;
     row_2 = height/4 + 150;
@@ -93,9 +106,18 @@ class Game {
     text_color  = 255;
 
     background(0);
+
     fill(title_color);
     textFont(font);
     textAlign(CENTER);
+    textSize(125);
+    fill(175);
+    if (floor(millis()/DELAY) % 2 == 0) {
+      fill(0, 0, 255);
+    }
+    text("SPACE SHOOTER", width/2, height/4-100);
+
+    textSize(50);
     fill(0, 100, 255);
     text("CLICK TO START", width/2, height/4);
 
@@ -137,18 +159,29 @@ class Game {
     for (Enemy enemy : enemy_list) {
       enemy.run();
     }
-    addStar();
-    addAsteroid();
-    addEnemy();
-    removeDeadStar(stars);
-    removeDeadBurst(burst);
-    removeDeadAsteroids(actors);
+    add_star();
+    add_asteroid();
+    add_enemy();
+    remove_dead_star(stars);
+    remove_dead_burst(burst);
+    remove_dead_asteroid(actors);
     remove_dead_s_bullet(s_bullet_list);
     remove_dead_e_bullet(e_bullet_list);
-    removeDeadEnemy(enemy_list);
-    removeHitEnemy(enemy_list);
+    remove_dead_enemy(enemy_list);
+    remove_hit_enemy(enemy_list);
     asteroid_difficulty();
     show_statistics();
+    println("play has executed.........");
+  }
+  void game_reset() {
+    Ship ship = (Ship) actors.get(0);
+    state = g_play;
+    game.efficiency = 0;
+    ship.c_health = 100;
+    enemies_killed = 0;
+    enemy_list.clear();
+    println("enemy_list............." + enemy_list.size());
+    //actors.clear();
   }
   void game_over() {
     float column_1, column_2, row_1, row_2, row_3;
@@ -157,7 +190,6 @@ class Game {
     title_color = color(255, 0, 0);
     text_color = 255;
 
-    final_time = game_timer;//game_timer is a global variable
     efficiency = (enemies_killed/enemy_count)*100;
 
     column_1 = width/4;
@@ -172,13 +204,10 @@ class Game {
     textFont(font);
     textAlign(CENTER);
     text("GAME OVER", width/2, 250);
-    text("DO YOU WANT TO PLAY AGAIN?", width/2, 350);
 
     fill(text_color);
     textSize(25);
     textAlign(LEFT);
-    text("FINAL TIME", column_1, row_1);
-    text(int(final_time), column_2, row_1);
     text("ENEMIES KILLED", column_1, row_2);
     text(int(enemies_killed), column_2, row_2);
     text("EFFICIENCY", column_1, row_3);
@@ -186,8 +215,5 @@ class Game {
     text(" % ", column_2 + 50, row_3);
 
     save_score();
-    if (mousePressed) {
-      state = g_play;      
-    }
   }
 }

@@ -112,7 +112,7 @@ class Ship extends Actor {
       //println("Current health..........." + c_health);
     }
   }
-  boolean isDead() {
+  boolean is_dead() {
     //Test to see if the ship health has run out
     if (c_health<=0) {
       //println("the ship is dead");
@@ -121,7 +121,7 @@ class Ship extends Actor {
       return false;
     }
   }
-  void renderHealthBar() {
+  void render_health_bar() {
     //Draws health bars to the screen
     g_bar_length = c_health;
     r_bar_length = 100;

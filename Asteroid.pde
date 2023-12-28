@@ -26,7 +26,7 @@ class Asteroid extends Actor {
     pop();
   }
   //Test to see if the asteroid has left the screen
-  boolean isDead() {
+  boolean is_dead() {
     if (x <= -200) {
       //println("asteroid is dead");
       return true;
@@ -36,17 +36,17 @@ class Asteroid extends Actor {
   }
 }
 //Methods outside the class
-void removeDeadAsteroids(ArrayList<Actor> actors) {
+void remove_dead_asteroid(ArrayList<Actor> actors) {
   int lastIndex = actors.size() - 1;
   for (int i = lastIndex; i > 0; i--) {
-    if (actors.get(i).isDead() == true) {
+    if (actors.get(i).is_dead() == true) {
       actors.remove(i);
       asteroid_count++;
       //println("asteroid was removed........" + asteroid_count);
     }
   }
 }
-void addAsteroid() {
+void add_asteroid() {
   float c_time, d_time;
   c_time = millis();
   d_time = c_time - last_asteroid;

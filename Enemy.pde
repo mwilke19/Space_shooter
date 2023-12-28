@@ -96,7 +96,7 @@ class Enemy extends PVector {
     //println("enemy.render has executed");
   }
 
-  boolean isDead() {
+  boolean is_dead() {
     if (x <= _length*-1) {
       //println("enemy is dead");
       return true;
@@ -108,17 +108,17 @@ class Enemy extends PVector {
     return true;
   }
 }
-void removeDeadEnemy(ArrayList<Enemy> enemy_list) {
+void remove_dead_enemy(ArrayList<Enemy> enemy_list) {
   int lastIndex = enemy_list.size() - 1;
   for (int i = lastIndex; i > 0; i--) {
-    if (enemy_list.get(i).isDead() == true) {
+    if (enemy_list.get(i).is_dead() == true) {
       enemy_list.remove(i);
       //println("enemy was removed");
     }
   }
   //println("removeDeadEnemy has executed");
 }
-void removeHitEnemy(ArrayList<Enemy> enemy_list) {
+void remove_hit_enemy(ArrayList<Enemy> enemy_list) {
   int lastIndex = enemy_list.size() - 1;
   for (int i = lastIndex; i >= 0; i--) {
     if (enemy_list.get(i).hit() == true) {
@@ -127,13 +127,13 @@ void removeHitEnemy(ArrayList<Enemy> enemy_list) {
       float enemy_y = enemy_list.get(i).y;
 
       enemy_list.remove(i);
-      addBurst(enemy_x,enemy_y);
+      add_burst(enemy_x,enemy_y);
       enemies_killed++;
       //println("enemies_killed......." + enemies_killed + '\n');
     }
   }
 }
-void addEnemy() {
+void add_enemy() {
   //println("enemy_list.........." + enemy_list.size());
   float c_time, d_time, random_x_speed;
 
@@ -157,7 +157,7 @@ void addEnemy() {
 void remove_dead_e_bullet(ArrayList<Bullet> e_bullet_list) {
   int lastIndex = e_bullet_list.size() - 1;
   for (int i = lastIndex; i > 0; i--) {
-    if (e_bullet_list.get(i).isDead() == true) {
+    if (e_bullet_list.get(i).is_dead() == true) {
       e_bullet_list.remove(i);
       //println("e_bullet was removed........");
     }

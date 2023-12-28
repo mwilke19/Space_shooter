@@ -37,13 +37,10 @@ void keyPressed() {
   }
 }
 void show_statistics() {
-  game_timer = millis()/1000;
   fill(255);
   textAlign(LEFT);
   textFont(font, 12.5);
   text("SCORE:", 45, 50);
   text(int(enemies_killed), 125, 50);
-  text("GAME TIME:", 45, 70);
-  text(int(game_timer), 155, 70);
-  ship.renderHealthBar();
+  ship.render_health_bar();
 }

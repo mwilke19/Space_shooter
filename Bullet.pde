@@ -53,7 +53,7 @@ class Bullet extends PVector {
   }
   
   //Test to see if the s_bullet has left the screen
-  boolean isDead() {
+  boolean is_dead() {
     if (x >= width + _length || x <= _length) {
       //println("s_bullet is dead");
       return true;
@@ -66,7 +66,7 @@ class Bullet extends PVector {
 void remove_dead_s_bullet(ArrayList<Bullet> s_bullet_list) {
   int lastIndex = s_bullet_list.size() - 1;
   for (int i = lastIndex; i > 0; i--) {
-    if (s_bullet_list.get(i).isDead() == true) {
+    if (s_bullet_list.get(i).is_dead() == true) {
       s_bullet_list.remove(i);
     //println("s_bullet was removed........");
     }

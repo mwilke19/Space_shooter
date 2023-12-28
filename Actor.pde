@@ -34,13 +34,13 @@ class Actor extends PVector {
     move(actors);
     render();
     health();
-    renderHealthBar();
+    render_health_bar();
     screen_boundary();
     collision(actors);
     check_distance();
     hit();
     shot();
-    isDead();
+    is_dead();
   }
   //Checks for a collision between actors
   void collision(ArrayList<Actor> Actors) {
@@ -56,7 +56,7 @@ class Actor extends PVector {
     }
   }
   //Test to see if the particle is dead
-  boolean isDead() {
+  boolean is_dead() {
     return true;
   }
   void move(ArrayList<Actor> Actors) {
@@ -74,7 +74,7 @@ class Actor extends PVector {
   }
   void health() {
   }
-  void renderHealthBar() {
+  void render_health_bar() {
   }
    void screen_boundary() {
   }

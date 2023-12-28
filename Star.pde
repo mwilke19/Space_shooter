@@ -51,7 +51,7 @@ class Particle {
   void run() {
     move(stars);
     render();
-    isDead();
+    is_dead();
     //accel();
     //frict();
     //bounce();
@@ -83,7 +83,7 @@ class Particle {
     pop();
   }
   //Test to see if the Particle is dead
-  boolean isDead() {
+  boolean is_dead() {
     if (lifespan <= 0) {
       //println("Particle is dead");
       //println(frameCount + "......." + stars.size());
@@ -94,16 +94,16 @@ class Particle {
   }
 }
 //Methods outside the class
-void removeDeadStar(ArrayList<Particle> stars) {
+void remove_dead_star(ArrayList<Particle> stars) {
   int lastIndex = stars.size() - 1;
    for (int i = lastIndex; i > 0; i--) {
-    if (stars.get(i).isDead() == true) {
+    if (stars.get(i).is_dead() == true) {
       stars.remove(i);
       //println("star was removed");
     }
   }
 }
-void addStar(){
+void add_star(){
   float c_time,d_time;
   c_time = millis();
   d_time = c_time-last_star;

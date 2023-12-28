@@ -8,7 +8,7 @@ class Explosion extends Particle {
   void run() {
     move(burst);
     render();
-    isDead();
+    is_dead();
     accel();
     frict();
     bounce();
@@ -41,7 +41,7 @@ class Explosion extends Particle {
     pop();
   }
   //Test to see if the Particle is dead
-  boolean isDead() {
+  boolean is_dead() {
     if (lifespan <= 0) {
       //println("Burst is dead");
       //println(frameCount + "......." + stars.size());
@@ -51,16 +51,16 @@ class Explosion extends Particle {
     }
   }
 }
-void removeDeadBurst(ArrayList<Particle> burst) {
+void remove_dead_burst(ArrayList<Particle> burst) {
   int lastIndex = burst.size() - 1;
   for (int i = lastIndex; i > 0; i--) {
-    if (burst.get(i).isDead() == true) {
+    if (burst.get(i).is_dead() == true) {
       burst.remove(i);
       //println("burst was removed");
     }
   }
 }
-void addBurst(float enemy_x, float enemy_y) {
+void add_burst(float enemy_x, float enemy_y) {
   int MAX_SIZE = 500;
   color RED = color(255,0,0);
   color YELLOW = color(255,255,0);
