@@ -56,7 +56,6 @@ class Game {
     saveTable(score_data, "data/score_data.csv");
   }
   void add_new_data() {
-    if (mousePressed) {
       int c_num_of_rows = score_data.getRowCount()-1;
       int MAX = 4 ;
       if (c_num_of_rows <= MAX) {
@@ -67,7 +66,6 @@ class Game {
         new_score.setFloat("SCORE", num_of_kills);
         println(score_data.getRowCount());
       }
-    }
     save_score_data();
     println("add_new_data executed");
   }
@@ -79,12 +77,12 @@ class Game {
     float num_of_kills = enemies_killed;
 
     score_data.addColumn("NAME");
-    score_data.addColumn("KILLS");
+    score_data.addColumn("SCORE");
 
     TableRow newRow = score_data.addRow();
 
     newRow.setString("NAME", name);
-    newRow.setFloat ("KILLS", num_of_kills);
+    newRow.setFloat ("SCORE", num_of_kills);
 
     save_score_data();
     println("save_score_data executed");
@@ -94,7 +92,7 @@ class Game {
     //println(score_data.getRowCount() + " total rows in table");
     for (TableRow score_data : score_data.rows()) {
       String Name = score_data.getString("NAME");
-      int Enemies_killed = score_data.getInt("KILLS");
+      int Enemies_killed = score_data.getInt("SCORE");
 
       textSize(25);
       fill(255, 255, 0);
