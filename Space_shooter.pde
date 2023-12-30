@@ -1,7 +1,9 @@
-PFont font;
+PFont game_font;
+PFont title_font;
 Game game;
 Actor ship;
-Table score;
+
+Table score_data;
 float col_1, col_2, row_1, row_2, row_3, row_4, row_5;
 char[]  initials = new char[3];
 int cursor = 0;
@@ -9,7 +11,8 @@ void setup() {
   size(1300, 1200);
   background(0);
   textAlign(CENTER,BOTTOM);
-  font = createFont("Arial", 50);
+  game_font = createFont("Arial", 50);
+  title_font = createFont("arial black",100);
   game = new Game();
    ship = new Ship()
     .setPosition(400, 400)
@@ -17,6 +20,9 @@ void setup() {
     .setColor(255)
     .setSize(100);
   actors.add(ship);
+   //Uncomment the following two lines to see the available fonts 
+  //String[] fontList = PFont.list();
+  //printArray(fontList);
   
 }
 void draw() {
@@ -39,7 +45,7 @@ void keyPressed() {
 void show_statistics() {
   fill(255);
   textAlign(LEFT);
-  textFont(font, 12.5);
+  textFont(game_font, 12.5);
   text("SCORE:", 45, 50);
   text(int(enemies_killed), 125, 50);
   ship.render_health_bar();

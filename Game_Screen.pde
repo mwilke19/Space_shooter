@@ -1,6 +1,7 @@
 class Game {
   int g_start, g_play, g_over, g_play_again, state;
   float efficiency, DELAY;
+
   Game() {
     g_start = 0;
     g_play = 10;
@@ -32,44 +33,68 @@ class Game {
     }
     if (ship_dead == true) {
       state = g_over;
+      if (key == 's') {
+        record_score_data();
+      }
+      if (key == 'a'){
+        add_new_data();
+      }
       if (key == 'y') {
         game_reset();
       }
-      if (key == 'n') {
+      if (key == 'q') {
         exit();
       }
     }
-    println("state.........." + state);
-    println("ship_dead......" + ship_dead);
+    //println("state.........." + state);
+    //println("ship_dead......" + ship_dead);
   }
-  void save_score() {
-    score = new Table();
+  void load_score_data() {
+    score_data = loadTable("score_data.csv", "header");
+  }
+  void save_score_data() {
+    saveTable(score_data, "data/score_data.csv");
+  }
+  void add_new_data() {
+    if (mousePressed) {
+      int c_num_of_rows = score_data.getRowCount()-1;
+      int MAX = 4 ;
+      if (c_num_of_rows <= MAX) {
+        String name = "ABC";
+        float num_of_kills = random(100);
+        TableRow new_score = score_data.addRow();
+        new_score.setString("NAME", name);
+        new_score.setFloat("SCORE", num_of_kills);
+        println(score_data.getRowCount());
+      }
+    }
+    save_score_data();
+    println("add_new_data executed");
+  }
+  void record_score_data() {
+    score_data = new Table();
 
     String name = new String(initials);
 
-    float efficiency = game.efficiency;
     float num_of_kills = enemies_killed;
 
-    score.addColumn("NAME");
-    score.addColumn("EFFICIENCY");
-    score.addColumn("KILLS");
+    score_data.addColumn("NAME");
+    score_data.addColumn("KILLS");
 
-    TableRow newRow = score.addRow();
+    TableRow newRow = score_data.addRow();
 
     newRow.setString("NAME", name);
     newRow.setFloat ("KILLS", num_of_kills);
-    newRow.setFloat ("EFFICIENCY", efficiency);
 
-
-    saveTable(score, "data/SCORES.csv");
+    save_score_data();
+    println("save_score_data executed");
   }
-  void display_score() {
-    score = loadTable("SCORES.csv", "header");
-    //println(score.getRowCount() + " total rows in table");
-    for (TableRow score : score.rows()) {
-      String Name = score.getString("NAME");
-      int Efficiency = score.getInt("EFFICIENCY");
-      int Enemies_killed = score.getInt("KILLS");
+  void display_score_data() {
+    load_score_data();
+    //println(score_data.getRowCount() + " total rows in table");
+    for (TableRow score_data : score_data.rows()) {
+      String Name = score_data.getString("NAME");
+      int Enemies_killed = score_data.getInt("KILLS");
 
       textSize(25);
       fill(255, 255, 0);
@@ -83,7 +108,6 @@ class Game {
       noStroke();
       text(Name, width/4 + 150, height/2 + 100);
       text("Score: " + Enemies_killed, width/4 + 300, height/2 + 100);
-      text("Efficiency: " + Efficiency, width/4 + 500, height/2 + 100);
     }
   }
   void game_start() {
@@ -108,16 +132,18 @@ class Game {
     background(0);
 
     fill(title_color);
-    textFont(font);
+    textFont(game_font);
     textAlign(CENTER);
     textSize(125);
     fill(175);
+    textFont(title_font);
     if (floor(millis()/DELAY) % 2 == 0) {
       fill(0, 0, 255);
     }
     text("SPACE SHOOTER", width/2, height/4-100);
 
     textSize(50);
+    textFont(game_font);
     fill(0, 100, 255);
     text("CLICK TO START", width/2, height/4);
 
@@ -138,7 +164,7 @@ class Game {
         text(initials[i], x + line_width/2, y);
     }
 
-    display_score();
+    display_score_data();
   }
   void game_play() {
     for (Particle explosion : burst) {
@@ -171,7 +197,7 @@ class Game {
     remove_hit_enemy(enemy_list);
     asteroid_difficulty();
     show_statistics();
-    println("play has executed.........");
+    //println("play has executed.........");
   }
   void game_reset() {
     Ship ship = (Ship) actors.get(0);
@@ -201,10 +227,11 @@ class Game {
     background(0);
 
     fill(title_color);
-    textFont(font);
+    textFont(game_font);
     textAlign(CENTER);
     text("GAME OVER", width/2, 250);
-
+    fill(0, 0, 255);
+    text("PRESS S TO SAVE OR Q TO QUIT", width/2, 350);
     fill(text_color);
     textSize(25);
     textAlign(LEFT);
@@ -213,7 +240,5 @@ class Game {
     text("EFFICIENCY", column_1, row_3);
     text(int(efficiency), column_2, row_3);
     text(" % ", column_2 + 50, row_3);
-
-    save_score();
   }
 }
