@@ -36,7 +36,7 @@ class Game {
       if (key == 's') {
         record_score_data();
       }
-      if (key == 'a'){
+      if (key == 'a') {
         add_new_data();
       }
       if (key == 'y') {
@@ -56,16 +56,16 @@ class Game {
     saveTable(score_data, "data/score_data.csv");
   }
   void add_new_data() {
-      int c_num_of_rows = score_data.getRowCount()-1;
-      int MAX = 4 ;
-      if (c_num_of_rows <= MAX) {
-        String name = "ABC";
-        float num_of_kills = random(100);
-        TableRow new_score = score_data.addRow();
-        new_score.setString("NAME", name);
-        new_score.setFloat("SCORE", num_of_kills);
-        println(score_data.getRowCount());
-      }
+    int c_num_of_rows = score_data.getRowCount()-1;
+    int MAX = 4 ;
+    if (c_num_of_rows <= MAX) {
+      String name = "ABC";
+      float num_of_kills = random(100);
+      TableRow new_score = score_data.addRow();
+      new_score.setString("NAME", name);
+      new_score.setFloat("SCORE", num_of_kills);
+      println(score_data.getRowCount());
+    }
     save_score_data();
     println("add_new_data executed");
   }
@@ -90,11 +90,12 @@ class Game {
   void display_score_data() {
     load_score_data();
     //println(score_data.getRowCount() + " total rows in table");
-    for (TableRow score_data : score_data.rows()) {
-      String Name = score_data.getString("NAME");
-      int Enemies_killed = score_data.getInt("SCORE");
-
-      textSize(25);
+    fill(255, 255, 0);
+    for (int i = 0; i < score_data.getRowCount(); i++) {
+      TableRow row = score_data.getRow(i);
+      String name = row.getString("NAME");
+      int score = row.getInt("SCORE");
+       textSize(25);
       fill(255, 255, 0);
       text("TOP SCORES", width/2, height/2);
       stroke(255, 0, 0);
@@ -103,9 +104,10 @@ class Game {
       noFill();
       stroke(255, 255, 0);
       rect(50, 50, 1200, 900);
-      noStroke();
-      text(Name, width/4 + 150, height/2 + 100);
-      text("Score: " + Enemies_killed, width/4 + 300, height/2 + 100);
+
+      int y = height/2 + 50 + (50 * i);
+      text(name, width/4 + 250, y);
+      text(score, width/4 + 400, y);
     }
   }
   void game_start() {
