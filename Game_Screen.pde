@@ -51,6 +51,8 @@ class Game {
   }
   void load_score_data() {
     score_data = loadTable("score_data.csv", "header");
+    score_data.setColumnType("SCORE", Table.FLOAT);
+    score_data.sortReverse(1);
   }
   void save_score_data() {
     saveTable(score_data, "data/score_data.csv");
@@ -88,21 +90,20 @@ class Game {
     println("save_score_data executed");
   }
   void display_score_data() {
-    load_score_data();
+    
     //println(score_data.getRowCount() + " total rows in table");
-    fill(255, 255, 0);
-    for (int i = 0; i < score_data.getRowCount(); i++) {
+      for (int i = 0; i < score_data.getRowCount(); i++) {
       TableRow row = score_data.getRow(i);
       String name = row.getString("NAME");
       int score = row.getInt("SCORE");
        textSize(25);
       fill(255, 255, 0);
       text("TOP SCORES", width/2, height/2);
-      stroke(255, 0, 0);
+      //stroke(255, 0, 0);
       //strokeWeight(5);
       line(width/4, height/2+5, 900, height/2+5);
       noFill();
-      stroke(255, 255, 0);
+      //stroke(255, 255, 0);
       rect(50, 50, 1200, 900);
 
       int y = height/2 + 50 + (50 * i);
