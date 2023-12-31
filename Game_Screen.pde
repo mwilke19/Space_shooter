@@ -32,12 +32,9 @@ class Game {
       }
     }
     if (ship_dead == true) {
-      state = g_over;
-      if (key == 's') {
-        record_score_data();
-      }
+      state = g_over;      
       if (key == 'a') {
-        add_new_data();
+        add_new_score();
       }
       if (key == 'y') {
         game_reset();
@@ -57,55 +54,44 @@ class Game {
   void save_score_data() {
     saveTable(score_data, "data/score_data.csv");
   }
-  void add_new_data() {
+  void add_new_score() {
+    //create_score_table();
     int c_num_of_rows = score_data.getRowCount()-1;
     int MAX = 4 ;
     if (c_num_of_rows <= MAX) {
-      String name = "ABC";
-      float num_of_kills = random(100);
       TableRow new_score = score_data.addRow();
+      String name = new String(initials);
+      float score = enemies_killed;
+
       new_score.setString("NAME", name);
-      new_score.setFloat("SCORE", num_of_kills);
+      new_score.setFloat("SCORE", score);
       println(score_data.getRowCount());
     }
     save_score_data();
     println("add_new_data executed");
   }
-  void record_score_data() {
+  void create_score_table() {
     score_data = new Table();
-
-    String name = new String(initials);
-
-    float num_of_kills = enemies_killed;
-
     score_data.addColumn("NAME");
     score_data.addColumn("SCORE");
-
-    TableRow newRow = score_data.addRow();
-
-    newRow.setString("NAME", name);
-    newRow.setFloat ("SCORE", num_of_kills);
-
-    save_score_data();
-    println("save_score_data executed");
   }
   void display_score_data() {
-    
+
     //println(score_data.getRowCount() + " total rows in table");
-      for (int i = 0; i < score_data.getRowCount(); i++) {
+    for (int i = 0; i < score_data.getRowCount(); i++) {
       TableRow row = score_data.getRow(i);
       String name = row.getString("NAME");
       int score = row.getInt("SCORE");
-       textSize(25);
+      textSize(25);
       fill(255, 255, 0);
       text("TOP SCORES", width/2, height/2);
-      //stroke(255, 0, 0);
+      stroke(255, 0, 0);
       //strokeWeight(5);
       line(width/4, height/2+5, 900, height/2+5);
       noFill();
-      //stroke(255, 255, 0);
+      stroke(255, 255, 0);
       rect(50, 50, 1200, 900);
-
+      noStroke();
       int y = height/2 + 50 + (50 * i);
       text(name, width/4 + 250, y);
       text(score, width/4 + 400, y);
