@@ -1,4 +1,4 @@
-ArrayList<Particle> burst = new ArrayList<Particle>();
+ArrayList<Particle> burst_list = new ArrayList<Particle>();
 float last_burst = 0;
 float burst_timer = 1;
 class Explosion extends Particle {
@@ -6,7 +6,7 @@ class Explosion extends Particle {
     super();
   }
   void run() {
-    move(burst);
+    move(burst_list);
     render();
     is_dead();
     accel();
@@ -27,7 +27,7 @@ class Explosion extends Particle {
     if (y <= d/2 || y >= height-d/2)y_vel*=-1;
   }
   //Moves Particle and decrements lifespan
-  void move(ArrayList<Particle> burst) {
+  void move(ArrayList<Particle> burst_list) {
     float rot = random(0, TWO_PI);
     x += x_vel*sin(rot);
     y -= y_vel*cos(rot);
@@ -43,20 +43,20 @@ class Explosion extends Particle {
   //Test to see if the Particle is dead
   boolean is_dead() {
     if (lifespan <= 0) {
-      //println("Burst is dead");
-      //println(frameCount + "......." + stars.size());
+      //println("burst_list is dead");
+      //println(frameCount + "......." + star_list.size());
       return true;
     } else {
       return false;
     }
   }
 }
-void remove_dead_burst(ArrayList<Particle> burst) {
-  int lastIndex = burst.size() - 1;
-  for (int i = lastIndex; i > 0; i--) {
-    if (burst.get(i).is_dead() == true) {
-      burst.remove(i);
-      //println("burst was removed");
+void remove_dead_burst(ArrayList<Particle> burst_list) {
+  int last_index = burst_list.size() - 1;
+  for (int i = last_index; i > 0; i--) {
+    if (burst_list.get(i).is_dead() == true) {
+      burst_list.remove(i);
+      //println("burst_list was removed");
     }
   }
 }
@@ -64,26 +64,27 @@ void add_burst(float enemy_x, float enemy_y) {
   int MAX_SIZE = 500;
   color RED = color(255,0,0);
   color YELLOW = color(255,255,0);
-  while (burst.size() <= MAX_SIZE) {
+  while (burst_list.size() <= MAX_SIZE) {
+    noStroke();
     Particle red_explosion = new Explosion()
-      .setPosition(enemy_x, enemy_y)
-      .setLength(20)
-      .setWidth(20)
-      .setVelocity(-1, 1)
-      .setAcceleration(1)
-      .setFriction(.77)
-      .setColor(RED)
-      .setLifespan(150);
+      .set_position(enemy_x, enemy_y)
+      .set_length(20)
+      .set_width(20)
+      .set_velocity(-1, 1)
+      .set_acceleration(1)
+      .set_friction(.77)
+      .set_color(RED)
+      .set_lifespan(150);
     Particle yellow_explosion = new Explosion()
-      .setPosition(enemy_x, enemy_y)
-      .setLength(20)
-      .setWidth(20)
-      .setVelocity(-1, 1)
-      .setAcceleration(1)
-      .setFriction(.88)
-      .setColor(YELLOW)
-      .setLifespan(150);
-    burst.add(red_explosion);
-    burst.add(yellow_explosion);
+      .set_position(enemy_x, enemy_y)
+      .set_length(20)
+      .set_width(20)
+      .set_velocity(-1, 1)
+      .set_acceleration(1)
+      .set_friction(.88)
+      .set_color(YELLOW)
+      .set_lifespan(150);
+    burst_list.add(red_explosion);
+    burst_list.add(yellow_explosion);
   }
 }

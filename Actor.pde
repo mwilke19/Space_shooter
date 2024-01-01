@@ -6,7 +6,7 @@ class Actor extends PVector {
   Actor() {
   }
   //Set actor properties
-  Actor setPosition(int x_, int y_) {
+  Actor set_position(int x_, int y_) {
     x = x_;
     y = y_;
     return this;
@@ -16,7 +16,7 @@ class Actor extends PVector {
     y_speed = y_speed_;
     return this;
   }
-  Actor setColor(color c) {
+  Actor set_color(color c) {
     _color = c;
     return this;
   }

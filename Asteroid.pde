@@ -37,8 +37,8 @@ class Asteroid extends Actor {
 }
 //Methods outside the class
 void remove_dead_asteroid(ArrayList<Actor> actors) {
-  int lastIndex = actors.size() - 1;
-  for (int i = lastIndex; i > 0; i--) {
+  int last_index = actors.size() - 1;
+  for (int i = last_index; i > 0; i--) {
     if (actors.get(i).is_dead() == true) {
       actors.remove(i);
       asteroid_count++;
@@ -54,10 +54,10 @@ void add_asteroid() {
   if (last_asteroid == 0 || d_time >= asteroid_timer) {
     color _color = color(145);
     Actor asteroid = new Asteroid()
-      .setPosition(int(width), int(random(height)))
+      .set_position(int(width), int(random(height)))
       .setSize(int(random(10, 75)))
       .setSpeed(-2, 2)
-      .setColor(_color);
+      .set_color(_color);
     actors.add(asteroid);
     last_asteroid = c_time;
   }

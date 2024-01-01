@@ -28,20 +28,14 @@ class Game {
         state = g_play;
       }
       if (cursor < 3) {
+        push();
+        textFont(primary_text_font);
         text("YOU MUST ENTER YOUR INITIALS TO PLAY", width/2, height/2-100);
+        pop();
       }
     }
     if (ship_dead == true) {
       state = g_over;      
-      if (key == 'a') {
-        add_new_score();
-      }
-      if (key == 'y') {
-        game_reset();
-      }
-      if (key == 'q') {
-        exit();
-      }
     }
     //println("state.........." + state);
     //println("ship_dead......" + ship_dead);
@@ -55,10 +49,6 @@ class Game {
     saveTable(score_data, "data/score_data.csv");
   }
   void add_new_score() {
-    //create_score_table();
-    int c_num_of_rows = score_data.getRowCount()-1;
-    int MAX = 4 ;
-    if (c_num_of_rows <= MAX) {
       TableRow new_score = score_data.addRow();
       String name = new String(initials);
       float score = enemies_killed;
@@ -66,9 +56,9 @@ class Game {
       new_score.setString("NAME", name);
       new_score.setFloat("SCORE", score);
       println(score_data.getRowCount());
-    }
+    
     save_score_data();
-    println("add_new_data executed");
+    //println("add_new_data executed");
   }
   void create_score_table() {
     score_data = new Table();
@@ -76,25 +66,18 @@ class Game {
     score_data.addColumn("SCORE");
   }
   void display_score_data() {
-
     //println(score_data.getRowCount() + " total rows in table");
     for (int i = 0; i < score_data.getRowCount(); i++) {
       TableRow row = score_data.getRow(i);
       String name = row.getString("NAME");
       int score = row.getInt("SCORE");
-      textSize(25);
-      fill(255, 255, 0);
-      text("TOP SCORES", width/2, height/2);
-      stroke(255, 0, 0);
-      //strokeWeight(5);
-      line(width/4, height/2+5, 900, height/2+5);
-      noFill();
-      stroke(255, 255, 0);
-      rect(50, 50, 1200, 900);
-      noStroke();
       int y = height/2 + 50 + (50 * i);
+      
+      push();
+      textFont(primary_text_font);
       text(name, width/4 + 250, y);
       text(score, width/4 + 400, y);
+      pop();
     }
   }
   void game_start() {
@@ -117,47 +100,63 @@ class Game {
     text_color  = 255;
 
     background(0);
-
+    
+    push();
     fill(title_color);
-    textFont(game_font);
+    textFont(primary_text_font);
     textAlign(CENTER);
-    textSize(125);
-    fill(175);
-    textFont(title_font);
+    fill(255,0,0);
+    textFont(primary_title_font);
     if (floor(millis()/DELAY) % 2 == 0) {
       fill(0, 0, 255);
     }
     text("SPACE SHOOTER", width/2, height/4-100);
-
-    textSize(50);
-    textFont(game_font);
+    pop();
+    
+    push();
+    textFont(secondary_title_font);
     fill(0, 100, 255);
     text("CLICK TO START", width/2, height/4);
-
+    pop();
+    
+    push();
     fill(text_color);
-    textSize(25);
+    textFont(primary_text_font);
     text("ARROW KEYS FOR DIRECTIONAL CONTROL", width/2, height/4+50);
     text("SPACEBAR = FIRE", width/2, row_1);
     fill(0, 255, 0);
     text("PLEASE ENTER YOUR INITIALS", width/2, row_2);
+    pop();
 
     for (int i = 0; i < 3; i++) {
       int x = outer_gap + (line_width + inner_gap) * i;
       int y = height/2-75;
 
       fill(255, 175, 125);
-      textSize(65);
+      textFont(secondary_title_font);
       if (cursor > i)
         text(initials[i], x + line_width/2, y);
     }
-
+    
+    push();
+    fill(255, 255, 0);
+    textFont(secondary_title_font);
+    text("TOP SCORES", width/2, height/2);
+    stroke(255, 0, 0);
+    line(width/4, height/2+5, 900, height/2+5);
+    noFill();
+    stroke(255, 255, 0);
+    rect(50, 50, 1200, 900);
+    noStroke();
+    pop();
+    
     display_score_data();
   }
   void game_play() {
-    for (Particle explosion : burst) {
+    for (Particle explosion : burst_list) {
       explosion.run();
     }
-    for (Particle star : stars) {
+    for (Particle star : star_list) {
       star.run();
     }
     for (Actor actor : actors) {
@@ -175,8 +174,8 @@ class Game {
     add_star();
     add_asteroid();
     add_enemy();
-    remove_dead_star(stars);
-    remove_dead_burst(burst);
+    remove_dead_star(star_list);
+    remove_dead_burst(burst_list);
     remove_dead_asteroid(actors);
     remove_dead_s_bullet(s_bullet_list);
     remove_dead_e_bullet(e_bullet_list);
@@ -212,20 +211,27 @@ class Game {
     row_3 = height/2 - 100;
 
     background(0);
-
+    
+    push();
     fill(title_color);
-    textFont(game_font);
-    textAlign(CENTER);
+    textFont(primary_title_font);
+    if (floor(millis()/DELAY) % 2 == 0) {
+      fill(255, 255, 0);
+    }
     text("GAME OVER", width/2, 250);
+    pop();
+    
+    push();
+    textFont(primary_text_font);
     fill(0, 0, 255);
-    text("PRESS S TO SAVE OR Q TO QUIT", width/2, 350);
+    text("PRESS 'A' TO SAVE OR 'Q' TO QUIT", width/2, 350);
     fill(text_color);
-    textSize(25);
-    textAlign(LEFT);
+    textAlign(LEFT,BOTTOM);
     text("ENEMIES KILLED", column_1, row_2);
     text(int(enemies_killed), column_2, row_2);
     text("EFFICIENCY", column_1, row_3);
     text(int(efficiency), column_2, row_3);
     text(" % ", column_2 + 50, row_3);
+    pop();
   }
 }

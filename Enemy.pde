@@ -18,7 +18,7 @@ class Enemy extends PVector {
     last_burst = 0;
     last_fire = 0;
   }
-  Enemy setPosition(float x_, float y_) {
+  Enemy set_position(float x_, float y_) {
     x = x_;
     y = y_;
     return this;
@@ -33,7 +33,7 @@ class Enemy extends PVector {
     y_speed = y_speed_;
     return this;
   }
-  Enemy setColor(color c) {
+  Enemy set_color(color c) {
     enemy_color = c;
     return this;
   }
@@ -109,8 +109,8 @@ class Enemy extends PVector {
   }
 }
 void remove_dead_enemy(ArrayList<Enemy> enemy_list) {
-  int lastIndex = enemy_list.size() - 1;
-  for (int i = lastIndex; i > 0; i--) {
+  int last_index = enemy_list.size() - 1;
+  for (int i = last_index; i > 0; i--) {
     if (enemy_list.get(i).is_dead() == true) {
       enemy_list.remove(i);
       //println("enemy was removed");
@@ -119,8 +119,8 @@ void remove_dead_enemy(ArrayList<Enemy> enemy_list) {
   //println("removeDeadEnemy has executed");
 }
 void remove_hit_enemy(ArrayList<Enemy> enemy_list) {
-  int lastIndex = enemy_list.size() - 1;
-  for (int i = lastIndex; i >= 0; i--) {
+  int last_index = enemy_list.size() - 1;
+  for (int i = last_index; i >= 0; i--) {
     if (enemy_list.get(i).hit() == true) {
       
       float enemy_x = enemy_list.get(i).x;
@@ -144,10 +144,10 @@ void add_enemy() {
   if (last_enemy == 0 || d_time >= enemy_timer) {
     color enemy_color = color(255, 255, 0);
     Enemy enemy = new Enemy()
-      .setPosition(int(width), int(random(height)))
+      .set_position(int(width), int(random(height)))
       .setDimension(50, 50)
       .setSpeed(int(random_x_speed), 0)
-      .setColor(enemy_color);
+      .set_color(enemy_color);
     enemy_list.add(enemy);
     enemy_count++;
     last_enemy = c_time;
@@ -155,8 +155,8 @@ void add_enemy() {
   //println("enemy_count......" + enemy_count + '\n');
 }
 void remove_dead_e_bullet(ArrayList<Bullet> e_bullet_list) {
-  int lastIndex = e_bullet_list.size() - 1;
-  for (int i = lastIndex; i > 0; i--) {
+  int last_index = e_bullet_list.size() - 1;
+  for (int i = last_index; i > 0; i--) {
     if (e_bullet_list.get(i).is_dead() == true) {
       e_bullet_list.remove(i);
       //println("e_bullet was removed........");
@@ -164,15 +164,15 @@ void remove_dead_e_bullet(ArrayList<Bullet> e_bullet_list) {
   }
 }
 void add_E_bullet() {
-  int lastIndex = enemy_list.size() - 1;
-  for (int i = lastIndex; i >= 0; i--) {
+  int last_index = enemy_list.size() - 1;
+  for (int i = last_index; i >= 0; i--) {
     float enemy_x = enemy_list.get(i).x;
     float enemy_y = enemy_list.get(i).y;
     e_bullet = new Bullet()
-      .setPosition(enemy_x, enemy_y)
+      .set_position(enemy_x, enemy_y)
       .setDimension(9, 9)
       .setSpeed(-8, 0)
-      .setColor(e_bullet_color);
+      .set_color(e_bullet_color);
     e_bullet_list.add(e_bullet);
     //println("e_bullet_list size.........." +e_bullet_list.size());
   }

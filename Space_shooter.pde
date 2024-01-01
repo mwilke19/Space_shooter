@@ -1,5 +1,4 @@
-PFont game_font;
-PFont title_font;
+PFont game_statistic_font, primary_text_font,primary_title_font,secondary_title_font;
 Game game;
 Actor ship;
 
@@ -10,31 +9,53 @@ int cursor = 0;
 void setup() {
   size(1300, 1200);
   background(0);
-  textAlign(CENTER,BOTTOM);
-  game_font = createFont("Arial", 50);
-  title_font = createFont("arial black",100);
+  
+  textAlign(CENTER, BOTTOM);
+  game_statistic_font = createFont("Arial",12.5);
+  primary_text_font = createFont("Arial", 25);
+  primary_title_font = createFont("Arial Black", 100);
+  secondary_title_font = createFont("Arial Black",50);
+  
   game = new Game();
-   ship = new Ship()
-    .setPosition(400, 400)
+  
+  ship = new Ship()
+    .set_position(400, 400)
     .setSpeed(4, 5)
-    .setColor(255)
+    .set_color(255)
     .setSize(100);
   actors.add(ship);
-   //Uncomment the following two lines to see the available fonts 
+  
+  game.load_score_data();
+
+  //Uncomment the following two lines to see the available fonts
   //String[] fontList = PFont.list();
   //printArray(fontList);
-  
 }
 void draw() {
   smooth();
   background(0);
   game.run();
 }
+void keyReleased() {
+  boolean ship_dead = actors.get(0).is_dead();
+
+  if (ship_dead) {
+    if (key == 's' || key == 'S') {
+      game.add_new_score();
+    }
+    if (key == 'y' || key == 'Y') {
+      game.game_reset();
+    }
+    if (key == 'q' || key == 'Q') {
+      exit();
+    }
+  }
+}
 void keyPressed() {
   if (keyCode == BACKSPACE && cursor > 0) {
     cursor = cursor - 1;
     initials[cursor] = 0;
-  } else if (cursor < 3) { 
+  } else if (cursor < 3) {
     char initial = Character.toUpperCase(key);
     if (initial == constrain(initial, 'A', 'Z')) {
       initials[cursor] = initial;
@@ -43,10 +64,13 @@ void keyPressed() {
   }
 }
 void show_statistics() {
+  push();
   fill(255);
-  textAlign(LEFT);
-  textFont(game_font, 12.5);
+  textAlign(LEFT,BOTTOM);
+  textFont(game_statistic_font);
   text("SCORE:", 45, 50);
   text(int(enemies_killed), 125, 50);
+  pop();
   ship.render_health_bar();
+  
 }

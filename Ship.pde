@@ -126,12 +126,14 @@ class Ship extends Actor {
     g_bar_length = c_health;
     r_bar_length = 100;
     bar_width = 10;
+    push();
     fill(255);
-    textFont(game_font, 12.5);
+    textFont(game_statistic_font);
     text("HEALTH:", 45, 25);
     fill(255, 0, 0);
     rect(115, 15, r_bar_length, bar_width);
     fill(0, 255, 0);
     rect(115, 15, g_bar_length, bar_width);
+    pop();
   }
 }

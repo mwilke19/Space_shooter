@@ -15,7 +15,7 @@ class Bullet extends PVector {
   Bullet() {
     super();
   }
-  Bullet setPosition(float x_, float y_) {
+  Bullet set_position(float x_, float y_) {
     x = x_;
     y = y_;
     return this;
@@ -30,7 +30,7 @@ class Bullet extends PVector {
     y_speed = y_speed_;
     return this;
   }
-  Bullet setColor(color c) {
+  Bullet set_color(color c) {
     s_bullet_color = c;
     return this;
   }
@@ -64,8 +64,8 @@ class Bullet extends PVector {
 }
 //Methods outside the class
 void remove_dead_s_bullet(ArrayList<Bullet> s_bullet_list) {
-  int lastIndex = s_bullet_list.size() - 1;
-  for (int i = lastIndex; i > 0; i--) {
+  int last_index = s_bullet_list.size() - 1;
+  for (int i = last_index; i > 0; i--) {
     if (s_bullet_list.get(i).is_dead() == true) {
       s_bullet_list.remove(i);
     //println("s_bullet was removed........");
@@ -76,9 +76,9 @@ void add_S_bullet() {
   float ship_x = actors.get(0).x;
   float ship_y = actors.get(0).y;
   s_bullet = new Bullet()
-    .setPosition(ship_x, ship_y)
+    .set_position(ship_x, ship_y)
     .setDimension(9, 9)
     .setSpeed(15, 0)
-    .setColor(s_bullet_color);
+    .set_color(s_bullet_color);
   s_bullet_list.add(s_bullet);
 }
