@@ -28,7 +28,7 @@ class Enemy extends PVector {
     _width = _width_;
     return this;
   }
-  Enemy setSpeed(int x_speed_, int y_speed_) {
+  Enemy set_speed(int x_speed_, int y_speed_) {
     x_speed = x_speed_;
     y_speed = y_speed_;
     return this;
@@ -83,14 +83,10 @@ class Enemy extends PVector {
   }
   void render() {
     push();
-    if (hit) {
-      fill(color(255, 0, 0));
-    } else {
-      fill(enemy_color);
-    }
+    fill(YELLOW);
     rectMode(CENTER);
     rect(x, y, _length, _width);
-    fill(255, 0, 0);
+    fill(RED);
     ellipse(x, y, _length-5, _width-5);
     pop();
     //println("enemy.render has executed");
@@ -142,11 +138,11 @@ void add_enemy() {
   random_x_speed = random(2, 7);
 
   if (last_enemy == 0 || d_time >= enemy_timer) {
-    color enemy_color = color(255, 255, 0);
+    color enemy_color = RED;
     Enemy enemy = new Enemy()
       .set_position(int(width), int(random(height)))
       .setDimension(50, 50)
-      .setSpeed(int(random_x_speed), 0)
+      .set_speed(int(random_x_speed), 0)
       .set_color(enemy_color);
     enemy_list.add(enemy);
     enemy_count++;
@@ -171,7 +167,7 @@ void add_E_bullet() {
     e_bullet = new Bullet()
       .set_position(enemy_x, enemy_y)
       .setDimension(9, 9)
-      .setSpeed(-8, 0)
+      .set_speed(-8, 0)
       .set_color(e_bullet_color);
     e_bullet_list.add(e_bullet);
     //println("e_bullet_list size.........." +e_bullet_list.size());

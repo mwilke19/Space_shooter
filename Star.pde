@@ -105,14 +105,13 @@ void add_star(){
   
   if (last_star == 0 || d_time >= star_timer) {
     //println(star_list.size());
-    color _color = color(random(255),random(255),random(255));
     Particle star = new Particle()
       .set_position(random(width), random(height))
-      .set_diameter(int(random(1, 3)))
+      .set_diameter(int(random(1, 4)))
       .set_velocity(-1, 1)
       .set_acceleration(.5)
       .set_friction(.99)
-      .set_color(_color)
+      .set_color(WHITE)
       .set_lifespan(500);
     star_list.add(star);
     last_star = c_time;

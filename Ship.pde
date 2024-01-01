@@ -8,17 +8,15 @@ class Ship extends Actor {
     c_health = 100;
     p_health = 0;
   }
-  void move(ArrayList<Actor> actors) {
-    //Moves ship
+  void move(ArrayList<Actor> actor_list) {
     if (keyPressed) {
-      //direction control
       if (key == CODED) {
         if (keyCode == UP)y -= y_speed;
         if (keyCode == DOWN)y += y_speed;
         if (keyCode == LEFT)x -= x_speed;
         if (keyCode == RIGHT)x += x_speed;
       }
-      //button control
+      
       switch(key) {
       case 'x':
       case 'X':
@@ -31,11 +29,9 @@ class Ship extends Actor {
     }
   }
   void screen_boundary() {
-    //Stops ship on the edge of screen
     if (x < 100)x = 100;
     if (x > width)x = width;
 
-    //Allows ship to exit screen and wrap to the opposite side
     if (y > height || y < 0) {
       if (y < 0) {
         y = height;
@@ -45,9 +41,9 @@ class Ship extends Actor {
     }
   }
   boolean check_E_distance(Enemy enemy_list) {
-    float ship_x = actors.get(0).x;
-    float ship_y = actors.get(0).y;
-    float ship_length = actors.get(0).size;
+    float ship_x = actor_list.get(0).x;
+    float ship_y = actor_list.get(0).y;
+    float ship_length = actor_list.get(0).size;
     PVector ship = new PVector(ship_x, ship_y);
     PVector enemy = new PVector(enemy_list.x, enemy_list.y);
     float dist = PVector.dist(ship, enemy)-(ship_length/10 + enemy_list._length);
@@ -55,9 +51,9 @@ class Ship extends Actor {
     return(dist <= 0);
   }
   boolean check_E_bullet_distance(Bullet e_bullet_list) {
-    float ship_x = actors.get(0).x;
-    float ship_y = actors.get(0).y;
-    float ship_length = actors.get(0).size;
+    float ship_x = actor_list.get(0).x;
+    float ship_y = actor_list.get(0).y;
+    float ship_length = actor_list.get(0).size;
     PVector ship = new PVector(ship_x, ship_y);
     PVector enemy_bullet = new PVector(e_bullet_list.x, e_bullet_list.y);
     float dist = PVector.dist(ship, enemy_bullet)-(ship_length/10 + e_bullet_list._length);
@@ -87,24 +83,22 @@ class Ship extends Actor {
   }
 
   void render() {
-    //Name triangle vertices
     ship_length = x - 100;
     nose_x = x;
     nose_y = y;
     ship_top = y - 10;
     ship_bottom = y + 10;
-    //Draw ship to the screen
+    
     push();
     if (collision || hit || shot) {
-      fill(color(255, 0, 0));
+      fill(RED);
     } else {
-      fill(_color);
+      fill(WHITE);
     }
     triangle(ship_length, ship_bottom, nose_x, nose_y, ship_length, ship_top);
     pop();
   }
   void health() {
-    //Decreases health when a collision is occuring
     if (collision || hit || shot) {
       c_health-=1;
       p_health = c_health;
@@ -113,7 +107,6 @@ class Ship extends Actor {
     }
   }
   boolean is_dead() {
-    //Test to see if the ship health has run out
     if (c_health<=0) {
       //println("the ship is dead");
       return true;
@@ -122,17 +115,16 @@ class Ship extends Actor {
     }
   }
   void render_health_bar() {
-    //Draws health bars to the screen
     g_bar_length = c_health;
     r_bar_length = 100;
     bar_width = 10;
     push();
-    fill(255);
+    fill(WHITE);
     textFont(game_statistic_font);
     text("HEALTH:", 45, 25);
-    fill(255, 0, 0);
+    fill(RED);
     rect(115, 15, r_bar_length, bar_width);
-    fill(0, 255, 0);
+    fill(GREEN);
     rect(115, 15, g_bar_length, bar_width);
     pop();
   }

@@ -21,26 +21,22 @@ class Explosion extends Particle {
     x_vel *= frict;
     y_vel *= frict;
   }
-  //Bounce is used with velocity, acceleration and friction
   void bounce() {
     if (x <= d/2 || x >= width-d/2)x_vel*=-1;
     if (y <= d/2 || y >= height-d/2)y_vel*=-1;
   }
-  //Moves Particle and decrements lifespan
   void move(ArrayList<Particle> burst_list) {
     float rot = random(0, TWO_PI);
     x += x_vel*sin(rot);
     y -= y_vel*cos(rot);
     lifespan-=1.0;
   }
-  //Draws Particle to the screen
   void render() {
     push();
     fill(_color, lifespan);
     ellipse(x, y, _width, _length);
     pop();
   }
-  //Test to see if the Particle is dead
   boolean is_dead() {
     if (lifespan <= 0) {
       //println("burst_list is dead");
@@ -62,8 +58,7 @@ void remove_dead_burst(ArrayList<Particle> burst_list) {
 }
 void add_burst(float enemy_x, float enemy_y) {
   int MAX_SIZE = 500;
-  color RED = color(255,0,0);
-  color YELLOW = color(255,255,0);
+  
   while (burst_list.size() <= MAX_SIZE) {
     noStroke();
     Particle red_explosion = new Explosion()

@@ -25,7 +25,7 @@ class Bullet extends PVector {
     _width = _width_;
     return this;
   }
-  Bullet setSpeed(int x_speed_, int y_speed_) {
+  Bullet set_speed(int x_speed_, int y_speed_) {
     x_speed = x_speed_;
     y_speed = y_speed_;
     return this;
@@ -39,20 +39,14 @@ class Bullet extends PVector {
     render();
   }
   void render() {
-    push();
-    if (hit_target) {
-      fill(color(255, 0, 0));
-    } else {
-      fill(s_bullet_color);
-    }
+    push();    
+    fill(s_bullet_color);
     ellipse(x, y, _length, _width);
     pop();
   }
    void move() {
     x += x_speed;
   }
-  
-  //Test to see if the s_bullet has left the screen
   boolean is_dead() {
     if (x >= width + _length || x <= _length) {
       //println("s_bullet is dead");
@@ -62,7 +56,6 @@ class Bullet extends PVector {
     }
   }
 }
-//Methods outside the class
 void remove_dead_s_bullet(ArrayList<Bullet> s_bullet_list) {
   int last_index = s_bullet_list.size() - 1;
   for (int i = last_index; i > 0; i--) {
@@ -73,12 +66,12 @@ void remove_dead_s_bullet(ArrayList<Bullet> s_bullet_list) {
   }
 }
 void add_S_bullet() {
-  float ship_x = actors.get(0).x;
-  float ship_y = actors.get(0).y;
+  float ship_x = actor_list.get(0).x;
+  float ship_y = actor_list.get(0).y;
   s_bullet = new Bullet()
     .set_position(ship_x, ship_y)
     .setDimension(9, 9)
-    .setSpeed(15, 0)
+    .set_speed(15, 0)
     .set_color(s_bullet_color);
   s_bullet_list.add(s_bullet);
 }

@@ -9,9 +9,9 @@ class Game {
     state = g_start;
   }
   void run() {
-    //ship is the first index of actors ArrayList
+    //ship is the first index of actor_list ArrayList
     //It is added in setup
-    boolean ship_dead = actors.get(0).is_dead();
+    boolean ship_dead = actor_list.get(0).is_dead();
 
     if (state == g_start) {
       game_start();
@@ -30,6 +30,7 @@ class Game {
       if (cursor < 3) {
         push();
         textFont(primary_text_font);
+        fill(RED);
         text("YOU MUST ENTER YOUR INITIALS TO PLAY", width/2, height/2-100);
         pop();
       }
@@ -82,7 +83,6 @@ class Game {
   }
   void game_start() {
     float row_1, row_2, row_3, row_4, row_5;
-    int title_color, text_color;
     int outer_gap = 525; // 500px of space on left and right
     int inner_gap = 30;  // 30px between letters
     int total_width = width - (outer_gap * 2);
@@ -96,35 +96,32 @@ class Game {
     row_4 = height/4 + 200;
     row_5 = height/2 + 50;
 
-    title_color = color(0, 255, 0);
-    text_color  = 255;
-
     background(0);
     
     push();
-    fill(title_color);
+    fill(GREEN);
     textFont(primary_text_font);
     textAlign(CENTER);
-    fill(255,0,0);
+    fill(BLUE);
     textFont(primary_title_font);
     if (floor(millis()/DELAY) % 2 == 0) {
-      fill(0, 0, 255);
+      fill(RED);
     }
     text("SPACE SHOOTER", width/2, height/4-100);
     pop();
     
     push();
     textFont(secondary_title_font);
-    fill(0, 100, 255);
+    fill(GREEN);
     text("CLICK TO START", width/2, height/4);
     pop();
     
     push();
-    fill(text_color);
+    fill(WHITE);
     textFont(primary_text_font);
     text("ARROW KEYS FOR DIRECTIONAL CONTROL", width/2, height/4+50);
     text("SPACEBAR = FIRE", width/2, row_1);
-    fill(0, 255, 0);
+    fill(GREEN);
     text("PLEASE ENTER YOUR INITIALS", width/2, row_2);
     pop();
 
@@ -132,7 +129,7 @@ class Game {
       int x = outer_gap + (line_width + inner_gap) * i;
       int y = height/2-75;
 
-      fill(255, 175, 125);
+      fill(WHITE);
       textFont(secondary_title_font);
       if (cursor > i)
         text(initials[i], x + line_width/2, y);
@@ -159,7 +156,7 @@ class Game {
     for (Particle star : star_list) {
       star.run();
     }
-    for (Actor actor : actors) {
+    for (Actor actor : actor_list) {
       actor.run();
     }
     for (Bullet s_bullet : s_bullet_list) {
@@ -176,7 +173,7 @@ class Game {
     add_enemy();
     remove_dead_star(star_list);
     remove_dead_burst(burst_list);
-    remove_dead_asteroid(actors);
+    remove_dead_asteroid(actor_list);
     remove_dead_s_bullet(s_bullet_list);
     remove_dead_e_bullet(e_bullet_list);
     remove_dead_enemy(enemy_list);
@@ -186,21 +183,17 @@ class Game {
     //println("play has executed.........");
   }
   void game_reset() {
-    Ship ship = (Ship) actors.get(0);
+    Ship ship = (Ship) actor_list.get(0);
     state = g_play;
     game.efficiency = 0;
     ship.c_health = 100;
     enemies_killed = 0;
     enemy_list.clear();
-    println("enemy_list............." + enemy_list.size());
-    //actors.clear();
+    //println("enemy_list............." + enemy_list.size());
+    //actor_list.clear();
   }
   void game_over() {
     float column_1, column_2, row_1, row_2, row_3;
-    int title_color, text_color;
-
-    title_color = color(255, 0, 0);
-    text_color = 255;
 
     efficiency = (enemies_killed/enemy_count)*100;
 
@@ -213,19 +206,19 @@ class Game {
     background(0);
     
     push();
-    fill(title_color);
+    fill(RED);
     textFont(primary_title_font);
     if (floor(millis()/DELAY) % 2 == 0) {
-      fill(255, 255, 0);
+      fill(YELLOW);
     }
     text("GAME OVER", width/2, 250);
     pop();
     
     push();
     textFont(primary_text_font);
-    fill(0, 0, 255);
-    text("PRESS 'A' TO SAVE OR 'Q' TO QUIT", width/2, 350);
-    fill(text_color);
+    fill(BLUE);
+    text("PRESS 'S' TO SAVE OR 'Q' TO QUIT", width/2, 350);
+    fill(WHITE);
     textAlign(LEFT,BOTTOM);
     text("ENEMIES KILLED", column_1, row_2);
     text(int(enemies_killed), column_2, row_2);

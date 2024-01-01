@@ -1,4 +1,4 @@
-ArrayList <Actor> actors = new ArrayList<Actor>();
+ArrayList <Actor> actor_list = new ArrayList<Actor>();
 float last_asteroid = 0;
 float last_increase = 0;
 float asteroid_timer = 6000;
@@ -8,24 +8,20 @@ class Asteroid extends Actor {
   Asteroid() {
     super();
   }
-  void move(ArrayList<Actor> actors) {
+  void move(ArrayList<Actor> actor_list) {
     x += x_speed;
     //y += y_speed;
   }
-  //Draws asteroid to the screen
+
   void render() {
     push();
-    if (collision) {
-      fill(color(145));
-    } else {
-      stroke(0);
-      strokeWeight(2);
-      fill(_color);
-    }
+    stroke(0);
+    strokeWeight(2);
+    fill(ASTEROID_GREY);
+
     circle(x, y, size);
     pop();
   }
-  //Test to see if the asteroid has left the screen
   boolean is_dead() {
     if (x <= -200) {
       //println("asteroid is dead");
@@ -35,12 +31,11 @@ class Asteroid extends Actor {
     }
   }
 }
-//Methods outside the class
-void remove_dead_asteroid(ArrayList<Actor> actors) {
-  int last_index = actors.size() - 1;
+void remove_dead_asteroid(ArrayList<Actor> actor_list) {
+  int last_index = actor_list.size() - 1;
   for (int i = last_index; i > 0; i--) {
-    if (actors.get(i).is_dead() == true) {
-      actors.remove(i);
+    if (actor_list.get(i).is_dead() == true) {
+      actor_list.remove(i);
       asteroid_count++;
       //println("asteroid was removed........" + asteroid_count);
     }
@@ -52,21 +47,20 @@ void add_asteroid() {
   d_time = c_time - last_asteroid;
 
   if (last_asteroid == 0 || d_time >= asteroid_timer) {
-    color _color = color(145);
     Actor asteroid = new Asteroid()
       .set_position(int(width), int(random(height)))
-      .setSize(int(random(10, 75)))
-      .setSpeed(-2, 2)
-      .set_color(_color);
-    actors.add(asteroid);
+      .set_size(int(random(10, 75)))
+      .set_speed(-2, 2)
+      .set_color(ASTEROID_GREY);
+    actor_list.add(asteroid);
     last_asteroid = c_time;
   }
 }
-void asteroid_difficulty() {  
+void asteroid_difficulty() {
   if (asteroid_count%2==0) {
     asteroid_timer-=2;
     //I do not want the timer to go below 200 for max difficulty
-    if(asteroid_timer<=200)asteroid_timer = 250;
+    if (asteroid_timer<=200)asteroid_timer = 250;
   }
   //println(asteroid_timer);
 }
