@@ -1,4 +1,4 @@
-ArrayList <Actor> actor_list = new ArrayList<Actor>();
+ArrayList <Actor> asteroid_list = new ArrayList<Actor>();
 float last_asteroid = 0;
 float last_increase = 0;
 float asteroid_timer = 6000;
@@ -8,7 +8,7 @@ class Asteroid extends Actor {
   Asteroid() {
     super();
   }
-  void move(ArrayList<Actor> actor_list) {
+  void move(ArrayList<Actor> asteroid_list) {
     x += x_speed;
     //y += y_speed;
   }
@@ -31,11 +31,11 @@ class Asteroid extends Actor {
     }
   }
 }
-void remove_dead_asteroid(ArrayList<Actor> actor_list) {
-  int last_index = actor_list.size() - 1;
+void remove_dead_asteroid(ArrayList<Actor> asteroid_list) {
+  int last_index = asteroid_list.size() - 1;
   for (int i = last_index; i > 0; i--) {
-    if (actor_list.get(i).is_dead() == true) {
-      actor_list.remove(i);
+    if (asteroid_list.get(i).is_dead() == true) {
+      asteroid_list.remove(i);
       asteroid_count++;
       //println("asteroid was removed........" + asteroid_count);
     }
@@ -52,7 +52,7 @@ void add_asteroid() {
       .set_size(int(random(10, 75)))
       .set_speed(-2, 2)
       .set_color(ASTEROID_GREY);
-    actor_list.add(asteroid);
+    asteroid_list.add(asteroid);
     last_asteroid = c_time;
   }
 }

@@ -29,21 +29,21 @@ class Actor extends PVector {
     return(dist <= 0);
   }
   void run() {
-    move(actor_list);
+    move(asteroid_list);
     render();
     health();
     render_health_bar();
     screen_boundary();
-    collision(actor_list);
+    collision(asteroid_list);
     check_distance();
     hit();
     shot();
     is_dead();
   }
-  void collision(ArrayList<Actor> actor_list) {
+  void collision(ArrayList<Actor> asteroid_list) {
     collision = false;
 
-    for ( Actor Actor : actor_list) {
+    for ( Actor Actor : asteroid_list) {
       if (Actor == this) {
         continue;
       }
@@ -55,7 +55,7 @@ class Actor extends PVector {
   boolean is_dead() {
     return true;
   }
-  void move(ArrayList<Actor> actor_list) {
+  void move(ArrayList<Actor> asteroid_list) {
   }
   boolean check_distance() {
     return true;

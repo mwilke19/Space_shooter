@@ -2,13 +2,23 @@ class Ship extends Actor {
   float c_health, p_health;
   float bar_width, g_bar_length, r_bar_length;
   float ship_length, nose_x, nose_y, ship_top, ship_bottom;
-  boolean hit, shot;
+  boolean hit, shot, collsion;
   Ship() {
     super();
     c_health = 100;
     p_health = 0;
   }
-  void move(ArrayList<Actor> actor_list) {
+  void run() {
+    move();
+    screen_boundary();
+    render();
+    render_health_bar();
+    hit();
+    collision();
+    shot();
+    health();
+  }
+  void move() {
     if (keyPressed) {
       if (key == CODED) {
         if (keyCode == UP)y -= y_speed;
@@ -16,7 +26,7 @@ class Ship extends Actor {
         if (keyCode == LEFT)x -= x_speed;
         if (keyCode == RIGHT)x += x_speed;
       }
-      
+
       switch(key) {
       case 'x':
       case 'X':
@@ -40,10 +50,20 @@ class Ship extends Actor {
       }
     }
   }
+  boolean check_A_distance(Actor asteroid_list) {
+    float ship_x = ship.x;
+    float ship_y = ship.y;
+    float ship_length = ship.size;
+    PVector ship = new PVector(ship_x, ship_y);
+    PVector asteroid = new PVector(asteroid_list.x, asteroid_list.y);
+    float dist = PVector.dist(ship, asteroid)-(ship_length/10 + asteroid_list.size);
+    println("distance........" + dist);
+    return (dist <= 0);
+  }
   boolean check_E_distance(Enemy enemy_list) {
-    float ship_x = actor_list.get(0).x;
-    float ship_y = actor_list.get(0).y;
-    float ship_length = actor_list.get(0).size;
+    float ship_x = ship.x;
+    float ship_y = ship.y;
+    float ship_length = ship.size;
     PVector ship = new PVector(ship_x, ship_y);
     PVector enemy = new PVector(enemy_list.x, enemy_list.y);
     float dist = PVector.dist(ship, enemy)-(ship_length/10 + enemy_list._length);
@@ -51,16 +71,25 @@ class Ship extends Actor {
     return(dist <= 0);
   }
   boolean check_E_bullet_distance(Bullet e_bullet_list) {
-    float ship_x = actor_list.get(0).x;
-    float ship_y = actor_list.get(0).y;
-    float ship_length = actor_list.get(0).size;
+    float ship_x = ship.x;
+    float ship_y = ship.y;
+    float ship_length = ship.size;
     PVector ship = new PVector(ship_x, ship_y);
     PVector enemy_bullet = new PVector(e_bullet_list.x, e_bullet_list.y);
     float dist = PVector.dist(ship, enemy_bullet)-(ship_length/10 + e_bullet_list._length);
     //println("enemy_bullet distance.........." + dist);
     return(dist<=0);
   }
-
+  boolean collision() {
+    collision = false;
+    for (Actor asteroid : asteroid_list) {
+      if (check_A_distance(asteroid)){
+        collision = true;
+      }
+    }
+    return collision;
+    
+  }
   boolean hit() {
     hit = false;
     for (Enemy enemy : enemy_list) {
@@ -81,14 +110,13 @@ class Ship extends Actor {
     }
     return shot;
   }
-
   void render() {
     ship_length = x - 100;
     nose_x = x;
     nose_y = y;
     ship_top = y - 10;
     ship_bottom = y + 10;
-    
+
     push();
     if (collision || hit || shot) {
       fill(RED);
@@ -102,8 +130,8 @@ class Ship extends Actor {
     if (collision || hit || shot) {
       c_health-=1;
       p_health = c_health;
-      //println("Your health went down");
-      //println("Current health..........." + c_health);
+      println("Your health went down");
+      println("Current health..........." + c_health);
     }
   }
   boolean is_dead() {

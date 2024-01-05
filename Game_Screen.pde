@@ -9,9 +9,7 @@ class Game {
     state = g_start;
   }
   void run() {
-    //ship is the first index of actor_list ArrayList
-    //It is added in setup
-    boolean ship_dead = actor_list.get(0).is_dead();
+    boolean ship_dead = ship.is_dead();
 
     if (state == g_start) {
       game_start();
@@ -156,7 +154,7 @@ class Game {
     for (Particle star : star_list) {
       star.run();
     }
-    for (Actor actor : actor_list) {
+    for (Actor actor : asteroid_list) {
       actor.run();
     }
     for (Bullet s_bullet : s_bullet_list) {
@@ -171,9 +169,10 @@ class Game {
     add_star();
     add_asteroid();
     add_enemy();
+    ship.run();
     remove_dead_star(star_list);
     remove_dead_burst(burst_list);
-    remove_dead_asteroid(actor_list);
+    remove_dead_asteroid(asteroid_list);
     remove_dead_s_bullet(s_bullet_list);
     remove_dead_e_bullet(e_bullet_list);
     remove_dead_enemy(enemy_list);
@@ -183,7 +182,7 @@ class Game {
     //println("play has executed.........");
   }
   void game_reset() {
-    Ship ship = (Ship) actor_list.get(0);
+    Ship ship = (Ship) asteroid_list.get(0);
     state = g_play;
     game.efficiency = 0;
     ship.c_health = 100;

@@ -66,8 +66,8 @@ void remove_dead_s_bullet(ArrayList<Bullet> s_bullet_list) {
   }
 }
 void add_S_bullet() {
-  float ship_x = actor_list.get(0).x;
-  float ship_y = actor_list.get(0).y;
+  float ship_x = ship.x;
+  float ship_y = ship.y;
   s_bullet = new Bullet()
     .set_position(ship_x, ship_y)
     .setDimension(9, 9)

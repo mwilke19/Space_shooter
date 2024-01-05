@@ -33,7 +33,6 @@ void setup() {
     .set_speed(4, 5)
     .set_color(WHITE)
     .set_size(100);
-  actor_list.add(ship);
   
   game.load_score_data();
 
@@ -47,7 +46,7 @@ void draw() {
   game.run();
 }
 void keyReleased() {
-  boolean ship_dead = actor_list.get(0).is_dead();
+  boolean ship_dead = ship.is_dead();
 
   if (ship_dead) {
     if (key == 's' || key == 'S') {
@@ -76,10 +75,9 @@ void keyPressed() {
 void show_statistics() {
   push();
   fill(WHITE);
-  textAlign(LEFT,BOTTOM);
   textFont(game_statistic_font);
   text("SCORE:", 45, 50);
-  text(int(enemies_killed), 125, 50);
+  text(int(enemies_killed), 120, 50);
   pop();
   ship.render_health_bar();
   
