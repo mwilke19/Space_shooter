@@ -1,5 +1,5 @@
-PFont game_statistic_font, primary_text_font,primary_title_font,secondary_title_font;
-Game game;
+PFont thirteen_pixel, twenty_five_pixel,one_hundred_pixel,fifty_pixel;
+Game_Windows game_windows;
 Actor ship;
 
 Table score_data;
@@ -21,12 +21,12 @@ void setup() {
   background(0);
   
   textAlign(CENTER, BOTTOM);
-  game_statistic_font = createFont("Arial",12.5);
-  primary_text_font = createFont("Arial", 25);
-  primary_title_font = createFont("Arial Black", 100);
-  secondary_title_font = createFont("Arial Black",50);
+  thirteen_pixel = createFont("Arial",13);
+  twenty_five_pixel = createFont("Arial", 25);
+  one_hundred_pixel = createFont("Arial Black", 100);
+  fifty_pixel = createFont("Arial Black",50);
   
-  game = new Game();
+  game_windows = new Game_Windows();
   
   ship = new Ship()
     .set_position(400, 400)
@@ -34,7 +34,7 @@ void setup() {
     .set_color(WHITE)
     .set_size(100);
   
-  game.load_score_data();
+  game_windows.load_score_data();
 
   //Uncomment the following two lines to see the available fonts
   //String[] fontList = PFont.list();
@@ -43,17 +43,14 @@ void setup() {
 void draw() {
   smooth();
   background(0);
-  game.run();
+  game_windows.run();
 }
 void keyReleased() {
   boolean ship_dead = ship.is_dead();
 
   if (ship_dead) {
     if (key == 's' || key == 'S') {
-      game.add_new_score();
-    }
-    if (key == 'y' || key == 'Y') {
-      game.game_reset();
+      game_windows.add_new_score();
     }
     if (key == 'q' || key == 'Q') {
       exit();
@@ -75,7 +72,7 @@ void keyPressed() {
 void show_statistics() {
   push();
   fill(WHITE);
-  textFont(game_statistic_font);
+  textFont(thirteen_pixel);
   text("SCORE:", 45, 50);
   text(int(enemies_killed), 120, 50);
   pop();
