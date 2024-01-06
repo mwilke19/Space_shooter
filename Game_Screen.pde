@@ -1,8 +1,8 @@
-class Game {
+class Game_Windows {
   int g_start, g_play, g_over, g_play_again, state;
   float efficiency, DELAY;
 
-  Game() {
+  Game_Windows() {
     g_start = 0;
     g_play = 10;
     g_over = 20;
