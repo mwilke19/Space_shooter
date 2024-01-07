@@ -57,7 +57,7 @@ class Ship extends Actor {
     PVector ship = new PVector(ship_x, ship_y);
     PVector asteroid = new PVector(asteroid_list.x, asteroid_list.y);
     float dist = PVector.dist(ship, asteroid)-(ship_length/10 + asteroid_list.size);
-    println("distance........" + dist);
+    //println("distance........" + dist);
     return (dist <= 0);
   }
   boolean check_E_distance(Enemy enemy_list) {
@@ -130,8 +130,8 @@ class Ship extends Actor {
     if (collision || hit || shot) {
       c_health-=1;
       p_health = c_health;
-      println("Your health went down");
-      println("Current health..........." + c_health);
+      //println("Your health went down");
+      //println("Current health..........." + c_health);
     }
   }
   boolean is_dead() {

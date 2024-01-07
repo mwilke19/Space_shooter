@@ -4,8 +4,8 @@ Actor ship;
 
 Table score_data;
 
-float col_1, col_2, row_1, row_2, row_3, row_4, row_5;
-
+float col_1, col_2, row_1, text_row_1, row_3, row_4, row_5;
+int[] score_array = new int[4];
 char[]  initials = new char[3];
 int cursor = 0;
 
@@ -35,7 +35,7 @@ void setup() {
     .set_size(100);
   
   game_windows.load_score_data();
-
+  score_array = int(score_data.getFloatColumn("SCORE"));
   //Uncomment the following two lines to see the available fonts
   //String[] fontList = PFont.list();
   //printArray(fontList);
