@@ -121,6 +121,7 @@ class Ship extends Actor {
     if (collision || hit || shot) {
       fill(RED);
     } else {
+      stroke(2);
       fill(WHITE);
     }
     triangle(ship_length, ship_bottom, nose_x, nose_y, ship_length, ship_top);

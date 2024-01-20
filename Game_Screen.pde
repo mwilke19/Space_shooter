@@ -1,17 +1,18 @@
-class Game_Windows {
+class Game_Window {
   int g_start, g_play, g_over, g_play_again, state;
   int test_score;
   float efficiency, one_second_delay, half_second_delay;
   float current_score, previous_score;
   boolean is_high_score;
 
-  Game_Windows() {
+  Game_Window() {
     g_start = 0;
     g_play = 10;
     g_over = 20;
     state = g_start;
     one_second_delay = 1000;
     half_second_delay = 500;
+    is_high_score = false;
   }
   void run() {
     boolean ship_dead = ship.is_dead();
@@ -45,13 +46,15 @@ class Game_Windows {
   }
   boolean is_it_a_high_score() {
     current_score = enemies_killed;
+    println("array length.........." + score_array.length);
     println("current_score_array :");
     printArray(score_array);
     println("current_score............. " + current_score + '\n');
-    
+    println(is_high_score);
+
     for (int i = 0; i<score_array.length; i++) {
       int high_score = score_array[0];
-      if (current_score > 0 || high_score<current_score) {
+      if (high_score<current_score) {
         is_high_score = true;
       } else {
         is_high_score = false;
@@ -116,6 +119,9 @@ class Game_Windows {
     for (Particle star : star_list) {
       star.run();
     }
+    for (Particle planet : planet_list) {
+      planet.run();
+    }
     for (Actor actor : asteroid_list) {
       actor.run();
     }
@@ -129,12 +135,14 @@ class Game_Windows {
       enemy.run();
     }
     add_star();
+    add_planet();
     add_asteroid();
     add_enemy();
     ship.run();
     remove_dead_star(star_list);
     remove_dead_burst(burst_list);
     remove_dead_asteroid(asteroid_list);
+    remove_dead_planet(planet_list);
     remove_dead_s_bullet(s_bullet_list);
     remove_dead_e_bullet(e_bullet_list);
     remove_dead_enemy(enemy_list);
@@ -217,14 +225,15 @@ class Game_Windows {
     display_score_data();
   }
   void render_game_over_text() {
-
-    float name_col, data_col, title_row, text_row_1, text_row_2;
+    float name_col, data_col;
+    float title_row, text_row_1, high_score_output_row;
     float one_sec_delay = 1000;
     efficiency = (enemies_killed/enemy_count)*100;
 
     name_col = width/4;
     data_col = width* .75-100;
     title_row = 250;
+    high_score_output_row = 310;
     text_row_1 = height/2 - 150;
     row_3 = height/2 - 100;
 
@@ -238,22 +247,22 @@ class Game_Windows {
     pop();
 
     if (is_high_score == true) {
-      println(is_high_score);
+      //println(is_high_score);
       push();
       textFont(fifty_pixel);
       fill(GREEN);
-      text("YOU ROCK!! THIS IS A HIGH SCORE", width/2-50, 310);
+      text("YOU ROCK!! THIS IS A HIGH SCORE", width/2-50, high_score_output_row);
       pop();
     }
-    if (is_high_score == false){
-      println(is_high_score);
+    if (is_high_score == false) {
+      //println(is_high_score);
       push();
       textFont(fifty_pixel);
       fill(RED);
-      text("GOOD TRY!! DONT GIVE UP", width/2, 310);
+      text("GOOD TRY!! DONT GIVE UP", width/2, high_score_output_row);
       pop();
     }
-    
+
 
     push();
     textFont(twenty_five_pixel);

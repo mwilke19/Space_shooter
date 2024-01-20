@@ -5,7 +5,7 @@ class Particle {
   float x, y;
   float x_vel, y_vel, frict, accel;
   int d, _length, _width, lifespan;
-  color _color = color(255);
+  color _color = color(WHITE);
 
   Particle() {
   }
@@ -107,7 +107,7 @@ void add_star(){
     //println(star_list.size());
     Particle star = new Particle()
       .set_position(random(width), random(height))
-      .set_diameter(int(random(1, 4)))
+      .set_diameter(int(random(1, 3)))
       .set_velocity(-1, 1)
       .set_acceleration(.5)
       .set_friction(.99)

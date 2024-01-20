@@ -3,7 +3,7 @@ ArrayList <Bullet> s_bullet_list = new ArrayList<Bullet>();
 Bullet e_bullet;
 Bullet s_bullet;
 
-color s_bullet_color = color(0,255,0);
+color s_bullet_color = color(120,0,255);
 color e_bullet_color = color(255,0,0);
 
 class Bullet extends PVector {

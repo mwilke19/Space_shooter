@@ -83,6 +83,7 @@ class Enemy extends PVector {
   }
   void render() {
     push();
+    stroke(3);
     fill(YELLOW);
     rectMode(CENTER);
     rect(x, y, _length, _width);
@@ -99,9 +100,6 @@ class Enemy extends PVector {
     } else {
       return false;
     }
-  }
-  boolean ship_in_range() {
-    return true;
   }
 }
 void remove_dead_enemy(ArrayList<Enemy> enemy_list) {

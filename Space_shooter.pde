@@ -1,5 +1,5 @@
 PFont thirteen_pixel, twenty_five_pixel,one_hundred_pixel,fifty_pixel;
-Game_Windows game_windows;
+Game_Window game_window;
 Actor ship;
 
 Table score_data;
@@ -15,6 +15,7 @@ final color BLUE = color(0,0,255);
 final color GREEN = color(0,255,0);
 final color YELLOW = color(255,255,0);
 final color ASTEROID_GREY = color(145);
+final color PLANET_RANDOM = color(0,random(125,255),random(125,255));
 
 void setup() {
   size(1300, 1200);
@@ -26,7 +27,7 @@ void setup() {
   one_hundred_pixel = createFont("Arial Black", 100);
   fifty_pixel = createFont("Arial Black",50);
   
-  game_windows = new Game_Windows();
+  game_window = new Game_Window();
   
   ship = new Ship()
     .set_position(400, 400)
@@ -34,7 +35,7 @@ void setup() {
     .set_color(WHITE)
     .set_size(100);
   
-  game_windows.load_score_data();
+  game_window.load_score_data();
   score_array = int(score_data.getFloatColumn("SCORE"));
   //Uncomment the following two lines to see the available fonts
   //String[] fontList = PFont.list();
@@ -43,14 +44,15 @@ void setup() {
 void draw() {
   smooth();
   background(0);
-  game_windows.run();
+  game_window.run();
+  //printArray(score_array);
 }
 void keyReleased() {
   boolean ship_dead = ship.is_dead();
 
   if (ship_dead) {
     if (key == 's' || key == 'S') {
-      game_windows.add_new_score();
+      game_window.add_new_score();
     }
     if (key == 'q' || key == 'Q') {
       exit();
