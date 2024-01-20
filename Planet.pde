@@ -1,6 +1,16 @@
 ArrayList<Particle> planet_list = new ArrayList<Particle>();
 float last_planet = 0;
 float planet_timer = 30000;
+class Planet extends Particle {
+  Planet() {
+    super();
+  }
+  void render() {
+    pushMatrix();
+    image(mars, x, y, d, d);
+    popMatrix();
+  }
+}
 
 void add_planet() {
   float c_time, d_time;
@@ -9,9 +19,9 @@ void add_planet() {
 
   if (last_planet == 0 || d_time >= planet_timer) {
     //println(planet_list.size());
-    Particle planet = new Particle()
+    Particle planet = new Planet()
       .set_position(1400, height/2)
-      .set_diameter(400)
+      .set_diameter(425)
       .set_velocity(-1, 0)
       .set_acceleration(.1)
       .set_friction(.99)

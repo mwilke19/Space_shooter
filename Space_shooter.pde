@@ -1,7 +1,7 @@
 PFont thirteen_pixel, twenty_five_pixel,one_hundred_pixel,fifty_pixel;
 Game_Window game_window;
 Actor ship;
-
+PImage mars;
 Table score_data;
 
 float col_1, col_2, row_1, text_row_1, row_3, row_4, row_5;
@@ -22,6 +22,7 @@ void setup() {
   background(0);
   
   textAlign(CENTER, BOTTOM);
+  imageMode(CENTER);
   thirteen_pixel = createFont("Arial",13);
   twenty_five_pixel = createFont("Arial", 25);
   one_hundred_pixel = createFont("Arial Black", 100);
@@ -36,6 +37,7 @@ void setup() {
     .set_size(100);
   
   game_window.load_score_data();
+  mars = loadImage("Mars.png");
   score_array = int(score_data.getFloatColumn("SCORE"));
   //Uncomment the following two lines to see the available fonts
   //String[] fontList = PFont.list();
