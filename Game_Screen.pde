@@ -113,9 +113,6 @@ class Game_Window {
     render_game_over_text();
   }
   void game_play() {
-    for (Particle explosion : burst_list) {
-      explosion.run();
-    }
     for (Particle star : star_list) {
       star.run();
     }
@@ -133,6 +130,9 @@ class Game_Window {
     }
     for (Enemy enemy : enemy_list) {
       enemy.run();
+    }
+    for (Particle explosion : burst_list) {
+      explosion.run();
     }
     add_star();
     add_planet();
