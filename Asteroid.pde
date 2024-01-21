@@ -17,9 +17,7 @@ class Asteroid extends Actor {
     push();
     stroke(0);
     strokeWeight(2);
-    fill(ASTEROID_GREY);
-
-    circle(x, y, size);
+    image(asteroid,x,y,size,size);
     pop();
   }
   boolean is_dead() {

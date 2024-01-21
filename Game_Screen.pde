@@ -46,11 +46,11 @@ class Game_Window {
   }
   boolean is_it_a_high_score() {
     current_score = enemies_killed;
-    println("array length.........." + score_array.length);
-    println("current_score_array :");
-    printArray(score_array);
-    println("current_score............. " + current_score + '\n');
-    println(is_high_score);
+    //println("array length.........." + score_array.length);
+    //println("current_score_array :");
+    //printArray(score_array);
+    //println("current_score............. " + current_score + '\n');
+    //println(is_high_score);
 
     for (int i = 0; i<score_array.length; i++) {
       int high_score = score_array[0];
@@ -105,7 +105,6 @@ class Game_Window {
   void game_start() {
     background(0);
     render_start_screen_text();
-    //is_it_a_high_score();
   }
   void game_over() {
     background(0);
@@ -180,7 +179,6 @@ class Game_Window {
     text_row_2 = height/4+50;
     text_row_3 = height/4 + 100;
     text_row_4 = height/4;
-
 
     push();
     fill(GREEN);
@@ -262,7 +260,6 @@ class Game_Window {
       text("GOOD TRY!! DONT GIVE UP", width/2, high_score_output_row);
       pop();
     }
-
 
     push();
     textFont(twenty_five_pixel);

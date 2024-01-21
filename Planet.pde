@@ -1,8 +1,8 @@
 ArrayList<Particle> planet_list = new ArrayList<Particle>();
 float last_planet = 0;
 float planet_timer = 30000;
-class Planet extends Particle {
-  Planet() {
+class Planets extends Particle {
+  Planets() {
     super();
   }
   void render() {
@@ -19,13 +19,13 @@ void add_planet() {
 
   if (last_planet == 0 || d_time >= planet_timer) {
     //println(planet_list.size());
-    Particle planet = new Planet()
+    Particle planet = new Planets()
       .set_position(1400, height/2)
       .set_diameter(425)
       .set_velocity(-1, 0)
       .set_acceleration(.1)
       .set_friction(.99)
-      .set_color(PLANET_RANDOM)
+      .set_color(0)
       .set_lifespan(3000);
     planet_list.add(planet);
     last_planet = c_time;
@@ -34,7 +34,7 @@ void add_planet() {
 void remove_dead_planet(ArrayList<Particle> planet_list) {
   int last_index = planet_list.size() - 1;
   for (int i = last_index; i >= 0; i--) {
-    println("planet.x......" + planet_list.get(i).x);
+    //println("planet.x......" + planet_list.get(i).x);
     if (planet_list.get(i).x <= planet_list.get(i).d*-1) {
       planet_list.remove(i);
       println("planet was removed");
