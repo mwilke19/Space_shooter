@@ -1,14 +1,21 @@
 class Game_Window {
   int g_start, g_play, g_over, g_play_again, state;
   int test_score;
+  float x_center, y_center;
   float efficiency, one_second_delay, half_second_delay;
   float current_score, previous_score;
   boolean is_high_score;
+  int outer_gap = 425; // 475px of space on left and right
+  int inner_gap = 30;  // 30px between letters
+  int total_width = width - (outer_gap * 2);
+  int line_width = (total_width - (inner_gap * 4)) /3;
 
   Game_Window() {
     g_start = 0;
     g_play = 10;
     g_over = 20;
+    x_center = width/2;
+    y_center = height/2;
     state = g_start;
     one_second_delay = 1000;
     half_second_delay = 500;
@@ -96,9 +103,10 @@ class Game_Window {
       int y = height/2 + 50 + (50 * i);
 
       push();
+      textAlign(CENTER);
       textFont(twenty_five_pixel);
-      text(name, width/4 + 250, y);
-      text(score, width/4 + 400, y);
+      text(name, x_center - 50, y);
+      text(score, x_center + 50, y);
       pop();
     }
   }
@@ -130,7 +138,7 @@ class Game_Window {
     for (Enemy enemy : enemy_list) {
       enemy.run();
     }
-     for (Particle explosion : burst_list) {
+    for (Particle explosion : burst_list) {
       explosion.run();
     }
     add_star();
@@ -150,8 +158,16 @@ class Game_Window {
     show_statistics();
     //println("play has executed.........");
   }
+  void render_border() {
+    rectMode(CENTER);
+    noFill();
+    stroke(255, 255, 0);
+    rect(x_center, y_center, 1820, 980);
+    noStroke();
+    pop();
+  }
   void render_initials() {
-    int outer_gap = 425; // 475px of space on left and right
+    int outer_gap = 700; // 700px of space on left and right
     int inner_gap = 30;  // 30px between letters
     int total_width = width - (outer_gap * 2);
     int line_width = (total_width - (inner_gap * 4)) /3;
@@ -162,7 +178,7 @@ class Game_Window {
       int y = height/2-75;
 
       fill(WHITE);
-      textFont(fifty_pixel);
+      textFont(seventy_five_pixel);
       if (cursor > i)
         text(initials[i], x + line_width/2, y);
       if (cursor == i && floor(millis() / half_second_delay) % 2 == 0)
@@ -189,37 +205,33 @@ class Game_Window {
     if (floor(millis()/one_second_delay) % 2 == 0) {
       fill(RED);
     }
-    text("SPACE SHOOTER", width/2, title_row );
+    text("SPACE SHOOTER", x_center, title_row );
     pop();
 
     push();
     textFont(fifty_pixel);
     fill(GREEN);
-    text("CLICK TO START", width/2, text_row_1);
+    text("CLICK TO START", x_center, text_row_1);
     pop();
 
     push();
     fill(WHITE);
     textFont(twenty_five_pixel);
-    text("ARROW KEYS FOR DIRECTIONAL CONTROL", width/2, text_row_2);
-    text("SPACEBAR = FIRE", width/2, text_row_3);
+    text("ARROW KEYS FOR DIRECTIONAL CONTROL", x_center, text_row_2);
+    text("SPACEBAR = FIRE", x_center, text_row_3);
     fill(GREEN);
-    text("PLEASE ENTER YOUR INITIALS", width/2, text_row_4);
+    text("PLEASE ENTER YOUR INITIALS", x_center, text_row_4);
     pop();
 
     push();
     fill(255, 255, 0);
     textFont(fifty_pixel);
-    text("TOP SCORES", width/2, height/2);
+    text("TOP SCORES", x_center, y_center);
     stroke(255, 0, 0);
-    line(width/4, height/2+5, 900, height/2+5);
-    noFill();
-    stroke(255, 255, 0);
-    rect(50, 50, 1200, 900);
-    noStroke();
-    pop();
+    line(line_width, height/2+5, width-400, height/2+5);
 
     render_initials();
+    render_border();
     display_score_data();
   }
   void render_game_over_text() {
@@ -241,7 +253,7 @@ class Game_Window {
     if (floor(millis()/one_sec_delay) % 2 == 0) {
       fill(YELLOW);
     }
-    text("GAME OVER", width/2, title_row);
+    text("GAME OVER", x_center, title_row);
     pop();
 
     if (is_high_score == true) {
@@ -249,7 +261,7 @@ class Game_Window {
       push();
       textFont(fifty_pixel);
       fill(GREEN);
-      text("YOU ROCK!! THIS IS A HIGH SCORE", width/2-50, high_score_output_row);
+      text("YOU ROCK!! THIS IS A HIGH SCORE", x_center-50, high_score_output_row);
       pop();
     }
     if (is_high_score == false) {
@@ -257,14 +269,14 @@ class Game_Window {
       push();
       textFont(fifty_pixel);
       fill(RED);
-      text("GOOD TRY!! DONT GIVE UP", width/2, high_score_output_row);
+      text("GOOD TRY!! DONT GIVE UP", x_center, high_score_output_row);
       pop();
     }
 
     push();
     textFont(twenty_five_pixel);
     fill(BLUE);
-    text("PRESS 'S' TO SAVE OR 'Q' TO QUIT", width/2, 350);
+    text("PRESS 'S' TO SAVE OR 'Q' TO QUIT", x_center, 350);
     fill(WHITE);
     textAlign(LEFT, BOTTOM);
     text("ENEMIES KILLED", name_col, text_row_1);

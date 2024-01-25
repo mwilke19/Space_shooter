@@ -1,13 +1,17 @@
 ArrayList<Particle> planet_list = new ArrayList<Particle>();
 float last_planet = 0;
-float planet_timer = 30000;
+float planet_timer = 10000;
 class Planets extends Particle {
+
+  PImage[]solar_system = {earth, saturn, mars};
   Planets() {
     super();
   }
   void render() {
     pushMatrix();
-    image(mars, x, y, d, d);
+    for (int i = 0; i < solar_system.length; i++) {
+      image(solar_system[i], x, y, d, d);
+    }
     popMatrix();
   }
 }
@@ -16,14 +20,14 @@ void add_planet() {
   float c_time, d_time;
   c_time = millis();
   d_time = c_time-last_planet;
-
-  if (last_planet == 0 || d_time >= planet_timer) {
+  int y_center = height/2;
+  if (d_time >= planet_timer) {
     //println(planet_list.size());
     Particle planet = new Planets()
-      .set_position(1400, height/2)
-      .set_diameter(425)
-      .set_velocity(-1, 0)
-      .set_acceleration(.1)
+      .set_position(width + 550, y_center)
+      .set_diameter(525)
+      .set_velocity(-4.5, 0)
+      .set_acceleration(.99)
       .set_friction(.99)
       .set_color(0)
       .set_lifespan(3000);

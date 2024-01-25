@@ -47,7 +47,7 @@ void add_asteroid() {
   if (last_asteroid == 0 || d_time >= asteroid_timer) {
     Actor asteroid = new Asteroid()
       .set_position(int(width), int(random(height)))
-      .set_size(int(random(10, 75)))
+      .set_size(int(random(20, 100)))
       .set_speed(-2, 2)
       .set_color(ASTEROID_GREY);
     asteroid_list.add(asteroid);
