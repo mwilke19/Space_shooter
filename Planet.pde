@@ -1,47 +1,67 @@
-ArrayList<Particle> planet_list = new ArrayList<Particle>();
-float last_planet = 0;
-float planet_timer = 10000;
-class Planets extends Particle {
+ArrayList<Planets> planet_list = new ArrayList<Planets>();
+float last_planet = 0; 
+class Planets {
+  float x, y;
+  float x_velocity, y_velocity, friction, acceleration;
+  float x_offset,y_offset;
+  int diameter;
+  PImage[]solar_system = {earth,earth,saturn};
+  color _color = color(WHITE);
 
-  PImage[]solar_system = {earth, saturn, mars};
   Planets() {
-    super();
   }
-  void render() {
+  Planets set_position(float x_, float y_) {
+    x = x_;
+    y = y_;
+    return this;
+  }
+  Planets set_diameter(int diameter_) {
+    diameter = diameter_;
+    return this;
+  }
+  Planets set_velocity(float x_velocity_, float y_velocity_) {
+    x_velocity = x_velocity_;
+    y_velocity = y_velocity_;
+    return this;
+  }
+  Planets set_acceleration(float acceleration_) {
+    acceleration = acceleration_;
+    return this;
+  }
+  Planets set_friction(float friction_) {
+    friction = friction_;
+    return this;
+  }
+
+  void run() {
+    render_earth();
+    render_mars();
+    render_saturn();
+    move(planet_list);
+  }
+  void move(ArrayList<Planets> planet_list) {
+    x += x_velocity;
+    //y += y_vel;
+    //lifespan-=1.0;
+  }
+  void render_earth(){
     pushMatrix();
-    for (int i = 0; i < solar_system.length; i++) {
-      image(solar_system[i], x, y, d, d);
-    }
+    image(earth, x, y,diameter*2,diameter*2);
     popMatrix();
   }
-}
-
-void add_planet() {
-  float c_time, d_time;
-  c_time = millis();
-  d_time = c_time-last_planet;
-  int y_center = height/2;
-  if (d_time >= planet_timer) {
-    //println(planet_list.size());
-    Particle planet = new Planets()
-      .set_position(width + 550, y_center)
-      .set_diameter(525)
-      .set_velocity(-4.5, 0)
-      .set_acceleration(.99)
-      .set_friction(.99)
-      .set_color(0)
-      .set_lifespan(3000);
-    planet_list.add(planet);
-    last_planet = c_time;
+  void render_mars() {
+    x_offset = x + 1200;
+    y_offset = y + 300;
+    pushMatrix();
+    image(mars, x_offset, y_offset, diameter, diameter);
+    popMatrix();
   }
-}
-void remove_dead_planet(ArrayList<Particle> planet_list) {
-  int last_index = planet_list.size() - 1;
-  for (int i = last_index; i >= 0; i--) {
-    //println("planet.x......" + planet_list.get(i).x);
-    if (planet_list.get(i).x <= planet_list.get(i).d*-1) {
-      planet_list.remove(i);
-      println("planet was removed");
-    }
+
+  void render_saturn() {
+    x_offset = x + 4800;
+    y_offset = y - 200;
+    pushMatrix();
+    image(saturn, x_offset, y_offset, diameter*4, diameter*4);
+    popMatrix();
   }
 }

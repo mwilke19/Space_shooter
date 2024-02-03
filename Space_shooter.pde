@@ -1,6 +1,7 @@
 PFont thirteen_pixel, twenty_five_pixel,seventy_five_pixel,one_hundred_pixel,fifty_pixel;
 Game_Window game_window;
 Actor ship;
+Planets planet;
 PImage asteroid,earth,mars,mercury,saturn;
 Table score_data;
 
@@ -16,11 +17,10 @@ final color WHITE = color(255);
 final color BLUE = color(0,0,255);
 final color GREEN = color(0,255,0);
 final color YELLOW = color(255,255,0);
-final color ASTEROID_GREY = color(145);
-final color PLANET_RANDOM = color(0,random(125,255),random(125,255));
+
 void setup() {
   fullScreen(P2D);
-  //size(displayWidth, displayHeight,P3D);
+  //size(800, 800,P2D);
   background(0);
   
   textAlign(CENTER, BOTTOM);
@@ -33,23 +33,33 @@ void setup() {
   fifty_pixel = createFont("Arial Black",50);
   
   game_window = new Game_Window();
+  x_center = width/2;
+  y_center = height/2;
   
   ship = new Ship()
     .set_position(400, 400)
     .set_speed(4, 5)
     .set_color(WHITE)
     .set_size(100);
+  planet = new Planets()
+      .set_position(width + 1000, y_center)
+      .set_diameter(300)
+      .set_velocity(-1.5, 0)
+      .set_acceleration(.99)
+      .set_friction(.99);
+    planet_list.add(planet);
   
   game_window.load_score_data();
-  mars = loadImage("Mars.png");
-  mercury = loadImage("Mercury.png");
   earth = loadImage("Earth.png");
-  asteroid = loadImage("Meteor.png");
+  mars = loadImage("Mars.png");
   saturn = loadImage("Saturn.png");
+  mercury = loadImage("Mercury.png");
+  asteroid = loadImage("Meteor.png");
   score_array = int(score_data.getFloatColumn("SCORE"));
   //Uncomment the following two lines to see the available fonts
   //String[] fontList = PFont.list();
   //printArray(fontList);
+  
 }
 void draw() {
   smooth();

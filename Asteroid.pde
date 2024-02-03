@@ -29,31 +29,6 @@ class Asteroid extends Actor {
     }
   }
 }
-void remove_dead_asteroid(ArrayList<Actor> asteroid_list) {
-  int last_index = asteroid_list.size() - 1;
-  for (int i = last_index; i > 0; i--) {
-    if (asteroid_list.get(i).is_dead() == true) {
-      asteroid_list.remove(i);
-      asteroid_count++;
-      //println("asteroid was removed........" + asteroid_count);
-    }
-  }
-}
-void add_asteroid() {
-  float c_time, d_time;
-  c_time = millis();
-  d_time = c_time - last_asteroid;
-
-  if (last_asteroid == 0 || d_time >= asteroid_timer) {
-    Actor asteroid = new Asteroid()
-      .set_position(int(width), int(random(height)))
-      .set_size(int(random(20, 100)))
-      .set_speed(-2, 2)
-      .set_color(ASTEROID_GREY);
-    asteroid_list.add(asteroid);
-    last_asteroid = c_time;
-  }
-}
 void asteroid_difficulty() {
   if (asteroid_count%2==0) {
     asteroid_timer-=2;

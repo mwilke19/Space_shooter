@@ -56,22 +56,3 @@ class Bullet extends PVector {
     }
   }
 }
-void remove_dead_s_bullet(ArrayList<Bullet> s_bullet_list) {
-  int last_index = s_bullet_list.size() - 1;
-  for (int i = last_index; i > 0; i--) {
-    if (s_bullet_list.get(i).is_dead() == true) {
-      s_bullet_list.remove(i);
-    //println("s_bullet was removed........");
-    }
-  }
-}
-void add_S_bullet() {
-  float ship_x = ship.x;
-  float ship_y = ship.y;
-  s_bullet = new Bullet()
-    .set_position(ship_x, ship_y)
-    .setDimension(9, 9)
-    .set_speed(15, 0)
-    .set_color(s_bullet_color);
-  s_bullet_list.add(s_bullet);
-}

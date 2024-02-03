@@ -88,32 +88,3 @@ class Particle {
     }
   }
 }
-//Methods outside the class
-void remove_dead_star(ArrayList<Particle> star_list) {
-  int last_index = star_list.size() - 1;
-   for (int i = last_index; i > 0; i--) {
-    if (star_list.get(i).is_dead() == true) {
-      star_list.remove(i);
-      //println("star was removed");
-    }
-  }
-}
-void add_star(){
-  float c_time,d_time;
-  c_time = millis();
-  d_time = c_time-last_star;
-  
-  if (last_star == 0 || d_time >= star_timer) {
-    //println(star_list.size());
-    Particle star = new Particle()
-      .set_position(random(width), random(height))
-      .set_diameter(int(random(1, 3)))
-      .set_velocity(-1, 1)
-      .set_acceleration(.5)
-      .set_friction(.99)
-      .set_color(WHITE)
-      .set_lifespan(500);
-    star_list.add(star);
-    last_star = c_time;
-  }
-}

@@ -123,7 +123,7 @@ class Game_Window {
     for (Particle star : star_list) {
       star.run();
     }
-    for (Particle planet : planet_list) {
+    for (Planets planet : planet_list) {
       planet.run();
     }
     for (Actor actor : asteroid_list) {
@@ -142,7 +142,7 @@ class Game_Window {
       explosion.run();
     }
     add_star();
-    add_planet();
+    //add_planet();
     add_asteroid();
     add_enemy();
     ship.run();

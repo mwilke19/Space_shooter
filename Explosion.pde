@@ -47,39 +47,3 @@ class Explosion extends Particle {
     }
   }
 }
-void remove_dead_burst(ArrayList<Particle> burst_list) {
-  int last_index = burst_list.size() - 1;
-  for (int i = last_index; i > 0; i--) {
-    if (burst_list.get(i).is_dead() == true) {
-      burst_list.remove(i);
-      //println("burst_list was removed");
-    }
-  }
-}
-void add_burst(float enemy_x, float enemy_y) {
-  int MAX_SIZE = 500;
-  
-  while (burst_list.size() <= MAX_SIZE) {
-    noStroke();
-    Particle red_explosion = new Explosion()
-      .set_position(enemy_x, enemy_y)
-      .set_length(20)
-      .set_width(20)
-      .set_velocity(-1, 1)
-      .set_acceleration(1)
-      .set_friction(.77)
-      .set_color(RED)
-      .set_lifespan(150);
-    Particle yellow_explosion = new Explosion()
-      .set_position(enemy_x, enemy_y)
-      .set_length(20)
-      .set_width(20)
-      .set_velocity(-1, 1)
-      .set_acceleration(1)
-      .set_friction(.88)
-      .set_color(YELLOW)
-      .set_lifespan(150);
-    burst_list.add(red_explosion);
-    burst_list.add(yellow_explosion);
-  }
-}
