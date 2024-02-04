@@ -138,7 +138,7 @@ class Game_Window {
     for (Enemy enemy : enemy_list) {
       enemy.run();
     }
-    for (Particle explosion : burst_list) {
+    for (Particle explosion : explosion_list) {
       explosion.run();
     }
     add_star();
@@ -147,7 +147,7 @@ class Game_Window {
     add_enemy();
     ship.run();
     remove_dead_star(star_list);
-    remove_dead_burst(burst_list);
+    remove_dead_explosion(explosion_list);
     remove_dead_asteroid(asteroid_list);
     remove_dead_planet(planet_list);
     remove_dead_s_bullet(s_bullet_list);
@@ -155,7 +155,7 @@ class Game_Window {
     remove_dead_enemy(enemy_list);
     remove_hit_enemy(enemy_list);
     asteroid_difficulty();
-    show_statistics();
+    render_statistics();
     //println("play has executed.........");
   }
   void render_border() {
@@ -185,6 +185,15 @@ class Game_Window {
         fill(0, 255, 0);
       rect(x, y - 5, line_width, 10);
     }
+  }
+  void render_statistics() {
+    push();
+    fill(WHITE);
+    textFont(thirteen_pixel);
+    text("SCORE:", 45, 50);
+    text(int(enemies_killed), 120, 50);
+    pop();
+    ship.render_health_bar();
   }
   void render_start_screen_text() {
     float title_row;

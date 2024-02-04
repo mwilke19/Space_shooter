@@ -36,7 +36,7 @@ void remove_hit_enemy(ArrayList<Enemy> enemy_list) {
       float enemy_y = enemy_list.get(i).y;
 
       enemy_list.remove(i);
-      add_burst(enemy_x,enemy_y);
+      add_explosion(enemy_x,enemy_y);
       enemies_killed++;
       //println("enemies_killed......." + enemies_killed + '\n');
     }
@@ -52,12 +52,12 @@ void remove_dead_e_bullet(ArrayList<Bullet> e_bullet_list) {
     }
   }
 }
-void remove_dead_burst(ArrayList<Particle> burst_list) {
-  int last_index = burst_list.size() - 1;
+void remove_dead_explosion(ArrayList<Particle> explosion_list) {
+  int last_index = explosion_list.size() - 1;
   for (int i = last_index; i > 0; i--) {
-    if (burst_list.get(i).is_dead() == true) {
-      burst_list.remove(i);
-      //println("burst_list was removed");
+    if (explosion_list.get(i).is_dead() == true) {
+      explosion_list.remove(i);
+      //println("explosion_list was removed");
     }
   }
 }

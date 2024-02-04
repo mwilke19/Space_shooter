@@ -2,7 +2,7 @@ PFont thirteen_pixel, twenty_five_pixel,seventy_five_pixel,one_hundred_pixel,fif
 Game_Window game_window;
 Actor ship;
 Planets planet;
-PImage asteroid,earth,mars,mercury,saturn;
+PImage asteroid,earth,mars,jupiter,saturn;
 Table score_data;
 
 float col_1, col_2; 
@@ -25,36 +25,18 @@ void setup() {
   
   textAlign(CENTER, BOTTOM);
   imageMode(CENTER);
-  
-  thirteen_pixel = createFont("Arial",13);
-  twenty_five_pixel = createFont("Arial", 25);
-  one_hundred_pixel = createFont("Arial Black", 100);
-  seventy_five_pixel = createFont("Arial",75);
-  fifty_pixel = createFont("Arial Black",50);
+  add_fonts();
   
   game_window = new Game_Window();
+  
   x_center = width/2;
   y_center = height/2;
   
-  ship = new Ship()
-    .set_position(400, 400)
-    .set_speed(4, 5)
-    .set_color(WHITE)
-    .set_size(100);
-  planet = new Planets()
-      .set_position(width + 1000, y_center)
-      .set_diameter(300)
-      .set_velocity(-1.5, 0)
-      .set_acceleration(.99)
-      .set_friction(.99);
-    planet_list.add(planet);
+  add_ship();
+  add_planets();
+  add_game_images();
   
   game_window.load_score_data();
-  earth = loadImage("Earth.png");
-  mars = loadImage("Mars.png");
-  saturn = loadImage("Saturn.png");
-  mercury = loadImage("Mercury.png");
-  asteroid = loadImage("Meteor.png");
   score_array = int(score_data.getFloatColumn("SCORE"));
   //Uncomment the following two lines to see the available fonts
   //String[] fontList = PFont.list();
@@ -90,14 +72,4 @@ void keyPressed() {
       cursor += 1;
     }
   }
-}
-void show_statistics() {
-  push();
-  fill(WHITE);
-  textFont(thirteen_pixel);
-  text("SCORE:", 45, 50);
-  text(int(enemies_killed), 120, 50);
-  pop();
-  ship.render_health_bar();
-  
 }

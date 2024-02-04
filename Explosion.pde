@@ -1,4 +1,4 @@
-ArrayList<Particle> burst_list = new ArrayList<Particle>();
+ArrayList<Particle> explosion_list = new ArrayList<Particle>();
 float last_burst = 0;
 float burst_timer = 1;
 class Explosion extends Particle {
@@ -6,7 +6,7 @@ class Explosion extends Particle {
     super();
   }
   void run() {
-    move(burst_list);
+    move(explosion_list);
     render();
     is_dead();
     accel();
@@ -25,7 +25,7 @@ class Explosion extends Particle {
     if (x <= d/2 || x >= width-d/2)x_vel*=-1;
     if (y <= d/2 || y >= height-d/2)y_vel*=-1;
   }
-  void move(ArrayList<Particle> burst_list) {
+  void move(ArrayList<Particle> explosion_list) {
     float rot = random(0, TWO_PI);
     x += x_vel*sin(rot);
     y -= y_vel*cos(rot);
@@ -39,7 +39,7 @@ class Explosion extends Particle {
   }
   boolean is_dead() {
     if (lifespan <= 0) {
-      //println("burst_list is dead");
+      //println("explosion_list is dead");
       //println(frameCount + "......." + star_list.size());
       return true;
     } else {

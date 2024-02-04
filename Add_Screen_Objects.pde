@@ -1,3 +1,33 @@
+void add_ship() {
+  ship = new Ship()
+    .set_position(400, 400)
+    .set_speed(4, 5)
+    .set_color(WHITE)
+    .set_size(100);
+}
+void add_planets() {
+  planet = new Planets()
+    .set_position(width + 1000, y_center)
+    .set_diameter(200)
+    .set_velocity(-1.5, 0)
+    .set_acceleration(.99)
+    .set_friction(.99);
+  planet_list.add(planet);
+}
+void add_game_images() {
+  earth = loadImage("Earth.png");
+  mars = loadImage("Mars.png");
+  jupiter = loadImage("Jupiter.png");
+  saturn = loadImage("Saturn.png");
+  asteroid = loadImage("Meteor.png");
+}
+void add_fonts() {
+  thirteen_pixel = createFont("Arial",13);
+  twenty_five_pixel = createFont("Arial", 25);
+  one_hundred_pixel = createFont("Arial Black", 100);
+  seventy_five_pixel = createFont("Arial",75);
+  fifty_pixel = createFont("Arial Black",50);
+}
 void add_asteroid() {
   float c_time, d_time;
   c_time = millis();
@@ -58,10 +88,10 @@ void add_E_bullet() {
     //println("e_bullet_list size.........." +e_bullet_list.size());
   }
 }
-void add_burst(float enemy_x, float enemy_y) {
+void add_explosion(float enemy_x, float enemy_y) {
   int MAX_SIZE = 500;
-  
-  while (burst_list.size() <= MAX_SIZE) {
+
+  while (explosion_list.size() <= MAX_SIZE) {
     noStroke();
     Particle red_explosion = new Explosion()
       .set_position(enemy_x, enemy_y)
@@ -81,15 +111,15 @@ void add_burst(float enemy_x, float enemy_y) {
       .set_friction(.88)
       .set_color(YELLOW)
       .set_lifespan(150);
-    burst_list.add(red_explosion);
-    burst_list.add(yellow_explosion);
+    explosion_list.add(red_explosion);
+    explosion_list.add(yellow_explosion);
   }
 }
-void add_star(){
-  float c_time,d_time;
+void add_star() {
+  float c_time, d_time;
   c_time = millis();
   d_time = c_time-last_star;
-  
+
   if (last_star == 0 || d_time >= star_timer) {
     //println(star_list.size());
     Particle star = new Particle()
