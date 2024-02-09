@@ -70,7 +70,6 @@ void remove_dead_planet(ArrayList<Planets> planet_list) {
     }
   }
 }
-//Methods outside the class
 void remove_dead_star(ArrayList<Particle> star_list) {
   int last_index = star_list.size() - 1;
    for (int i = last_index; i > 0; i--) {

@@ -22,11 +22,11 @@ void add_game_images() {
   asteroid = loadImage("Meteor.png");
 }
 void add_fonts() {
-  thirteen_pixel = createFont("Arial",13);
-  twenty_five_pixel = createFont("Arial", 25);
-  one_hundred_pixel = createFont("Arial Black", 100);
-  seventy_five_pixel = createFont("Arial",75);
-  fifty_pixel = createFont("Arial Black",50);
+  thirteen_pixel = createFont("Arial",13);//used on statistics
+  twenty_five_pixel = createFont("Arial", 25);//used on basic screen text
+  one_hundred_pixel = createFont("Arial Black", 100);//used on main title text
+  seventy_five_pixel = createFont("Arial",75);//used on initials
+  fifty_pixel = createFont("Arial Black",50);//used on secondary tite text
 }
 void add_asteroid() {
   float c_time, d_time;

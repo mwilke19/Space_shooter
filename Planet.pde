@@ -4,7 +4,7 @@ class Planets {
   float x, y;
   float x_velocity, y_velocity, friction, acceleration;
   float x_offset,y_offset;
-  int diameter;
+  int base_diameter;
   PImage[]solar_system = {earth,earth,jupiter,saturn};
   color _color = color(WHITE);
 
@@ -15,8 +15,8 @@ class Planets {
     y = y_;
     return this;
   }
-  Planets set_diameter(int diameter_) {
-    diameter = diameter_;
+  Planets set_diameter(int base_diameter_) {
+    base_diameter = base_diameter_;
     return this;
   }
   Planets set_velocity(float x_velocity_, float y_velocity_) {
@@ -47,14 +47,14 @@ class Planets {
   }
   void render_earth(){
     pushMatrix();
-    image(earth, x, y,diameter*2,diameter*2);
+    image(earth, x, y,base_diameter,base_diameter);
     popMatrix();
   }
   void render_mars() {
     x_offset = x + 1200;
     y_offset = y + 300;
     pushMatrix();
-    image(mars, x_offset, y_offset, diameter, diameter);
+    image(mars, x_offset, y_offset, base_diameter/2, base_diameter/2);
     popMatrix();
   }
 
@@ -62,13 +62,13 @@ class Planets {
     x_offset = x + 4800;
     y_offset = y - 200;
     pushMatrix();
-    image(jupiter, x_offset, y_offset, diameter*2.5, diameter*2.5);
+    image(jupiter, x_offset, y_offset, base_diameter*2.5, base_diameter*2.5);
     popMatrix();
   }
   void render_saturn(){
      x_offset = x + 6000;
     y_offset = y - 200;
     pushMatrix();
-    image(saturn, x_offset, y_offset, diameter*1.5, diameter*1.5);
+    image(saturn, x_offset, y_offset, base_diameter*1.5, base_diameter*1.5);
     popMatrix();}
 }
