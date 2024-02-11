@@ -3,7 +3,8 @@ float last_planet = 0;
 class Planets {
   float x, y;
   float x_velocity, y_velocity, friction, acceleration;
-  float x_offset,y_offset;
+  float earth_x,mars_x,jupiter_x,saturn_x;
+  float earth_y,mars_y,jupiter_y,saturn_y;
   int base_diameter;
   PImage[]solar_system = {earth,earth,jupiter,saturn};
   color _color = color(WHITE);
@@ -46,29 +47,31 @@ class Planets {
     //lifespan-=1.0;
   }
   void render_earth(){
+    earth_x = x;
+    earth_y = y;
     pushMatrix();
-    image(earth, x, y,base_diameter,base_diameter);
+    image(earth, earth_x, earth_y,base_diameter,base_diameter);
     popMatrix();
   }
   void render_mars() {
-    x_offset = x + 1200;
-    y_offset = y + 300;
+    mars_x = x + 2000;
+    mars_y = y - 100;
     pushMatrix();
-    image(mars, x_offset, y_offset, base_diameter/2, base_diameter/2);
+    image(mars, mars_x, mars_y, base_diameter/2, base_diameter/2);
     popMatrix();
   }
 
   void render_jupiter() {
-    x_offset = x + 4800;
-    y_offset = y - 200;
+    jupiter_x = x + 4000;
+    jupiter_y = y - 200;
     pushMatrix();
-    image(jupiter, x_offset, y_offset, base_diameter*2.5, base_diameter*2.5);
+    image(jupiter, jupiter_x, jupiter_y, base_diameter*2.5, base_diameter*2.5);
     popMatrix();
   }
   void render_saturn(){
-     x_offset = x + 6000;
-    y_offset = y - 200;
+    saturn_x = x + 6000;
+    saturn_y = y + 100;
     pushMatrix();
-    image(saturn, x_offset, y_offset, base_diameter*1.5, base_diameter*1.5);
+    image(saturn, saturn_x, saturn_y, base_diameter*1.5, base_diameter*1.5);
     popMatrix();}
 }

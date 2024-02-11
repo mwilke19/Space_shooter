@@ -6,8 +6,9 @@ void add_ship() {
     .set_size(100);
 }
 void add_planets() {
+  int planet_start_position = width + 1200;
   planet = new Planets()
-    .set_position(width + 1000, y_center)
+    .set_position(planet_start_position, y_center)
     .set_diameter(200)
     .set_velocity(-1.5, 0)
     .set_acceleration(.99)

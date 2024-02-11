@@ -21,10 +21,18 @@ class Ship extends Actor {
   void move() {
     if (keyPressed) {
       if (key == CODED) {
-        if (keyCode == UP)y -= y_speed;
-        if (keyCode == DOWN)y += y_speed;
-        if (keyCode == LEFT)x -= x_speed;
-        if (keyCode == RIGHT)x += x_speed;
+        if (keyCode == UP) {
+          y -= y_speed;
+        }
+        if (keyCode == DOWN) {
+          y += y_speed;
+        }
+        if (keyCode == LEFT) {
+          x -= x_speed;
+        }
+        if (keyCode == RIGHT) {
+          x += x_speed;
+        }
       }
 
       switch(key) {
@@ -83,12 +91,11 @@ class Ship extends Actor {
   boolean collision() {
     collision = false;
     for (Actor asteroid : asteroid_list) {
-      if (check_A_distance(asteroid)){
+      if (check_A_distance(asteroid)) {
         collision = true;
       }
     }
     return collision;
-    
   }
   boolean hit() {
     hit = false;
