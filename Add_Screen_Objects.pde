@@ -20,6 +20,8 @@ void add_game_images() {
   mars = loadImage("Mars.png");
   jupiter = loadImage("Jupiter.png");
   saturn = loadImage("Saturn.png");
+  uranus = loadImage("Uranus.png");
+  neptune = loadImage("Neptune.png");
   asteroid = loadImage("Meteor.png");
 }
 void add_fonts() {

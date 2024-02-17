@@ -64,7 +64,7 @@ void remove_dead_explosion(ArrayList<Particle> explosion_list) {
 void remove_dead_planet(ArrayList<Planets> planet_list) {
   int last_index = planet_list.size() - 1;
   for (int i = last_index; i >= 0; i--) {
-    if (planet_list.get(i).x <= -10000) {
+    if (planet_list.get(i).x <= -10500) {
       planet_list.remove(i);
       println("planet was removed");
     }

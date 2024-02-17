@@ -2,7 +2,7 @@ PFont thirteen_pixel, twenty_five_pixel,seventy_five_pixel,one_hundred_pixel,fif
 Game_Window game_window;
 Actor ship;
 Planets planet;
-PImage asteroid,earth,mars,jupiter,saturn;
+PImage asteroid,earth,mars,jupiter,saturn,uranus,neptune;
 Table score_data;
 
 float col_1, col_2; 

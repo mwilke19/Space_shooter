@@ -3,8 +3,8 @@ float last_planet = 0;
 class Planets {
   float x, y;
   float x_velocity, y_velocity, friction, acceleration;
-  float earth_x,mars_x,jupiter_x,saturn_x;
-  float earth_y,mars_y,jupiter_y,saturn_y;
+  float earth_x,mars_x,jupiter_x,saturn_x,neptune_x,uranus_x;
+  float earth_y,mars_y,jupiter_y,saturn_y,neptune_y,uranus_y;
   int base_diameter;
   PImage[]solar_system = {earth,earth,jupiter,saturn};
   color _color = color(WHITE);
@@ -39,6 +39,8 @@ class Planets {
     render_mars();
     render_jupiter();
     render_saturn();
+    render_uranus();
+    render_neptune();
     move(planet_list);
   }
   void move(ArrayList<Planets> planet_list) {
@@ -73,5 +75,20 @@ class Planets {
     saturn_y = y + 100;
     pushMatrix();
     image(saturn, saturn_x, saturn_y, base_diameter*1.5, base_diameter*1.5);
-    popMatrix();}
-}
+    popMatrix();
+  }
+  void render_uranus(){
+    uranus_x = x + 8000;
+    uranus_y = y + 100;
+    pushMatrix();
+    image(uranus, uranus_x, uranus_y, base_diameter*1.5, base_diameter*1.5);
+    popMatrix();
+  }
+  void render_neptune(){
+    neptune_x = x + 10000;
+    neptune_y = y + 100;
+    pushMatrix();
+    image(neptune, neptune_x, neptune_y, base_diameter*1.5, base_diameter*1.5);
+    popMatrix();
+  }
+ }
