@@ -1,7 +1,7 @@
 class Ship extends Actor {
   float c_health, p_health;
   float bar_width, g_bar_length, r_bar_length;
-  float ship_length, nose_x, nose_y, ship_top, ship_bottom;
+  float ship_length,ship_height, ship_x, ship_y;
   boolean hit, shot, collsion;
   Ship() {
     super();
@@ -118,12 +118,10 @@ class Ship extends Actor {
     return shot;
   }
   void render() {
-    ship_length = x - 100;
-    nose_x = x;
-    nose_y = y;
-    ship_top = y - 10;
-    ship_bottom = y + 10;
-
+    ship_length = 180;
+    ship_height = 30;
+    ship_x = x;
+    ship_y = y;
     push();
     if (collision || hit || shot) {
       fill(RED);
@@ -131,7 +129,7 @@ class Ship extends Actor {
       stroke(2);
       fill(WHITE);
     }
-    triangle(ship_length, ship_bottom, nose_x, nose_y, ship_length, ship_top);
+    image(ship_image,ship_x,ship_y,ship_length,ship_height);
     pop();
   }
   void health() {
