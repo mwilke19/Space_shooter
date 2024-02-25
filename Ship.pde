@@ -118,8 +118,8 @@ class Ship extends Actor {
     return shot;
   }
   void render() {
-    ship_length = 500;
-    ship_height = 500;
+    ship_length = 275;
+    ship_height = 375;
     ship_x = x;
     ship_y = y;
     push();

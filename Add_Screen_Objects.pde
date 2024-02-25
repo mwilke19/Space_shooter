@@ -18,12 +18,12 @@ void add_planets() {
 void add_game_images() {
   earth = loadImage("Earth.png");
   mars = loadImage("Mars.png");
-  jupiter = loadImage("Jupiter.png");
+  jupiter = loadImage("planet_0.png");
   saturn = loadImage("Saturn.png");
   uranus = loadImage("Uranus.png");
   neptune = loadImage("Neptune.png");
   asteroid = loadImage("Meteor.png");
-  ship_image = loadImage("space_force.png");
+  ship_image = loadImage("fighter_5.png");
 }
 void add_fonts() {
   thirteen_pixel = createFont("Arial",13);//used on statistics
@@ -50,8 +50,9 @@ void add_asteroid() {
 void add_S_bullet() {
   float ship_x = ship.x;
   float ship_y = ship.y;
+  int bullet_offset = 10;
   s_bullet = new Bullet()
-    .set_position(ship_x, ship_y)
+    .set_position(ship_x, ship_y-bullet_offset)
     .setDimension(9, 9)
     .set_speed(15, 0)
     .set_color(s_bullet_color);
