@@ -1,6 +1,6 @@
 void add_ship() {
   ship = new Ship()
-    .set_position(400, 400)
+    .set_position(400, 200)
     .set_speed(4, 5)
     .set_color(WHITE)
     .set_size(100);
@@ -16,14 +16,15 @@ void add_planets() {
   planet_list.add(planet);
 }
 void add_game_images() {
-  earth = loadImage("Earth.png");
+  earth = loadImage("Earth_0.png");
   mars = loadImage("Mars.png");
   jupiter = loadImage("planet_0.png");
   saturn = loadImage("Saturn.png");
   uranus = loadImage("Uranus.png");
   neptune = loadImage("Neptune.png");
   asteroid = loadImage("Meteor.png");
-  ship_image = loadImage("fighter_5.png");
+  ship_image = loadImage("FIGHTER_design_0.png");
+  enemy_image = loadImage("enemy_0.png");
 }
 void add_fonts() {
   thirteen_pixel = createFont("Arial",13);//used on statistics
@@ -70,7 +71,7 @@ void add_enemy() {
     color enemy_color = RED;
     Enemy enemy = new Enemy()
       .set_position(int(width), int(random(height)))
-      .setDimension(50, 50)
+      .setDimension(178, 350)
       .set_speed(int(random_x_speed), 0)
       .set_color(enemy_color);
     enemy_list.add(enemy);
