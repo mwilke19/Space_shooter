@@ -23,7 +23,7 @@ void add_game_images() {
   uranus = loadImage("Uranus.png");
   neptune = loadImage("Neptune.png");
   asteroid = loadImage("Meteor.png");
-  ship_image = loadImage("FIGHTER_design_0.png");
+  ship_image = loadImage("fighter_09.png");
   enemy_image = loadImage("enemy_0.png");
 }
 void add_fonts() {
