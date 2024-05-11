@@ -191,7 +191,7 @@ class Game_Window {
     
     float text_row_1, text_row_2, text_row_3, text_row_4;
    
-    text_row_1 = height/4 + 125;
+    text_row_1 = height/4 + 150;
     text_row_2 = height/4+ 200;
     text_row_3 = height/4 + 250;
     text_row_4 = height/4;
@@ -220,52 +220,52 @@ class Game_Window {
   }
   void render_game_over_text() {
     float name_col, data_col;
-    float title_row, text_row_1, high_score_output_row;
+    float text_row_1, high_score_output_row;
     float one_sec_delay = 1000;
+    int image_width   = width;
+    int image_height = height;
     efficiency = (enemies_killed/enemy_count)*100;
 
     name_col = width/4;
     data_col = width* .75-100;
-    title_row = 250;
-    high_score_output_row = 310;
-    text_row_1 = height/2 - 150;
-    row_3 = height/2 - 100;
+    high_score_output_row = height/2-75;
+    text_row_1 = height/2 ;
+    row_3 = height/2 + 100;
 
     push();
-    fill(RED);
-    textFont(one_hundred_pixel);
-    if (floor(millis()/one_sec_delay) % 2 == 0) {
-      fill(YELLOW);
-    }
-    text("GAME OVER", x_center, title_row);
+    imageMode(CORNER);
+    image(game_over_image,0,0,image_width,image_height);
     pop();
 
     if (is_high_score == true) {
       push();
       textFont(fifty_pixel);
       fill(GREEN);
-      text("YOU ROCK!! THIS IS A HIGH SCORE", x_center-50, high_score_output_row);
+      if (floor(millis()/one_sec_delay) % 2 == 0) {
+      fill(YELLOW);
+      }
+      text("YOU ROCK!! THIS IS A HIGH SCORE", x_center, high_score_output_row);
       pop();
     }
     if (is_high_score == false) {
       push();
       textFont(fifty_pixel);
       fill(RED);
+      if (floor(millis()/one_sec_delay) % 2 == 0) {
+      fill(BLUE);
+    }
       text("GOOD TRY!! DONT GIVE UP", x_center, high_score_output_row);
       pop();
     }
 
     push();
-    textFont(twenty_five_pixel);
-    fill(BLUE);
-    text("PRESS 'S' TO SAVE OR 'Q' TO QUIT", x_center, 350);
     fill(WHITE);
     textAlign(LEFT, BOTTOM);
     text("ENEMIES KILLED", name_col, text_row_1);
     text(int(enemies_killed), data_col, text_row_1);
     text("EFFICIENCY", name_col, row_3);
     text(int(efficiency), data_col, row_3);
-    text(" % ", data_col + 50, row_3);
+    text(" % ", data_col + 65, row_3);
     pop();
   }
 }
