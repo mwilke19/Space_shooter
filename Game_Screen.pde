@@ -105,10 +105,13 @@ class Game_Window {
     }
   }
   void game_start() {
+    int image_height = height;
+    int image_width = width;
+    
     background(0);
     push();
     imageMode(CORNER);
-    image(title_image,-50,0,1980,1020);
+    image(title_image,-50,0,image_width,image_height);
     pop();
     render_start_screen_text();
   }
