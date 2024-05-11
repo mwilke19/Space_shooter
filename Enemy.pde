@@ -85,11 +85,6 @@ class Enemy extends PVector {
     
     push();
     stroke(3);
-    //fill(YELLOW);
-    //rectMode(CENTER);
-    //rect(x, y, _length, _width);
-    //fill(RED);
-    //ellipse(x, y, _length-5, _width-5);
     image(enemy_image,x,y,_length,_width);
     pop();
     //println("enemy.render has executed");

@@ -41,7 +41,7 @@ class Game_Window {
         push();
         textFont(twenty_five_pixel);
         fill(RED);
-        text("YOU MUST ENTER YOUR INITIALS TO PLAY", width/2, height/2-100);
+        text("YOU MUST ENTER YOUR INITIALS TO PLAY", width/2, height/2+50);
         pop();
       }
     }
@@ -53,12 +53,6 @@ class Game_Window {
   }
   boolean is_it_a_high_score() {
     current_score = enemies_killed;
-    //println("array length.........." + score_array.length);
-    //println("current_score_array :");
-    //printArray(score_array);
-    //println("current_score............. " + current_score + '\n');
-    //println(is_high_score);
-
     for (int i = 0; i<score_array.length; i++) {
       int high_score = score_array[0];
       if (high_score<current_score) {
@@ -100,7 +94,7 @@ class Game_Window {
       TableRow row = score_data.getRow(i);
       String name = row.getString("NAME");
       int score = row.getInt("SCORE");
-      int y = height/2 + 50 + (50 * i);
+      int y = height/2 + 200 + (50 * i);
 
       push();
       textAlign(CENTER);
@@ -112,6 +106,10 @@ class Game_Window {
   }
   void game_start() {
     background(0);
+    push();
+    imageMode(CORNER);
+    image(title_image,-50,0,1980,1020);
+    pop();
     render_start_screen_text();
   }
   void game_over() {
@@ -142,7 +140,6 @@ class Game_Window {
       explosion.run();
     }
     add_star();
-    //add_planet();
     add_asteroid();
     add_enemy();
     ship.run();
@@ -158,14 +155,6 @@ class Game_Window {
     render_statistics();
     //println("play has executed.........");
   }
-  void render_border() {
-    rectMode(CENTER);
-    noFill();
-    stroke(255, 255, 0);
-    rect(x_center, y_center, 1820, 980);
-    noStroke();
-    pop();
-  }
   void render_initials() {
     int outer_gap = 700; // 700px of space on left and right
     int inner_gap = 30;  // 30px between letters
@@ -175,7 +164,7 @@ class Game_Window {
     for (int i = 0; i < 3; i++) {//draws the initials and cursor
 
       int x = outer_gap + (line_width + inner_gap) * i;
-      int y = height/2-75;
+      int y = height/2+75;
 
       fill(WHITE);
       textFont(seventy_five_pixel);
@@ -196,26 +185,13 @@ class Game_Window {
     ship.render_health_bar();
   }
   void render_start_screen_text() {
-    float title_row;
+    
     float text_row_1, text_row_2, text_row_3, text_row_4;
-
-    title_row = height/4-100;
-    text_row_1 = height/4 - 25;
-    text_row_2 = height/4+50;
-    text_row_3 = height/4 + 100;
+   
+    text_row_1 = height/4 + 125;
+    text_row_2 = height/4+ 200;
+    text_row_3 = height/4 + 250;
     text_row_4 = height/4;
-
-    push();
-    fill(GREEN);
-    textFont(twenty_five_pixel);
-    textAlign(CENTER);
-    fill(BLUE);
-    textFont(one_hundred_pixel);
-    if (floor(millis()/one_second_delay) % 2 == 0) {
-      fill(RED);
-    }
-    text("SPACE SHOOTER", x_center, title_row );
-    pop();
 
     push();
     textFont(fifty_pixel);
@@ -228,19 +204,15 @@ class Game_Window {
     textFont(twenty_five_pixel);
     text("ARROW KEYS FOR DIRECTIONAL CONTROL", x_center, text_row_2);
     text("SPACEBAR = FIRE", x_center, text_row_3);
-    fill(GREEN);
-    text("PLEASE ENTER YOUR INITIALS", x_center, text_row_4);
     pop();
 
     push();
     fill(255, 255, 0);
     textFont(fifty_pixel);
-    text("TOP SCORES", x_center, y_center);
+    text("TOP SCORES", x_center, y_center+175);
     stroke(255, 0, 0);
-    line(line_width, height/2+5, width-400, height/2+5);
-
+    pop();
     render_initials();
-    render_border();
     display_score_data();
   }
   void render_game_over_text() {
@@ -266,7 +238,6 @@ class Game_Window {
     pop();
 
     if (is_high_score == true) {
-      //println(is_high_score);
       push();
       textFont(fifty_pixel);
       fill(GREEN);
@@ -274,7 +245,6 @@ class Game_Window {
       pop();
     }
     if (is_high_score == false) {
-      //println(is_high_score);
       push();
       textFont(fifty_pixel);
       fill(RED);

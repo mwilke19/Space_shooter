@@ -25,6 +25,7 @@ void add_game_images() {
   asteroid = loadImage("Meteor.png");
   ship_image = loadImage("Fighter_09.png");
   enemy_image = loadImage("enemy_0.png");
+  title_image = loadImage("Planetary_Defense.png");
 }
 void add_fonts() {
   thirteen_pixel = createFont("Arial",13);//used on statistics
